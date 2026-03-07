@@ -340,7 +340,9 @@ button{cursor:pointer;border:none;background:none;}
 }
 .modal-overlay.open,
 .modal-overlay[style*="display:block"],
-.modal-overlay[style*="display: block"]{opacity:1;pointer-events:all;}
+.modal-overlay[style*="display: block"],
+.modal-overlay[style*="display:flex"],
+.modal-overlay[style*="display: flex"]{opacity:1;pointer-events:all;}
 .modal-sheet{
   width:100%;
   background:var(--surface);
@@ -423,8 +425,8 @@ button{cursor:pointer;border:none;background:none;}
   <div class="app-header-inner">
     <span class="app-header-title">Roaring Lion Brewing Time</span>
     <div class="app-header-actions">
-      <button class="hdr-btn" id="lang-btn" onclick="cycleLang()" title="Language">LANG</button>
-      <button class="hdr-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">Auto</button>
+      <button class="hdr-btn" id="lang-btn" onclick="cycleLang()" title="Language">🌐</button>
+      <button class="hdr-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">☀️</button>
     </div>
   </div>
 </header>
@@ -911,7 +913,7 @@ function applyTheme() {
   if (currentTheme === 'dark') html.classList.add('theme-dark');
   else if (currentTheme === 'light') html.classList.add('theme-light');
   const btn = document.getElementById('theme-btn');
-  if (btn) btn.textContent = currentTheme === 'dark' ? 'Light' : currentTheme === 'light' ? 'Dark' : 'Auto';
+  if (btn) btn.textContent = currentTheme === 'dark' ? '☀️' : currentTheme === 'light' ? '🌙' : '⚙️';
   updateThemeButtons();
 }
 
