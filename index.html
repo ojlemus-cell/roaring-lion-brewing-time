@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<meta name="theme-color" content="#FF6B35"/>
+<meta name="theme-color" content="#8B3A3A"/>
 <title>Roaring Lion Brewing Time</title>
 <link rel="manifest" href="manifest.json"/>
 <style>
@@ -16,9 +16,9 @@
   --surface2:#F2F2F7;
   --surface3:#E5E5EA;
   --sep:rgba(60,60,67,0.29);
-  --accent:#FF6B35;
-  --accent-tint:rgba(255,107,53,.12);
-  --accent-text:#C85A2A;
+  --accent:#8B3A3A;
+  --accent-tint:rgba(139,58,58,.12);
+  --accent-text:#6B2C2C;
   --blue:#007AFF;
   --green:#34C759;
   --red:#FF3B30;
@@ -38,9 +38,9 @@
     --surface2:#2C2C2E;
     --surface3:#3A3A3C;
     --sep:rgba(84,84,88,.65);
-    --accent:#FF7A4D;
-    --accent-tint:rgba(255,122,77,.15);
-    --accent-text:#FF7A4D;
+    --accent:#A85050;
+    --accent-tint:rgba(168,80,80,.15);
+    --accent-text:#A85050;
     --blue:#0A84FF;
     --green:#32D74B;
     --red:#FF453A;
@@ -56,9 +56,9 @@ html.theme-light {
   --surface2:#F2F2F7;
   --surface3:#E5E5EA;
   --sep:rgba(60,60,67,0.29);
-  --accent:#FF6B35;
-  --accent-tint:rgba(255,107,53,.12);
-  --accent-text:#C85A2A;
+  --accent:#8B3A3A;
+  --accent-tint:rgba(139,58,58,.12);
+  --accent-text:#6B2C2C;
   --blue:#007AFF;
   --green:#34C759;
   --red:#FF3B30;
@@ -338,7 +338,7 @@ button{cursor:pointer;border:none;background:none;}
     <span class="app-header-title">Roaring Lion Brewing Time</span>
     <div class="app-header-actions">
       <button class="hdr-btn" id="lang-btn" onclick="cycleLang()" title="Language">LANG</button>
-      <button class="hdr-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">◐</button>
+      <button class="hdr-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">Auto</button>
     </div>
   </div>
 </header>
@@ -384,8 +384,8 @@ button{cursor:pointer;border:none;background:none;}
 
     <!-- Step Navigation -->
     <div style="display:flex;gap:10px;margin-top:16px;">
-      <button class="btn-secondary btn-sm" onclick="prevStep()" style="flex:1;">← Anterior</button>
-      <button class="btn-secondary btn-sm" onclick="nextStep()" style="flex:1;">Siguiente →</button>
+      <button class="btn-secondary btn-sm" onclick="prevStep()" style="flex:1;">Anterior</button>
+      <button class="btn-secondary btn-sm" onclick="nextStep()" style="flex:1;">Siguiente</button>
     </div>
 
     <!-- Swirl Canvas -->
@@ -466,7 +466,7 @@ button{cursor:pointer;border:none;background:none;}
 <!-- DONATE FOOTER -->
 <div class="donate-footer">
   <span>¿Te gusta Roaring Lion?</span>
-  <a href="https://buymeacoffee.com/roaringlioncoffee" target="_blank" rel="noopener noreferrer">☕ Apoya el proyecto</a>
+  <a href="https://buymeacoffee.com/roaringlioncoffee" target="_blank" rel="noopener noreferrer">Apoya el proyecto</a>
 </div>
 
 <script>
@@ -672,7 +672,7 @@ function applyTheme() {
   if (currentTheme === 'dark') html.classList.add('theme-dark');
   else if (currentTheme === 'light') html.classList.add('theme-light');
   const btn = document.getElementById('theme-btn');
-  if (btn) btn.textContent = currentTheme === 'dark' ? '○' : currentTheme === 'light' ? '●' : '◐';
+  if (btn) btn.textContent = currentTheme === 'dark' ? 'Light' : currentTheme === 'light' ? 'Dark' : 'Auto';
   updateThemeButtons();
 }
 
