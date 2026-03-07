@@ -8,6 +8,8 @@
 <meta name="theme-color" content="#8B3A3A"/>
 <title>Roaring Lion Brewing Time</title>
 <link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icons/icon-192.png" type="image/png"/>
+<link rel="apple-touch-icon" href="icons/icon-192.png"/>
 <style>
 /* ===== DESIGN TOKENS ===== */
 :root {
@@ -659,8 +661,8 @@ button{cursor:pointer;border:none;background:none;}
 
 <!-- DONATE FOOTER -->
 <div class="donate-footer">
-  <span>¿Te gusta Roaring Lion?</span>
-  <a href="https://buymeacoffee.com/roaringlioncoffee" target="_blank" rel="noopener noreferrer">Apoya el proyecto</a>
+  <span data-i18n="donate.love">¿Te gusta Roaring Lion?</span>
+  <a href="https://buymeacoffee.com/roaringlioncoffee" target="_blank" rel="noopener noreferrer" data-i18n="donate.support">Apoya el proyecto</a>
 </div>
 
 <script>
@@ -702,6 +704,8 @@ const TRANSLATIONS = {
     'export.history': 'Exportar Historial',
     'import.recipes': 'Importar Recetas',
     'import.history': 'Importar Historial',
+    'donate.love': '¿Te gusta Roaring Lion?',
+    'donate.support': 'Apoya el proyecto',
   },
   en: {
     'nav.recipes': 'Recipes',
@@ -735,6 +739,8 @@ const TRANSLATIONS = {
     'export.history': 'Export History',
     'import.recipes': 'Import Recipes',
     'import.history': 'Import History',
+    'donate.love': 'Love Roaring Lion?',
+    'donate.support': 'Support the project',
   },
   pt: {
     'nav.recipes': 'Receitas',
@@ -768,6 +774,8 @@ const TRANSLATIONS = {
     'export.history': 'Exportar Historico',
     'import.recipes': 'Importar Receitas',
     'import.history': 'Importar Historico',
+    'donate.love': 'Gosta do Roaring Lion?',
+    'donate.support': 'Apoie o projeto',
   }
 };
 
