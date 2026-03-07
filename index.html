@@ -280,6 +280,63 @@ button{cursor:pointer;border:none;background:none;}
   color:#FFF;
 }
 
+/* ===== FORMS ===== */
+.form-group{margin-bottom:12px;}
+.field-label{
+  display:block;
+  font-size:12px;
+  color:var(--text2);
+  margin-bottom:6px;
+  font-weight:600;
+}
+.field-input{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--sep);
+  border-radius:var(--radius-sm);
+  background:var(--surface);
+  color:var(--text);
+  font-size:14px;
+}
+.field-input:focus{outline:2px solid var(--accent);}
+
+/* ===== MODAL OVERLAY ===== */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:flex-end;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s;
+}
+.modal-overlay.open,
+.modal-overlay[style*="display:block"],
+.modal-overlay[style*="display: block"]{opacity:1;pointer-events:all;}
+.modal-sheet{
+  width:100%;
+  background:var(--surface);
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+  padding:16px;
+  padding-bottom:calc(16px + env(safe-area-inset-bottom));
+  max-height:88dvh;
+  overflow-y:auto;
+}
+.modal-title{font-size:18px;font-weight:700;margin-bottom:16px;}
+.modal-actions{display:flex;gap:10px;margin-top:16px;}
+.modal-actions button{flex:1;}
+
+/* ===== STARS ===== */
+.star-btn{
+  font-size:32px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--accent);
+  transition:transform .1s;
+}
+.star-btn:active{transform:scale(1.2);}
+.star-btn.filled{color:var(--accent);}
+
 /* ===== TOAST ===== */
 #toast{
   position:fixed;bottom:calc(83px + env(safe-area-inset-bottom) + 16px);
@@ -350,10 +407,13 @@ button{cursor:pointer;border:none;background:none;}
 <div class="page active" id="page-recipes">
   <div class="page-top-pad"></div>
   <div style="padding:0 16px 16px;">
-    <input type="search" id="recipe-search" placeholder="Buscar receta..." data-i18n-placeholder="recipe.search"
-      style="width:100%;border:none;background:var(--surface3);border-radius:var(--radius-sm);padding:9px 14px;font-size:15px;color:var(--text);outline:none;"/>
+    <div style="display:flex;gap:10px;margin-bottom:10px;">
+      <input type="search" id="recipe-search" placeholder="Buscar receta..." data-i18n-placeholder="recipe.search"
+        style="flex:1;border:none;background:var(--surface3);border-radius:var(--radius-sm);padding:9px 14px;font-size:15px;color:var(--text);outline:none;"/>
+      <button class="btn-primary btn-sm" onclick="openCreateRecipeModal()" data-i18n="recipe.create">+ Crear</button>
+    </div>
   </div>
-  <div id="recipe-list" style="padding-bottom:16px;"></div>
+  <div id="recipe-list" style="padding:0 16px 16px;"></div>
 </div>
 
 <!-- PAGE: BREW NOW -->
@@ -401,6 +461,10 @@ button{cursor:pointer;border:none;background:none;}
   <div class="page-top-pad"></div>
   <div style="padding:16px;">
     <h2 style="font-size:22px;font-weight:700;margin-bottom:16px;" data-i18n="history.title">Historial</h2>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button class="btn-secondary btn-sm" onclick="exportBrewHistory()" data-i18n="export.history">Exportar</button>
+      <button class="btn-secondary btn-sm" onclick="importBrewHistory()" data-i18n="import.history">Importar</button>
+    </div>
     <div id="history-list" style="color:var(--text2);text-align:center;padding:40px 16px;" data-i18n="history.empty">Sin brewing completados</div>
   </div>
 </div>
@@ -460,6 +524,105 @@ button{cursor:pointer;border:none;background:none;}
   </button>
 </div>
 
+<!-- RECIPE EDITOR MODAL -->
+<div id="recipe-modal-overlay" class="modal-overlay" onclick="if(event.target===this) closeRecipeModal()">
+  <div class="modal-sheet">
+    <div class="modal-title" id="recipe-modal-title">Crear Receta</div>
+    <div style="max-height:70dvh;overflow-y:auto;">
+      <div class="form-group">
+        <label class="field-label">Nombre</label>
+        <input class="field-input" id="rec-name" placeholder="Ej. Mi V60 Perfect"/>
+      </div>
+      <div class="form-group">
+        <label class="field-label">Creador</label>
+        <input class="field-input" id="rec-creator" placeholder="Roaring Lion"/>
+      </div>
+      <div class="form-group">
+        <label class="field-label">Descripción</label>
+        <input class="field-input" id="rec-description" placeholder="Descripción de la técnica"/>
+      </div>
+      <div class="form-group">
+        <label class="field-label">Dificultad</label>
+        <select class="field-input" id="rec-difficulty">
+          <option value="beginner">Principiante</option>
+          <option value="intermediate">Intermedio</option>
+          <option value="advanced">Avanzado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="field-label">Metodo</label>
+        <input class="field-input" id="rec-method" placeholder="V60"/>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div class="form-group" style="flex:1;">
+          <label class="field-label">Cafe (g)</label>
+          <input class="field-input" id="rec-coffee" type="number" placeholder="20" oninput="updateRatio()"/>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="field-label">Agua (ml)</label>
+          <input class="field-input" id="rec-water" type="number" placeholder="300" oninput="updateRatio()"/>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div class="form-group" style="flex:1;">
+          <label class="field-label">Temperatura (C)</label>
+          <input class="field-input" id="rec-temp" type="number" placeholder="95"/>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="field-label">Ratio</label>
+          <input class="field-input" id="rec-ratio" placeholder="1:15" disabled/>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:12px;background:var(--surface2);border-radius:var(--radius-sm);">
+        <div style="font-weight:600;margin-bottom:10px;">Pasos</div>
+        <div id="steps-list"></div>
+        <button class="btn-primary btn-sm" onclick="addRecipeStep()" style="width:100%;margin-top:10px;">+ Agregar Paso</button>
+      </div>
+
+      <div style="margin-top:16px;">
+        <label class="field-label">Notas</label>
+        <textarea class="field-input" id="rec-notes" placeholder="Notas adicionales..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeRecipeModal()">Cancelar</button>
+      <button class="btn-primary" onclick="saveRecipeModal()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- BREW COMPLETE MODAL -->
+<div id="brew-complete-overlay" class="modal-overlay" style="display:none;">
+  <div class="modal-sheet">
+    <div class="modal-title">Brew Completado</div>
+    <div style="padding:16px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:12px;">✓</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:16px;">Brew terminado</div>
+
+      <div style="margin:20px 0;">
+        <label class="field-label">Puntuacion (1-5)</label>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;" id="rating-stars">
+          <button onclick="setBrewRating(1)" class="star-btn" data-star="1">☆</button>
+          <button onclick="setBrewRating(2)" class="star-btn" data-star="2">☆</button>
+          <button onclick="setBrewRating(3)" class="star-btn" data-star="3">☆</button>
+          <button onclick="setBrewRating(4)" class="star-btn" data-star="4">☆</button>
+          <button onclick="setBrewRating(5)" class="star-btn" data-star="5">☆</button>
+        </div>
+      </div>
+
+      <div style="margin:16px 0;">
+        <label class="field-label">Notas (opcional)</label>
+        <textarea class="field-input" id="brew-notes" placeholder="Como salio?" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeBrewComplete()">Descartar</button>
+      <button class="btn-primary" onclick="saveBrewLog()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div id="toast"></div>
 
@@ -493,6 +656,20 @@ const TRANSLATIONS = {
     'step.action': 'Acción',
     'step.time': 'Tiempo',
     'toast.brewStarted': 'Brewing iniciado',
+    'recipe.create': 'Crear Receta',
+    'recipe.edit': 'Editar Receta',
+    'recipe.delete': 'Eliminar',
+    'recipe.name': 'Nombre',
+    'recipe.creator': 'Creador',
+    'recipe.difficulty': 'Dificultad',
+    'recipe.method': 'Metodo',
+    'brew.complete': 'Brew Completado',
+    'brew.rating': 'Puntuacion',
+    'brew.notes': 'Notas',
+    'export.recipes': 'Exportar Recetas',
+    'export.history': 'Exportar Historial',
+    'import.recipes': 'Importar Recetas',
+    'import.history': 'Importar Historial',
   },
   en: {
     'nav.recipes': 'Recipes',
@@ -511,6 +688,20 @@ const TRANSLATIONS = {
     'step.action': 'Action',
     'step.time': 'Time',
     'toast.brewStarted': 'Brewing started',
+    'recipe.create': 'Create Recipe',
+    'recipe.edit': 'Edit Recipe',
+    'recipe.delete': 'Delete',
+    'recipe.name': 'Name',
+    'recipe.creator': 'Creator',
+    'recipe.difficulty': 'Difficulty',
+    'recipe.method': 'Method',
+    'brew.complete': 'Brew Complete',
+    'brew.rating': 'Rating',
+    'brew.notes': 'Notes',
+    'export.recipes': 'Export Recipes',
+    'export.history': 'Export History',
+    'import.recipes': 'Import Recipes',
+    'import.history': 'Import History',
   },
   pt: {
     'nav.recipes': 'Receitas',
@@ -529,6 +720,20 @@ const TRANSLATIONS = {
     'step.action': 'Ação',
     'step.time': 'Tempo',
     'toast.brewStarted': 'Café iniciado',
+    'recipe.create': 'Criar Receita',
+    'recipe.edit': 'Editar Receita',
+    'recipe.delete': 'Deletar',
+    'recipe.name': 'Nome',
+    'recipe.creator': 'Criador',
+    'recipe.difficulty': 'Dificuldade',
+    'recipe.method': 'Metodo',
+    'brew.complete': 'Cafe Completo',
+    'brew.rating': 'Avaliacao',
+    'brew.notes': 'Notas',
+    'export.recipes': 'Exportar Receitas',
+    'export.history': 'Exportar Historico',
+    'import.recipes': 'Importar Receitas',
+    'import.history': 'Importar Historico',
   }
 };
 
@@ -544,7 +749,8 @@ let currentTheme = localStorage.getItem('theme') || 'auto';
 let alarmPrefs = JSON.parse(localStorage.getItem('alarmPrefs') || '{"sound":true,"vibration":true}');
 
 let recipes = [];
-let brewHistory = [];
+let customRecipes = JSON.parse(localStorage.getItem('customRecipes') || '[]');
+let brewHistory = JSON.parse(localStorage.getItem('brewHistory') || '[]');
 let currentRecipe = null;
 let currentStep = 0;
 let brewTimer = 0;
@@ -552,6 +758,7 @@ let brewRunning = false;
 let brewStarted = false;
 let brewInterval = null;
 let firedAlarms = new Set();
+let brewRating = 0;
 
 // =====================================================================
 // RECIPES (STARTER DATA)
@@ -764,6 +971,7 @@ function renderRecipeList() {
       </div>
       <div class="recipe-card-actions">
         <button class="btn-primary" onclick="selectRecipe(${recipe.id})">Usar Receta</button>
+        ${recipe.isCustom ? `<button class="btn-danger btn-sm" onclick="deleteCustomRecipe(${recipe.id})">Eliminar</button>` : ''}
       </div>
     </div>
   `).join('');
@@ -870,6 +1078,12 @@ function updateStepDisplay() {
   const canvas = document.getElementById('swirl-canvas');
 
   if (!activeStep) {
+    // Check if brew is complete (timer passed all steps)
+    const lastStep = steps[steps.length - 1];
+    if (brewStarted && brewTimer >= lastStep.timeTo) {
+      completeBrew();
+      return;
+    }
     display.innerHTML = '<div class="step-container"><div class="step-action">Ready to Brew</div></div>';
     canvas.style.display = 'none';
     return;
@@ -1035,6 +1249,251 @@ function showToast(msg) {
   el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// =====================================================================
+// RECIPE EDITOR
+// =====================================================================
+function openCreateRecipeModal() {
+  document.getElementById('recipe-modal-title').textContent = t('recipe.create');
+  document.getElementById('rec-name').value = '';
+  document.getElementById('rec-creator').value = '';
+  document.getElementById('rec-description').value = '';
+  document.getElementById('rec-difficulty').value = 'beginner';
+  document.getElementById('rec-method').value = '';
+  document.getElementById('rec-coffee').value = '';
+  document.getElementById('rec-water').value = '';
+  document.getElementById('rec-temp').value = '';
+  document.getElementById('rec-ratio').value = '';
+  document.getElementById('rec-notes').value = '';
+  document.getElementById('steps-list').innerHTML = '';
+  document.getElementById('recipe-modal-overlay').style.display = 'flex';
+}
+
+function closeRecipeModal() {
+  document.getElementById('recipe-modal-overlay').style.display = 'none';
+}
+
+function updateRatio() {
+  const coffee = parseFloat(document.getElementById('rec-coffee').value) || 0;
+  const water = parseFloat(document.getElementById('rec-water').value) || 0;
+  if (coffee > 0) {
+    const ratio = (water / coffee).toFixed(2);
+    document.getElementById('rec-ratio').value = '1:' + ratio;
+  }
+}
+
+function addRecipeStep() {
+  const stepNum = (document.querySelectorAll('.recipe-step').length || 0) + 1;
+  const html = `
+    <div class="recipe-step" style="background:var(--surface);padding:10px;border-radius:8px;margin-bottom:8px;">
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input placeholder="Accion" class="field-input step-action" style="flex:1;font-size:12px;"/>
+        <input type="number" placeholder="De (s)" class="field-input step-from" style="max-width:70px;font-size:12px;"/>
+        <input type="number" placeholder="A (s)" class="field-input step-to" style="max-width:70px;font-size:12px;"/>
+        <button onclick="this.parentElement.parentElement.remove()" class="btn-danger btn-sm">x</button>
+      </div>
+      <input placeholder="Descripcion" class="field-input step-desc" style="font-size:12px;margin-bottom:6px;"/>
+      <input type="number" placeholder="Agua (ml)" class="field-input step-amount" style="font-size:12px;margin-bottom:6px;"/>
+      <select class="field-input step-swirl-type" style="font-size:12px;margin-bottom:6px;">
+        <option value="">Sin Swirl</option>
+        <option value="circular-cw">Circular CW</option>
+        <option value="circular-ccw">Circular CCW</option>
+        <option value="figure8">Figure 8</option>
+        <option value="sideside">Side-to-Side</option>
+      </select>
+    </div>
+  `;
+  document.getElementById('steps-list').insertAdjacentHTML('beforeend', html);
+}
+
+function saveRecipeModal() {
+  const name = document.getElementById('rec-name').value.trim();
+  const creator = document.getElementById('rec-creator').value.trim() || 'Community';
+  const description = document.getElementById('rec-description').value.trim();
+  const difficulty = document.getElementById('rec-difficulty').value;
+  const method = document.getElementById('rec-method').value.trim() || 'V60';
+  const coffee = parseFloat(document.getElementById('rec-coffee').value) || 0;
+  const water = parseFloat(document.getElementById('rec-water').value) || 0;
+  const temp = parseFloat(document.getElementById('rec-temp').value) || 95;
+  const ratio = document.getElementById('rec-ratio').value;
+  const notes = document.getElementById('rec-notes').value.trim();
+
+  if (!name) { showToast('Nombre requerido'); return; }
+
+  const steps = Array.from(document.querySelectorAll('.recipe-step')).map((el, i) => ({
+    id: i,
+    timeFrom: parseFloat(el.querySelector('.step-from').value) || 0,
+    timeTo: parseFloat(el.querySelector('.step-to').value) || 0,
+    action: el.querySelector('.step-action').value || 'Step ' + (i + 1),
+    description: el.querySelector('.step-desc').value || '',
+    amount: parseFloat(el.querySelector('.step-amount').value) || null,
+    swirl: el.querySelector('.step-swirl-type').value ? {
+      type: el.querySelector('.step-swirl-type').value,
+      intensity: 'medium',
+      duration: 5
+    } : null,
+    temperature: temp
+  }));
+
+  if (steps.length === 0) { showToast('Agregar al menos un paso'); return; }
+
+  const recipe = {
+    id: Date.now(),
+    name, creator, description, difficulty, method,
+    brewTime: Math.max(...steps.map(s => s.timeTo)),
+    coffeeAmount: coffee,
+    waterAmount: water,
+    waterTemp: temp,
+    ratio,
+    notes,
+    steps,
+    isCustom: true
+  };
+
+  customRecipes.push(recipe);
+  localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
+  recipes = [...STARTER_RECIPES, ...customRecipes];
+
+  showToast('Receta guardada');
+  closeRecipeModal();
+  renderRecipeList();
+}
+
+function deleteCustomRecipe(id) {
+  if (!confirm('Eliminar esta receta?')) return;
+  customRecipes = customRecipes.filter(r => r.id !== id);
+  localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
+  recipes = [...STARTER_RECIPES, ...customRecipes];
+  renderRecipeList();
+  showToast('Receta eliminada');
+}
+
+// =====================================================================
+// BREW COMPLETION & HISTORY
+// =====================================================================
+function completeBrew() {
+  brewRunning = false;
+  clearInterval(brewInterval);
+  document.getElementById('brew-complete-overlay').style.display = 'flex';
+  brewRating = 0;
+}
+
+function setBrewRating(rating) {
+  brewRating = rating;
+  document.querySelectorAll('.star-btn').forEach((btn, i) => {
+    btn.textContent = (i + 1) <= rating ? '★' : '☆';
+    btn.classList.toggle('filled', (i + 1) <= rating);
+  });
+}
+
+function saveBrewLog() {
+  if (!currentRecipe) return;
+  const notes = document.getElementById('brew-notes').value.trim();
+  const brew = {
+    id: Date.now(),
+    recipeId: currentRecipe.id,
+    recipeName: currentRecipe.name,
+    date: new Date().toISOString().split('T')[0],
+    rating: brewRating,
+    notes: notes
+  };
+  brewHistory.push(brew);
+  localStorage.setItem('brewHistory', JSON.stringify(brewHistory));
+  closeBrewComplete();
+  resetBrew();
+  showToast('Brew guardado en historial');
+}
+
+function closeBrewComplete() {
+  document.getElementById('brew-complete-overlay').style.display = 'none';
+}
+
+// =====================================================================
+// EXPORT & IMPORT
+// =====================================================================
+function exportRecipes() {
+  const data = JSON.stringify(recipes, null, 2);
+  downloadJSON('recipes.json', data);
+}
+
+function exportBrewHistory() {
+  const data = JSON.stringify(brewHistory, null, 2);
+  downloadJSON('brew-history.json', data);
+}
+
+function downloadJSON(filename, data) {
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importRecipes() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = event => {
+      try {
+        const data = JSON.parse(event.target.result);
+        if (Array.isArray(data)) {
+          const existingIds = new Set(recipes.map(r => r.id));
+          data.forEach(r => {
+            if (!existingIds.has(r.id)) {
+              customRecipes.push(r);
+            }
+          });
+          localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
+          recipes = [...STARTER_RECIPES, ...customRecipes];
+          showToast('Recetas importadas: ' + data.length);
+          renderRecipeList();
+        }
+      } catch (err) {
+        showToast('Error al importar: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function importBrewHistory() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = event => {
+      try {
+        const data = JSON.parse(event.target.result);
+        if (Array.isArray(data)) {
+          const existingIds = new Set(brewHistory.map(b => b.id));
+          data.forEach(b => {
+            if (!existingIds.has(b.id)) {
+              brewHistory.push(b);
+            }
+          });
+          localStorage.setItem('brewHistory', JSON.stringify(brewHistory));
+          showToast('Historial importado: ' + data.length);
+        }
+      } catch (err) {
+        showToast('Error al importar: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
 }
 
 // =====================================================================
