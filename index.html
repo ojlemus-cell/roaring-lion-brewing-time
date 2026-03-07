@@ -160,23 +160,28 @@ button{cursor:pointer;border:none;background:none;}
 .recipe-card{
   background:var(--surface);
   border-radius:var(--radius-md);
-  padding:16px;
-  margin:8px 16px;
+  padding:20px;
+  margin:12px 0;
   border:1px solid var(--sep);
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  transition:box-shadow 0.2s ease;
 }
-.recipe-card-title{font-size:16px;font-weight:700;margin-bottom:6px;}
-.recipe-card-meta{font-size:13px;color:var(--text2);margin-bottom:12px;}
+.recipe-card:active{
+  box-shadow:0 4px 8px rgba(0,0,0,0.15);
+}
+.recipe-card-title{font-size:18px;font-weight:700;margin-bottom:8px;}
+.recipe-card-meta{font-size:14px;color:var(--text2);margin-bottom:16px;}
 .recipe-card-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
 .recipe-tag{
   background:var(--accent-tint);
   color:var(--accent-text);
-  padding:4px 10px;
+  padding:6px 12px;
   border-radius:12px;
-  font-size:12px;
-  font-weight:500;
+  font-size:13px;
+  font-weight:600;
 }
 .recipe-card-actions{display:flex;gap:8px;margin-top:12px;}
-.recipe-card-actions button{flex:1;}
+.recipe-card-actions button{flex:1;padding:12px 16px;font-size:14px;font-weight:600;}
 
 /* ===== TIMER DISPLAY ===== */
 .timer-display{
@@ -220,19 +225,43 @@ button{cursor:pointer;border:none;background:none;}
   margin-bottom:12px;
 }
 .step-meta{
-  display:flex;gap:12px;
+  display:flex;flex-direction:column;gap:12px;
   font-size:13px;
   color:var(--text3);
+}
+.step-water-amount{
+  font-size:20px;
+  font-weight:700;
+  color:var(--accent);
+  margin-bottom:12px;
+  padding:12px;
+  background:var(--accent-tint);
+  border-radius:var(--radius-sm);
+  text-align:center;
+}
+.swirl-label{
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+  text-align:center;
+  margin:0 0 12px;
 }
 
 /* ===== SWIRL VISUALIZATION ===== */
 .swirl-canvas{
   width:100%;
-  max-width:300px;
-  margin:16px auto;
+  max-width:400px;
+  margin:24px auto;
   display:block;
   border-radius:var(--radius-md);
   background:var(--surface2);
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  border:2px solid var(--accent);
+}
+@media(min-width:600px){
+  .swirl-canvas{
+    max-width:500px;
+  }
 }
 
 /* ===== TAB BAR ===== */
@@ -489,9 +518,9 @@ button{cursor:pointer;border:none;background:none;}
     <div class="settings-group">
       <div class="settings-label" data-i18n="settings.language">Idioma</div>
       <div class="settings-options">
-        <button id="lang-es" onclick="setLanguage('es')" class="active">Español</button>
-        <button id="lang-en" onclick="setLanguage('en')">English</button>
-        <button id="lang-pt" onclick="setLanguage('pt')">Português</button>
+        <button id="lang-es" onclick="setLanguage('es')" class="active">🇪🇸 Español</button>
+        <button id="lang-en" onclick="setLanguage('en')">🇬🇧 English</button>
+        <button id="lang-pt" onclick="setLanguage('pt')">🇧🇷 Português</button>
       </div>
     </div>
 
@@ -666,6 +695,7 @@ const TRANSLATIONS = {
     'brew.complete': 'Brew Completado',
     'brew.rating': 'Puntuacion',
     'brew.notes': 'Notas',
+    'brew.pouring': 'Cómo verter',
     'export.recipes': 'Exportar Recetas',
     'export.history': 'Exportar Historial',
     'import.recipes': 'Importar Recetas',
@@ -698,6 +728,7 @@ const TRANSLATIONS = {
     'brew.complete': 'Brew Complete',
     'brew.rating': 'Rating',
     'brew.notes': 'Notes',
+    'brew.pouring': 'How to Pour',
     'export.recipes': 'Export Recipes',
     'export.history': 'Export History',
     'import.recipes': 'Import Recipes',
@@ -730,6 +761,7 @@ const TRANSLATIONS = {
     'brew.complete': 'Cafe Completo',
     'brew.rating': 'Avaliacao',
     'brew.notes': 'Notas',
+    'brew.pouring': 'Como Verter',
     'export.recipes': 'Exportar Receitas',
     'export.history': 'Exportar Historico',
     'import.recipes': 'Importar Receitas',
@@ -1096,8 +1128,8 @@ function updateStepDisplay() {
       <div class="step-action">${activeStep.action}</div>
       <div class="step-description">${activeStep.description}</div>
       <div class="step-meta">
+        ${activeStep.amount ? `<div class="step-water-amount">💧 ${activeStep.amount}ml</div>` : ''}
         <span>Time: ${activeStep.timeFrom}s - ${activeStep.timeTo}s</span>
-        ${activeStep.amount ? `<span>Water: ${activeStep.amount}ml</span>` : ''}
       </div>
     </div>
   `;
@@ -1105,8 +1137,14 @@ function updateStepDisplay() {
   // Render swirl if present
   if (activeStep.swirl) {
     canvas.style.display = 'block';
+    display.innerHTML += `<div class="swirl-label" data-i18n="brew.pouring">Cómo verter</div>`;
     const progress = (brewTimer - activeStep.timeFrom) / (activeStep.timeTo - activeStep.timeFrom);
     drawSwirl(canvas, activeStep.swirl.type, activeStep.swirl.intensity, Math.min(progress, 1));
+    // Re-apply translations for new elements
+    if (window.currentLang) {
+      const label = display.querySelector('[data-i18n]');
+      if (label) label.textContent = window.t('brew.pouring');
+    }
   } else {
     canvas.style.display = 'none';
   }
