@@ -1,0 +1,31 @@
+{
+  "name": "roaring-lion-brewing-time",
+  "version": "1.0.0",
+  "description": "Precision brewing guides with timers, recipes, and swirl visualizations — V60, AeroPress, and more",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.roaringlion.brewingtimeguide",
+    "productName": "Roaring Lion Brewing Time",
+    "mac": {
+      "category": "public.app-category.food-and-drink",
+      "icon": "icons/icon-512.png",
+      "target": ["dmg", "zip"]
+    },
+    "files": [
+      "index.html",
+      "main.js",
+      "preload.js",
+      "sw.js",
+      "manifest.json",
+      "icons/**"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^24.0.0"
+  }
+}

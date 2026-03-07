@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="theme-color" content="#FF6B35"/>
+<title>Roaring Lion Brewing Time</title>
+<link rel="manifest" href="manifest.json"/>
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --bg:#F2F2F7;
+  --surface:#FFFFFF;
+  --surface2:#F2F2F7;
+  --surface3:#E5E5EA;
+  --sep:rgba(60,60,67,0.29);
+  --accent:#FF6B35;
+  --accent-tint:rgba(255,107,53,.12);
+  --accent-text:#C85A2A;
+  --blue:#007AFF;
+  --green:#34C759;
+  --red:#FF3B30;
+  --text:#000;
+  --text2:rgba(60,60,67,.6);
+  --text3:rgba(60,60,67,.3);
+  --radius-lg:20px;
+  --radius-md:14px;
+  --radius-sm:10px;
+  --font:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',system-ui,sans-serif;
+}
+
+@media (prefers-color-scheme:dark){
+  :root {
+    --bg:#000;
+    --surface:#1C1C1E;
+    --surface2:#2C2C2E;
+    --surface3:#3A3A3C;
+    --sep:rgba(84,84,88,.65);
+    --accent:#FF7A4D;
+    --accent-tint:rgba(255,122,77,.15);
+    --accent-text:#FF7A4D;
+    --blue:#0A84FF;
+    --green:#32D74B;
+    --red:#FF453A;
+    --text:#FFF;
+    --text2:rgba(235,235,245,.6);
+    --text3:rgba(235,235,245,.18);
+  }
+}
+
+html.theme-light {
+  --bg:#F2F2F7;
+  --surface:#FFFFFF;
+  --surface2:#F2F2F7;
+  --surface3:#E5E5EA;
+  --sep:rgba(60,60,67,0.29);
+  --accent:#FF6B35;
+  --accent-tint:rgba(255,107,53,.12);
+  --accent-text:#C85A2A;
+  --blue:#007AFF;
+  --green:#34C759;
+  --red:#FF3B30;
+  --text:#000;
+  --text2:rgba(60,60,67,.6);
+  --text3:rgba(60,60,67,.3);
+}
+
+html.theme-dark {
+  --bg:#000;
+  --surface:#1C1C1E;
+  --surface2:#2C2C2E;
+  --surface3:#3A3A3C;
+  --sep:rgba(84,84,88,.65);
+  --accent:#FF7A4D;
+  --accent-tint:rgba(255,122,77,.15);
+  --accent-text:#FF7A4D;
+  --blue:#0A84FF;
+  --green:#32D74B;
+  --red:#FF453A;
+  --text:#FFF;
+  --text2:rgba(235,235,245,.6);
+  --text3:rgba(235,235,245,.18);
+}
+
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-family:var(--font);font-size:16px;-webkit-text-size-adjust:100%;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  min-height:100dvh;
+  overscroll-behavior:none;
+  -webkit-font-smoothing:antialiased;
+}
+input,select,textarea,button{font-family:var(--font);}
+button{cursor:pointer;border:none;background:none;}
+
+/* ===== HEADER ===== */
+.app-header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(0,0,0,.85);
+  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(20px);
+  padding:12px 16px;
+  padding-top:max(12px,env(safe-area-inset-top));
+  border-bottom:1px solid var(--sep);
+}
+.app-header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.app-header-title{font-size:18px;font-weight:700;color:#FFF;}
+.app-header-actions{display:flex;gap:12px;}
+.hdr-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.15);
+  color:#FFF;
+  font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+}
+.hdr-btn:active{background:rgba(255,255,255,.25);}
+
+/* ===== PAGES ===== */
+.pages-wrap{display:flex;flex-direction:column;}
+.page{
+  display:none;
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.page.active{display:flex;flex-direction:column;}
+.page-top-pad{height:16px;}
+
+/* ===== BUTTONS ===== */
+.btn-primary{
+  background:var(--accent);
+  color:#FFF;
+  padding:10px 16px;
+  border-radius:var(--radius-md);
+  font-weight:600;
+  font-size:15px;
+  transition:opacity .2s;
+}
+.btn-primary:active{opacity:.7;}
+
+.btn-secondary{
+  background:var(--surface3);
+  color:var(--text);
+  padding:10px 16px;
+  border-radius:var(--radius-md);
+  font-weight:500;
+  font-size:15px;
+  transition:opacity .2s;
+}
+.btn-secondary:active{opacity:.7;}
+
+.btn-sm{padding:8px 12px;font-size:13px;}
+
+/* ===== RECIPE CARDS ===== */
+.recipe-card{
+  background:var(--surface);
+  border-radius:var(--radius-md);
+  padding:16px;
+  margin:8px 16px;
+  border:1px solid var(--sep);
+}
+.recipe-card-title{font-size:16px;font-weight:700;margin-bottom:6px;}
+.recipe-card-meta{font-size:13px;color:var(--text2);margin-bottom:12px;}
+.recipe-card-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.recipe-tag{
+  background:var(--accent-tint);
+  color:var(--accent-text);
+  padding:4px 10px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:500;
+}
+.recipe-card-actions{display:flex;gap:8px;margin-top:12px;}
+.recipe-card-actions button{flex:1;}
+
+/* ===== TIMER DISPLAY ===== */
+.timer-display{
+  font-size:64px;
+  font-weight:300;
+  text-align:center;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0.1em;
+  margin:20px 0;
+  font-family:monospace;
+}
+.timer-controls{
+  display:flex;gap:10px;
+  margin:16px 0;
+}
+.timer-controls button{flex:1;}
+
+/* ===== STEP DISPLAY ===== */
+.step-container{
+  background:var(--surface);
+  border-radius:var(--radius-md);
+  padding:16px;
+  margin:0 16px 16px;
+  border-left:4px solid var(--accent);
+}
+.step-number{
+  font-size:12px;
+  color:var(--text2);
+  margin-bottom:4px;
+  font-weight:600;
+}
+.step-action{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.step-description{
+  font-size:14px;
+  color:var(--text2);
+  line-height:1.5;
+  margin-bottom:12px;
+}
+.step-meta{
+  display:flex;gap:12px;
+  font-size:13px;
+  color:var(--text3);
+}
+
+/* ===== SWIRL VISUALIZATION ===== */
+.swirl-canvas{
+  width:100%;
+  max-width:300px;
+  margin:16px auto;
+  display:block;
+  border-radius:var(--radius-md);
+  background:var(--surface2);
+}
+
+/* ===== TAB BAR ===== */
+.tab-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:99;
+  background:var(--surface);
+  border-top:1px solid var(--sep);
+  display:flex;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.tab-item{
+  flex:1;
+  padding:12px 8px;
+  text-align:center;
+  font-size:12px;
+  font-weight:500;
+  color:var(--text2);
+  transition:color .2s;
+}
+.tab-item.active{color:var(--accent);}
+
+/* ===== SETTINGS ===== */
+.settings-group{
+  padding:16px;
+  border-bottom:1px solid var(--sep);
+}
+.settings-label{
+  font-size:12px;
+  color:var(--text2);
+  margin-bottom:8px;
+  font-weight:600;
+}
+.settings-options{
+  display:flex;gap:8px;}
+.settings-options button{
+  flex:1;
+  padding:8px;
+  font-size:13px;
+  border-radius:var(--radius-sm);
+  background:var(--surface3);
+  color:var(--text);
+}
+.settings-options button.active{
+  background:var(--accent);
+  color:#FFF;
+}
+
+/* ===== TOAST ===== */
+#toast{
+  position:fixed;bottom:calc(83px + env(safe-area-inset-bottom) + 16px);
+  left:50%;transform:translateX(-50%) translateY(12px);
+  background:var(--surface3);
+  color:var(--text);
+  border-radius:100px;
+  padding:10px 20px;
+  font-size:14px;font-weight:500;
+  opacity:0;transition:opacity .25s,transform .25s;
+  z-index:300;white-space:nowrap;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  pointer-events:none;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ===== RESPONSIVE ===== */
+.pages-wrap{padding-bottom:calc(49px + env(safe-area-inset-bottom));}
+
+@media (min-width:600px){
+  .recipe-card,.step-container{
+    max-width:560px;margin-left:auto;margin-right:auto;
+  }
+  .app-header{justify-content:center;}
+  .app-header-inner{width:100%;max-width:560px;display:flex;align-items:center;justify-content:space-between;}
+}
+
+/* ===== FULLSCREEN ===== */
+:fullscreen { background:#000; }
+:-webkit-full-screen { background:#000; }
+
+/* ===== DONATE FOOTER ===== */
+.donate-footer{
+  position:fixed;bottom:0;left:0;right:0;z-index:80;
+  background:var(--surface);
+  border-top:1px solid var(--sep);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--text2);
+}
+.donate-footer a{
+  color:var(--accent);text-decoration:none;font-weight:600;
+  display:inline-flex;align-items:center;gap:5px;
+  margin-left:6px;
+  transition:opacity .2s;
+}
+.donate-footer a:active{opacity:.7;}
+.pages-wrap{padding-bottom:calc(40px + env(safe-area-inset-bottom));}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="app-header-inner">
+    <span class="app-header-title">Roaring Lion Brewing Time</span>
+    <div class="app-header-actions">
+      <button class="hdr-btn" id="lang-btn" onclick="cycleLang()" title="Language">LANG</button>
+      <button class="hdr-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">◐</button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGES -->
+<div class="pages-wrap">
+
+<!-- PAGE: RECIPES -->
+<div class="page active" id="page-recipes">
+  <div class="page-top-pad"></div>
+  <div style="padding:0 16px 16px;">
+    <input type="search" id="recipe-search" placeholder="Buscar receta..." data-i18n-placeholder="recipe.search"
+      style="width:100%;border:none;background:var(--surface3);border-radius:var(--radius-sm);padding:9px 14px;font-size:15px;color:var(--text);outline:none;"/>
+  </div>
+  <div id="recipe-list" style="padding-bottom:16px;"></div>
+</div>
+
+<!-- PAGE: BREW NOW -->
+<div class="page" id="page-brew">
+  <div class="page-top-pad"></div>
+  <div style="padding:16px;">
+    <!-- Recipe selector -->
+    <div id="brew-recipe-info" style="display:none;">
+      <div class="recipe-card" style="border:2px solid var(--accent);margin:0 0 16px;">
+        <div class="recipe-card-title" id="brew-recipe-name"></div>
+        <div class="recipe-card-meta" id="brew-recipe-meta"></div>
+      </div>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer-display" id="brew-timer">00:00</div>
+
+    <!-- Controls -->
+    <div class="timer-controls">
+      <button class="btn-primary" id="btn-brew-start" onclick="startBrew()">Iniciar</button>
+      <button class="btn-secondary" id="btn-brew-pause" onclick="pauseBrew()" style="display:none;">Pausar</button>
+      <button class="btn-secondary" id="btn-brew-resume" onclick="resumeBrew()" style="display:none;">Reanudar</button>
+      <button class="btn-secondary" id="btn-brew-reset" onclick="resetBrew()" style="display:none;">Reset</button>
+    </div>
+
+    <!-- Current Step -->
+    <div id="step-display" style="margin-top:20px;"></div>
+
+    <!-- Step Navigation -->
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn-secondary btn-sm" onclick="prevStep()" style="flex:1;">← Anterior</button>
+      <button class="btn-secondary btn-sm" onclick="nextStep()" style="flex:1;">Siguiente →</button>
+    </div>
+
+    <!-- Swirl Canvas -->
+    <canvas id="swirl-canvas" class="swirl-canvas" style="display:none;"></canvas>
+
+    <!-- Back Button -->
+    <button class="btn-secondary" onclick="showPage('recipes')" style="width:100%;margin-top:20px;">Volver a Recetas</button>
+  </div>
+</div>
+
+<!-- PAGE: HISTORY -->
+<div class="page" id="page-history">
+  <div class="page-top-pad"></div>
+  <div style="padding:16px;">
+    <h2 style="font-size:22px;font-weight:700;margin-bottom:16px;" data-i18n="history.title">Historial</h2>
+    <div id="history-list" style="color:var(--text2);text-align:center;padding:40px 16px;" data-i18n="history.empty">Sin brewing completados</div>
+  </div>
+</div>
+
+<!-- PAGE: SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="page-top-pad"></div>
+  <div style="padding:16px;">
+    <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;">Configuración</h2>
+
+    <!-- Theme -->
+    <div class="settings-group">
+      <div class="settings-label" data-i18n="settings.theme">Tema</div>
+      <div class="settings-options">
+        <button id="theme-auto" onclick="setTheme('auto')" class="active">Auto</button>
+        <button id="theme-light" onclick="setTheme('light')">Claro</button>
+        <button id="theme-dark" onclick="setTheme('dark')">Oscuro</button>
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="settings-group">
+      <div class="settings-label" data-i18n="settings.language">Idioma</div>
+      <div class="settings-options">
+        <button id="lang-es" onclick="setLanguage('es')" class="active">Español</button>
+        <button id="lang-en" onclick="setLanguage('en')">English</button>
+        <button id="lang-pt" onclick="setLanguage('pt')">Português</button>
+      </div>
+    </div>
+
+    <!-- Alarms -->
+    <div class="settings-group">
+      <div class="settings-label" data-i18n="settings.alarms">Alarmas</div>
+      <div class="settings-options">
+        <button id="pref-sound" onclick="toggleAlarmPref('sound')" class="active">Sonido</button>
+        <button id="pref-vibration" onclick="toggleAlarmPref('vibration')" class="active">Vibración</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /pages-wrap -->
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-item active" id="tab-recipes" onclick="showPage('recipes',event)">
+    <span data-i18n="nav.recipes">Recetas</span>
+  </button>
+  <button class="tab-item" id="tab-brew" onclick="showPage('brew',event)">
+    <span data-i18n="nav.brew">Brew Now</span>
+  </button>
+  <button class="tab-item" id="tab-history" onclick="showPage('history',event)">
+    <span data-i18n="nav.history">Historial</span>
+  </button>
+  <button class="tab-item" id="tab-settings" onclick="showPage('settings',event)">
+    <span data-i18n="nav.settings">Ajustes</span>
+  </button>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- DONATE FOOTER -->
+<div class="donate-footer">
+  <span>¿Te gusta Roaring Lion?</span>
+  <a href="https://buymeacoffee.com/roaringlioncoffee" target="_blank" rel="noopener noreferrer">☕ Apoya el proyecto</a>
+</div>
+
+<script>
+'use strict';
+
+// =====================================================================
+// TRANSLATIONS
+// =====================================================================
+const TRANSLATIONS = {
+  es: {
+    'nav.recipes': 'Recetas',
+    'nav.brew': 'Brew Now',
+    'nav.history': 'Historial',
+    'nav.settings': 'Ajustes',
+    'recipe.search': 'Buscar receta...',
+    'recipe.difficulty': 'Dificultad',
+    'recipe.time': 'Tiempo',
+    'recipe.start': 'Iniciar',
+    'settings.theme': 'Tema',
+    'settings.language': 'Idioma',
+    'settings.alarms': 'Alarmas',
+    'history.title': 'Historial de Brewing',
+    'history.empty': 'Sin brewing completados',
+    'step.action': 'Acción',
+    'step.time': 'Tiempo',
+    'toast.brewStarted': 'Brewing iniciado',
+  },
+  en: {
+    'nav.recipes': 'Recipes',
+    'nav.brew': 'Brew Now',
+    'nav.history': 'History',
+    'nav.settings': 'Settings',
+    'recipe.search': 'Search recipe...',
+    'recipe.difficulty': 'Difficulty',
+    'recipe.time': 'Time',
+    'recipe.start': 'Start',
+    'settings.theme': 'Theme',
+    'settings.language': 'Language',
+    'settings.alarms': 'Alarms',
+    'history.title': 'Brewing History',
+    'history.empty': 'No brews yet',
+    'step.action': 'Action',
+    'step.time': 'Time',
+    'toast.brewStarted': 'Brewing started',
+  },
+  pt: {
+    'nav.recipes': 'Receitas',
+    'nav.brew': 'Fazer Café',
+    'nav.history': 'Histórico',
+    'nav.settings': 'Configurações',
+    'recipe.search': 'Buscar receita...',
+    'recipe.difficulty': 'Dificuldade',
+    'recipe.time': 'Tempo',
+    'recipe.start': 'Iniciar',
+    'settings.theme': 'Tema',
+    'settings.language': 'Idioma',
+    'settings.alarms': 'Alarmes',
+    'history.title': 'Histórico de Café',
+    'history.empty': 'Sem cafés preparados',
+    'step.action': 'Ação',
+    'step.time': 'Tempo',
+    'toast.brewStarted': 'Café iniciado',
+  }
+};
+
+function t(key) {
+  return (TRANSLATIONS[currentLang][key]) || (TRANSLATIONS['es'][key]) || key;
+}
+
+// =====================================================================
+// STATE
+// =====================================================================
+let currentLang = localStorage.getItem('lang') || 'es';
+let currentTheme = localStorage.getItem('theme') || 'auto';
+let alarmPrefs = JSON.parse(localStorage.getItem('alarmPrefs') || '{"sound":true,"vibration":true}');
+
+let recipes = [];
+let brewHistory = [];
+let currentRecipe = null;
+let currentStep = 0;
+let brewTimer = 0;
+let brewRunning = false;
+let brewStarted = false;
+let brewInterval = null;
+let firedAlarms = new Set();
+
+// =====================================================================
+// RECIPES (STARTER DATA)
+// =====================================================================
+const STARTER_RECIPES = [
+  {
+    id: 1,
+    name: 'V60 Clásico',
+    creator: 'Roaring Lion',
+    description: 'Método equilibrado para todo tipo de cafés',
+    method: 'V60',
+    difficulty: 'beginner',
+    brewTime: 240,
+    coffeeAmount: 20,
+    waterAmount: 300,
+    waterTemp: 95,
+    ratio: '1:15',
+    notes: 'Técnica versátil y consistente',
+    steps: [
+      {
+        id: 1,
+        timeFrom: 0,
+        timeTo: 45,
+        action: 'Bloom',
+        description: 'Vierte agua lentamente para saturar el café',
+        amount: 60,
+        swirl: null,
+        temperature: 95
+      },
+      {
+        id: 2,
+        timeFrom: 45,
+        timeTo: 90,
+        action: 'First Pour',
+        description: 'Primer vertido principal',
+        amount: 100,
+        swirl: { type: 'circular-cw', intensity: 'gentle', duration: 5 },
+        temperature: 95
+      },
+      {
+        id: 3,
+        timeFrom: 90,
+        timeTo: 150,
+        action: 'Second Pour',
+        description: 'Segundo vertido',
+        amount: 80,
+        swirl: null,
+        temperature: 95
+      },
+      {
+        id: 4,
+        timeFrom: 150,
+        timeTo: 240,
+        action: 'Final Pour & Drain',
+        description: 'Vertido final, deja que drene completamente',
+        amount: 60,
+        swirl: { type: 'circular-ccw', intensity: 'medium', duration: 3 },
+        temperature: 95
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: 'V60 Hoffmann',
+    creator: 'James Hoffmann',
+    description: 'Método popular de James Hoffmann',
+    method: 'V60',
+    difficulty: 'intermediate',
+    brewTime: 280,
+    coffeeAmount: 30,
+    waterAmount: 500,
+    waterTemp: 90,
+    ratio: '1:16.5',
+    notes: 'Técnica refinada con resultados predecibles',
+    steps: [
+      {
+        id: 1,
+        timeFrom: 0,
+        timeTo: 45,
+        action: 'Bloom',
+        description: 'Bloom de 45 segundos',
+        amount: 80,
+        swirl: null,
+        temperature: 90
+      },
+      {
+        id: 2,
+        timeFrom: 45,
+        timeTo: 150,
+        action: 'Main Pour',
+        description: 'Vertido principal hasta 300ml total',
+        amount: 220,
+        swirl: { type: 'figure8', intensity: 'gentle', duration: 10 },
+        temperature: 90
+      },
+      {
+        id: 3,
+        timeFrom: 150,
+        timeTo: 280,
+        action: 'Final Pour & Draw Down',
+        description: 'Vertido final, deja que termine el drenaje',
+        amount: 200,
+        swirl: null,
+        temperature: 90
+      }
+    ]
+  }
+];
+
+recipes = STARTER_RECIPES;
+
+// =====================================================================
+// THEME
+// =====================================================================
+function applyTheme() {
+  const html = document.documentElement;
+  html.classList.remove('theme-light', 'theme-dark');
+  if (currentTheme === 'dark') html.classList.add('theme-dark');
+  else if (currentTheme === 'light') html.classList.add('theme-light');
+  const btn = document.getElementById('theme-btn');
+  if (btn) btn.textContent = currentTheme === 'dark' ? '○' : currentTheme === 'light' ? '●' : '◐';
+  updateThemeButtons();
+}
+
+function setTheme(theme) {
+  currentTheme = theme;
+  localStorage.setItem('theme', theme);
+  applyTheme();
+}
+
+function toggleTheme() {
+  const order = ['auto', 'light', 'dark'];
+  const idx = order.indexOf(currentTheme);
+  currentTheme = order[(idx + 1) % order.length];
+  localStorage.setItem('theme', currentTheme);
+  applyTheme();
+}
+
+function updateThemeButtons() {
+  document.querySelectorAll('[id^="theme-"]').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('theme-' + currentTheme)?.classList.add('active');
+}
+
+// =====================================================================
+// LANGUAGE
+// =====================================================================
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.documentElement.lang = lang;
+  applyTranslations();
+  updateLangButtons();
+}
+
+function cycleLang() {
+  const langs = ['es', 'en', 'pt'];
+  const idx = langs.indexOf(currentLang);
+  setLanguage(langs[(idx + 1) % langs.length]);
+}
+
+function updateLangButtons() {
+  document.querySelectorAll('[id^="lang-"]').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('lang-' + currentLang)?.classList.add('active');
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+}
+
+// =====================================================================
+// NAVIGATION
+// =====================================================================
+function showPage(name, e) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('page-' + name);
+  if (pg) pg.classList.add('active');
+
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  const tab = document.getElementById('tab-' + name);
+  if (tab) tab.classList.add('active');
+
+  if (name === 'recipes') renderRecipeList();
+  window.scrollTo(0, 0);
+}
+
+// =====================================================================
+// RECIPES
+// =====================================================================
+function renderRecipeList() {
+  const search = document.getElementById('recipe-search')?.value?.toLowerCase() || '';
+  const filtered = recipes.filter(r =>
+    r.name.toLowerCase().includes(search) ||
+    r.description.toLowerCase().includes(search)
+  );
+
+  const list = document.getElementById('recipe-list');
+  list.innerHTML = filtered.map(recipe => `
+    <div class="recipe-card">
+      <div class="recipe-card-title">${recipe.name}</div>
+      <div class="recipe-card-meta">By ${recipe.creator} • ${recipe.brewTime}s • ${recipe.coffeeAmount}g</div>
+      <div class="recipe-card-tags">
+        <span class="recipe-tag">${recipe.method}</span>
+        <span class="recipe-tag">${recipe.difficulty}</span>
+        <span class="recipe-tag">${recipe.ratio}</span>
+      </div>
+      <div class="recipe-card-actions">
+        <button class="btn-primary" onclick="selectRecipe(${recipe.id})">Usar Receta</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectRecipe(id) {
+  currentRecipe = recipes.find(r => r.id === id);
+  if (!currentRecipe) return;
+
+  currentStep = 0;
+  brewTimer = 0;
+  brewRunning = false;
+  brewStarted = false;
+  firedAlarms = new Set();
+
+  document.getElementById('brew-recipe-info').style.display = 'block';
+  document.getElementById('brew-recipe-name').textContent = currentRecipe.name;
+  document.getElementById('brew-recipe-meta').textContent = `${currentRecipe.coffeeAmount}g café • ${currentRecipe.waterAmount}ml agua • ${currentRecipe.waterTemp}°C`;
+
+  updateStepDisplay();
+  showPage('brew');
+}
+
+// =====================================================================
+// BREW TIMER
+// =====================================================================
+function startBrew() {
+  if (brewRunning) return;
+  brewRunning = true;
+  brewStarted = true;
+
+  document.getElementById('btn-brew-start').style.display = 'none';
+  document.getElementById('btn-brew-pause').style.display = '';
+  document.getElementById('btn-brew-reset').style.display = '';
+
+  brewInterval = setInterval(() => {
+    brewTimer++;
+    updateTimerDisplay();
+    checkAlarms();
+  }, 1000);
+
+  showToast(t('toast.brewStarted'));
+}
+
+function pauseBrew() {
+  if (!brewRunning) return;
+  clearInterval(brewInterval);
+  brewRunning = false;
+
+  document.getElementById('btn-brew-pause').style.display = 'none';
+  document.getElementById('btn-brew-resume').style.display = '';
+}
+
+function resumeBrew() {
+  if (brewRunning) return;
+  brewRunning = true;
+
+  document.getElementById('btn-brew-resume').style.display = 'none';
+  document.getElementById('btn-brew-pause').style.display = '';
+
+  brewInterval = setInterval(() => {
+    brewTimer++;
+    updateTimerDisplay();
+    checkAlarms();
+  }, 1000);
+}
+
+function resetBrew() {
+  clearInterval(brewInterval);
+  brewRunning = false;
+  brewStarted = false;
+  brewTimer = 0;
+  currentStep = 0;
+  firedAlarms = new Set();
+
+  document.getElementById('btn-brew-start').style.display = '';
+  document.getElementById('btn-brew-pause').style.display = 'none';
+  document.getElementById('btn-brew-resume').style.display = 'none';
+  document.getElementById('btn-brew-reset').style.display = 'none';
+
+  updateTimerDisplay();
+  updateStepDisplay();
+}
+
+function updateTimerDisplay() {
+  const mins = Math.floor(brewTimer / 60);
+  const secs = brewTimer % 60;
+  document.getElementById('brew-timer').textContent =
+    String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+  updateStepDisplay();
+}
+
+// =====================================================================
+// STEPS
+// =====================================================================
+function updateStepDisplay() {
+  if (!currentRecipe) return;
+
+  const steps = currentRecipe.steps;
+  const activeStep = steps.find(s => brewTimer >= s.timeFrom && brewTimer < s.timeTo);
+  const nextStep = steps[steps.indexOf(activeStep || steps[0]) + 1];
+
+  const display = document.getElementById('step-display');
+  const canvas = document.getElementById('swirl-canvas');
+
+  if (!activeStep) {
+    display.innerHTML = '<div class="step-container"><div class="step-action">Ready to Brew</div></div>';
+    canvas.style.display = 'none';
+    return;
+  }
+
+  const stepNum = steps.indexOf(activeStep) + 1;
+  display.innerHTML = `
+    <div class="step-container">
+      <div class="step-number">Step ${stepNum} of ${steps.length}</div>
+      <div class="step-action">${activeStep.action}</div>
+      <div class="step-description">${activeStep.description}</div>
+      <div class="step-meta">
+        <span>Time: ${activeStep.timeFrom}s - ${activeStep.timeTo}s</span>
+        ${activeStep.amount ? `<span>Water: ${activeStep.amount}ml</span>` : ''}
+      </div>
+    </div>
+  `;
+
+  // Render swirl if present
+  if (activeStep.swirl) {
+    canvas.style.display = 'block';
+    const progress = (brewTimer - activeStep.timeFrom) / (activeStep.timeTo - activeStep.timeFrom);
+    drawSwirl(canvas, activeStep.swirl.type, activeStep.swirl.intensity, Math.min(progress, 1));
+  } else {
+    canvas.style.display = 'none';
+  }
+
+  // Next step preview
+  if (nextStep) {
+    const nextNum = steps.indexOf(nextStep) + 1;
+    display.innerHTML += `
+      <div style="margin-top:20px;padding:12px;background:var(--surface2);border-radius:var(--radius-sm);font-size:13px;">
+        <div style="color:var(--text2);margin-bottom:4px;">Next Step (${nextStep.timeFrom}s)</div>
+        <div style="font-weight:600;">${nextStep.action}</div>
+      </div>
+    `;
+  }
+}
+
+function nextStep() {
+  if (!currentRecipe) return;
+  currentStep = Math.min(currentStep + 1, currentRecipe.steps.length - 1);
+  const step = currentRecipe.steps[currentStep];
+  brewTimer = step.timeFrom;
+  updateTimerDisplay();
+}
+
+function prevStep() {
+  if (!currentRecipe) return;
+  currentStep = Math.max(currentStep - 1, 0);
+  const step = currentRecipe.steps[currentStep];
+  brewTimer = step.timeFrom;
+  updateTimerDisplay();
+}
+
+// =====================================================================
+// SWIRL VISUALIZATION
+// =====================================================================
+function drawSwirl(canvas, type, intensity, progress) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = canvas.offsetWidth * dpr;
+  canvas.height = canvas.offsetHeight * dpr;
+  ctx.scale(dpr, dpr);
+
+  const w = canvas.offsetWidth;
+  const h = canvas.offsetHeight;
+  const cx = w / 2;
+  const cy = h / 2;
+  const radius = Math.min(w, h) / 2 - 20;
+
+  // Line width based on intensity
+  const lineWidths = { gentle: 2, medium: 4, aggressive: 6 };
+  ctx.lineWidth = lineWidths[intensity] || 2;
+  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Draw swirl based on type
+  ctx.beginPath();
+
+  if (type === 'circular-cw') {
+    const angle = progress * Math.PI * 3;
+    ctx.arc(cx, cy, radius * 0.8, 0, angle, false);
+  } else if (type === 'circular-ccw') {
+    const angle = progress * Math.PI * 3;
+    ctx.arc(cx, cy, radius * 0.8, 0, angle, true);
+  } else if (type === 'figure8') {
+    const t = progress * Math.PI;
+    for (let i = 0; i <= progress * 100; i++) {
+      const angle = (i / 100) * Math.PI;
+      const x = cx + Math.sin(angle) * radius * Math.sin(angle * 2);
+      const y = cy + Math.cos(angle * 2) * radius;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+  } else if (type === 'sideside') {
+    const offset = Math.sin(progress * Math.PI * 2) * (radius * 0.6);
+    ctx.moveTo(cx - radius * 0.5, cy - radius * 0.8);
+    ctx.lineTo(cx + offset, cy + radius * 0.8);
+  }
+
+  ctx.stroke();
+}
+
+// =====================================================================
+// ALARMS
+// =====================================================================
+function checkAlarms() {
+  if (!currentRecipe) return;
+
+  currentRecipe.steps.forEach(step => {
+    if (brewTimer === step.timeTo && !firedAlarms.has(step.id)) {
+      triggerAlarm(`${step.action} complete`);
+      firedAlarms.add(step.id);
+    }
+  });
+}
+
+function triggerAlarm(msg) {
+  if (alarmPrefs.sound) playBeep();
+  if (alarmPrefs.vibration) vibrateDevice();
+  showToast(msg);
+}
+
+function playBeep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 800;
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.3);
+  } catch (e) {}
+}
+
+function vibrateDevice() {
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+}
+
+function toggleAlarmPref(pref) {
+  alarmPrefs[pref] = !alarmPrefs[pref];
+  localStorage.setItem('alarmPrefs', JSON.stringify(alarmPrefs));
+
+  const btn = document.getElementById('pref-' + pref);
+  if (btn) btn.classList.toggle('active');
+}
+
+// =====================================================================
+// TOAST
+// =====================================================================
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// =====================================================================
+// INIT
+// =====================================================================
+(function init() {
+  applyTheme();
+  document.documentElement.lang = currentLang;
+  applyTranslations();
+  updateThemeButtons();
+  updateLangButtons();
+
+  document.getElementById('recipe-search')?.addEventListener('input', renderRecipeList);
+  renderRecipeList();
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+})();
+</script>
+</body>
+</html>
