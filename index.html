@@ -953,7 +953,11 @@ const TRANSLATIONS = {
     'store.description': 'Recetas curadas de baristas reconocidos',
     'recipe.sourceUrl': 'URL de Fuente',
     'recipe.sourceUrl.placeholder': 'https://example.com/receta',
+    'recipe.by': 'Por',
     'recipe.viewSource': 'Ver Fuente',
+    'difficulty.beginner': 'Principiante',
+    'difficulty.intermediate': 'Intermedio',
+    'difficulty.advanced': 'Avanzado',
     'settings.data': 'Datos de Recetas',
     'toast.recipeAdded': 'Receta agregada a tu colección',
     'toast.recipeAlreadyAdded': 'Esta receta ya está en tu colección',
@@ -1043,7 +1047,11 @@ const TRANSLATIONS = {
     'store.description': 'Curated recipes from renowned baristas',
     'recipe.sourceUrl': 'Source URL',
     'recipe.sourceUrl.placeholder': 'https://example.com/recipe',
+    'recipe.by': 'By',
     'recipe.viewSource': 'View Source',
+    'difficulty.beginner': 'Beginner',
+    'difficulty.intermediate': 'Intermediate',
+    'difficulty.advanced': 'Advanced',
     'settings.data': 'Recipe Data',
     'toast.recipeAdded': 'Recipe added to your collection',
     'toast.recipeAlreadyAdded': 'This recipe is already in your collection',
@@ -1133,7 +1141,11 @@ const TRANSLATIONS = {
     'store.description': 'Receitas selecionadas de baristas renomados',
     'recipe.sourceUrl': 'URL de Origem',
     'recipe.sourceUrl.placeholder': 'https://exemplo.com/receita',
+    'recipe.by': 'Por',
     'recipe.viewSource': 'Ver Origem',
+    'difficulty.beginner': 'Iniciante',
+    'difficulty.intermediate': 'Intermediário',
+    'difficulty.advanced': 'Avançado',
     'settings.data': 'Dados de Receitas',
     'toast.recipeAdded': 'Receita adicionada à sua coleção',
     'toast.recipeAlreadyAdded': 'Esta receita já está na sua coleção',
@@ -1536,10 +1548,10 @@ function renderRecipeList() {
   list.innerHTML = filtered.map(recipe => `
     <div class="recipe-card">
       <div class="recipe-card-title">${recipe.name}</div>
-      <div class="recipe-card-meta">By ${recipe.creator} • ${recipe.brewTime}s • ${recipe.coffeeAmount}g${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link" title="${t('recipe.viewSource')}">[link]</a>` : ''}</div>
+      <div class="recipe-card-meta">${t('recipe.by')} ${recipe.creator} • ${recipe.brewTime}s • ${recipe.coffeeAmount}g${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link" title="${t('recipe.viewSource')}">[link]</a>` : ''}</div>
       <div class="recipe-card-tags">
         <span class="recipe-tag">${recipe.method}</span>
-        <span class="recipe-tag">${recipe.difficulty}</span>
+        <span class="recipe-tag">${t('difficulty.' + recipe.difficulty)}</span>
         <span class="recipe-tag">${recipe.ratio}</span>
       </div>
       <div class="recipe-card-actions">
@@ -2018,7 +2030,7 @@ function renderStoreGrid() {
         <div class="store-card-desc">${ml(recipe.description)}</div>
         <div class="store-card-tags">
           <span class="recipe-tag">${recipe.method}</span>
-          <span class="recipe-tag">${recipe.difficulty}</span>
+          <span class="recipe-tag">${t('difficulty.' + recipe.difficulty)}</span>
           <span class="recipe-tag">${recipe.ratio}</span>
           <span class="recipe-tag">${recipe.coffeeAmount}g / ${recipe.waterAmount}g</span>
         </div>
