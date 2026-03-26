@@ -157,6 +157,17 @@ button{cursor:pointer;border:none;background:none;}
 .btn-secondary:active{opacity:.7;}
 
 .btn-sm{padding:8px 12px;font-size:13px;}
+.btn-danger{
+  background:transparent;
+  color:var(--red, #e74c3c);
+  border:1px solid var(--red, #e74c3c);
+  padding:8px 14px;
+  border-radius:var(--radius-md);
+  font-weight:500;
+  font-size:13px;
+  transition:opacity .2s;
+}
+.btn-danger:active{opacity:.7;background:rgba(231,76,60,0.1);}
 
 /* ===== RECIPE CARDS ===== */
 .recipe-card{
@@ -417,6 +428,167 @@ button{cursor:pointer;border:none;background:none;}
 .btn-add-store.added{background:#5a8a5a;pointer-events:none;}
 .source-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--accent);text-decoration:none;margin-left:8px;}
 .source-link:hover{text-decoration:underline;}
+
+/* ===== EDUCATIONAL TIP BOX ===== */
+.tip-box{
+  background:rgba(52,199,89,.1);
+  border-left:3px solid var(--green);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:10px 14px;
+  margin-top:12px;
+  font-size:13px;
+  line-height:1.5;
+  color:var(--text);
+}
+.tip-box::before{
+  content:'TIP: ';
+  font-weight:700;
+  color:var(--green);
+}
+
+/* ===== WATER PROGRESS BAR ===== */
+.water-progress{
+  margin:16px 0 8px;
+}
+.water-progress-label{
+  display:flex;justify-content:space-between;
+  font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600;
+}
+.water-progress-bar{
+  height:10px;
+  background:var(--surface3);
+  border-radius:5px;
+  overflow:hidden;
+  position:relative;
+}
+.water-progress-fill{
+  height:100%;
+  background:linear-gradient(90deg, var(--blue), #5AC8FA);
+  border-radius:5px;
+  transition:width .5s ease;
+  min-width:0;
+}
+.water-progress-markers{
+  display:flex;justify-content:space-between;
+  margin-top:4px;font-size:10px;color:var(--text3);
+}
+
+/* ===== STEP PROGRESS DOTS ===== */
+.step-progress{
+  display:flex;gap:6px;align-items:center;
+  justify-content:center;
+  margin:0 16px 12px;
+  padding:12px;
+  background:var(--surface);
+  border-radius:var(--radius-md);
+}
+.step-dot{
+  width:12px;height:12px;border-radius:50%;
+  background:var(--surface3);
+  transition:all .3s;
+  flex-shrink:0;
+}
+.step-dot.completed{background:var(--green);}
+.step-dot.active{
+  background:var(--accent);
+  width:14px;height:14px;
+  box-shadow:0 0 0 3px var(--accent-tint);
+}
+.step-dot-line{
+  flex:1;height:2px;
+  background:var(--surface3);
+  min-width:8px;
+}
+.step-dot-line.completed{background:var(--green);}
+
+/* ===== IMPROVED STEP CONTAINER ===== */
+.step-container{
+  background:var(--surface);
+  border-radius:var(--radius-md);
+  padding:20px;
+  margin:0 16px 16px;
+  border-left:4px solid var(--accent);
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.step-number{
+  font-size:12px;
+  color:var(--text2);
+  margin-bottom:4px;
+  font-weight:600;
+}
+.step-action{
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.step-description{
+  font-size:14px;
+  color:var(--text2);
+  line-height:1.5;
+  margin-bottom:12px;
+}
+
+/* ===== FLAVOR DIAGNOSIS ===== */
+.flavor-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  margin:16px 0;
+}
+.flavor-btn{
+  padding:16px 12px;
+  border-radius:var(--radius-md);
+  background:var(--surface2);
+  border:2px solid transparent;
+  text-align:center;
+  font-size:14px;font-weight:600;
+  color:var(--text);
+  transition:all .2s;
+  cursor:pointer;
+}
+.flavor-btn:active{transform:scale(.96);}
+.flavor-btn.selected{
+  border-color:var(--accent);
+  background:var(--accent-tint);
+}
+.flavor-btn .flavor-emoji{font-size:24px;display:block;margin-bottom:6px;}
+.flavor-advice{
+  padding:14px;
+  border-radius:var(--radius-md);
+  background:var(--accent-tint);
+  font-size:13px;
+  line-height:1.5;
+  color:var(--text);
+  margin-top:12px;
+  display:none;
+}
+.flavor-advice.visible{display:block;}
+
+/* ===== PREP CHECKLIST ===== */
+.prep-checklist{
+  background:var(--surface);
+  border-radius:var(--radius-md);
+  padding:16px;
+  margin:0 16px 16px;
+}
+.prep-title{font-size:14px;font-weight:700;margin-bottom:12px;}
+.prep-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 0;
+  border-bottom:0.5px solid var(--sep);
+  font-size:14px;
+}
+.prep-item:last-child{border-bottom:none;}
+.prep-check{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--surface3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--text3);
+  flex-shrink:0;
+  transition:all .2s;
+  cursor:pointer;
+}
+.prep-check.checked{
+  background:var(--green);color:#FFF;
+}
 </style>
 </head>
 <body>
@@ -426,9 +598,9 @@ button{cursor:pointer;border:none;background:none;}
   <div class="app-header-inner">
     <span class="app-header-title">Roaring Lion Brewing Time</span>
     <div class="app-header-actions">
-      <button class="hdr-btn" id="donate-btn" onclick="window.open('https://buymeacoffee.com/roaringlioncoffee','_blank')" title="Donate">🎁</button>
-      <button class="hdr-btn" id="lang-btn" onclick="cycleLang()" title="Language">🌐</button>
-      <button class="hdr-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">☀️</button>
+      <button class="hdr-btn" id="donate-btn" onclick="window.open('https://buymeacoffee.com/roaringlioncoffee','_blank')" title="Donate" style="font-size:13px;font-weight:700;">$</button>
+      <button class="hdr-btn" id="lang-btn" onclick="cycleLang()" title="Language" style="font-size:13px;font-weight:700;">EN</button>
+      <button class="hdr-btn" id="theme-btn" onclick="toggleTheme()" title="Theme" style="font-size:13px;font-weight:700;">A</button>
     </div>
   </div>
 </header>
@@ -467,26 +639,45 @@ button{cursor:pointer;border:none;background:none;}
 
     <!-- Controls -->
     <div class="timer-controls">
-      <button class="btn-primary" id="btn-brew-start" onclick="startBrew()">Iniciar</button>
-      <button class="btn-secondary" id="btn-brew-pause" onclick="pauseBrew()" style="display:none;">Pausar</button>
-      <button class="btn-secondary" id="btn-brew-resume" onclick="resumeBrew()" style="display:none;">Reanudar</button>
+      <button class="btn-primary" id="btn-brew-start" onclick="startBrew()" data-i18n="recipe.start">Iniciar</button>
+      <button class="btn-secondary" id="btn-brew-pause" onclick="pauseBrew()" style="display:none;" data-i18n="recipe.pause">Pausar</button>
+      <button class="btn-secondary" id="btn-brew-resume" onclick="resumeBrew()" style="display:none;" data-i18n="recipe.resume">Reanudar</button>
       <button class="btn-secondary" id="btn-brew-reset" onclick="resetBrew()" style="display:none;">Reset</button>
     </div>
 
+    <!-- Prep Checklist (shown before brew starts) -->
+    <div id="prep-checklist" style="display:none;"></div>
+
+    <!-- Step Progress Dots -->
+    <div id="step-progress" class="step-progress" style="display:none;"></div>
+
+    <!-- Water Progress Bar -->
+    <div id="water-progress" style="padding:0 16px;display:none;">
+      <div class="water-progress">
+        <div class="water-progress-label">
+          <span id="water-poured">0g</span>
+          <span id="water-total">/ 300g</span>
+        </div>
+        <div class="water-progress-bar">
+          <div class="water-progress-fill" id="water-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- Current Step -->
-    <div id="step-display" style="margin-top:20px;"></div>
+    <div id="step-display" style="margin-top:12px;"></div>
 
     <!-- Step Navigation -->
     <div style="display:flex;gap:10px;margin-top:16px;">
-      <button class="btn-secondary btn-sm" onclick="prevStep()" style="flex:1;">Anterior</button>
-      <button class="btn-secondary btn-sm" onclick="nextStep()" style="flex:1;">Siguiente</button>
+      <button class="btn-secondary btn-sm" onclick="prevStep()" style="flex:1;" data-i18n="step.prev">Anterior</button>
+      <button class="btn-secondary btn-sm" onclick="nextStep()" style="flex:1;" data-i18n="step.next">Siguiente</button>
     </div>
 
     <!-- Swirl Canvas -->
     <canvas id="swirl-canvas" class="swirl-canvas" style="display:none;"></canvas>
 
     <!-- Back Button -->
-    <button class="btn-secondary" onclick="showPage('recipes')" style="width:100%;margin-top:20px;">Volver a Recetas</button>
+    <button class="btn-secondary" onclick="showPage('recipes')" style="width:100%;margin-top:20px;" data-i18n="nav.backRecipes">Volver a Recetas</button>
   </div>
 </div>
 
@@ -507,7 +698,7 @@ button{cursor:pointer;border:none;background:none;}
 <div class="page" id="page-settings">
   <div class="page-top-pad"></div>
   <div style="padding:16px;">
-    <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;">Configuración</h2>
+    <h2 style="font-size:22px;font-weight:700;margin-bottom:20px;" data-i18n="settings.title">Configuracion</h2>
 
     <!-- Theme -->
     <div class="settings-group">
@@ -523,9 +714,18 @@ button{cursor:pointer;border:none;background:none;}
     <div class="settings-group">
       <div class="settings-label" data-i18n="settings.language">Idioma</div>
       <div class="settings-options">
-        <button id="lang-es" onclick="setLanguage('es')" class="active">🇪🇸 Español</button>
-        <button id="lang-en" onclick="setLanguage('en')">🇬🇧 English</button>
-        <button id="lang-pt" onclick="setLanguage('pt')">🇧🇷 Português</button>
+        <button id="lang-es" onclick="setLanguage('es')" class="active">ES Español</button>
+        <button id="lang-en" onclick="setLanguage('en')">EN English</button>
+        <button id="lang-pt" onclick="setLanguage('pt')">PT Português</button>
+      </div>
+    </div>
+
+    <!-- Temperature Unit -->
+    <div class="settings-group">
+      <div class="settings-label" data-i18n="settings.tempUnit">Temperatura</div>
+      <div class="settings-options">
+        <button id="tu-C" onclick="setTempUnit('C')" class="active">°C</button>
+        <button id="tu-F" onclick="setTempUnit('F')">°F</button>
       </div>
     </div>
 
@@ -533,8 +733,8 @@ button{cursor:pointer;border:none;background:none;}
     <div class="settings-group">
       <div class="settings-label" data-i18n="settings.alarms">Alarmas</div>
       <div class="settings-options">
-        <button id="pref-sound" onclick="toggleAlarmPref('sound')" class="active">Sonido</button>
-        <button id="pref-vibration" onclick="toggleAlarmPref('vibration')" class="active">Vibración</button>
+        <button id="pref-sound" onclick="toggleAlarmPref('sound')" class="active" data-i18n="settings.sound">Sonido</button>
+        <button id="pref-vibration" onclick="toggleAlarmPref('vibration')" class="active" data-i18n="settings.vibration">Vibracion</button>
       </div>
     </div>
 
@@ -602,7 +802,7 @@ button{cursor:pointer;border:none;background:none;}
           <input class="field-input" id="rec-coffee" type="number" placeholder="20" oninput="updateRatio()"/>
         </div>
         <div class="form-group" style="flex:1;">
-          <label class="field-label">Agua (ml)</label>
+          <label class="field-label" data-i18n="form.water">Agua (g)</label>
           <input class="field-input" id="rec-water" type="number" placeholder="300" oninput="updateRatio()"/>
         </div>
       </div>
@@ -633,8 +833,8 @@ button{cursor:pointer;border:none;background:none;}
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeRecipeModal()">Cancelar</button>
-      <button class="btn-primary" onclick="saveRecipeModal()">Guardar</button>
+      <button class="btn-secondary" onclick="closeRecipeModal()" data-i18n="action.cancel">Cancelar</button>
+      <button class="btn-primary" onclick="saveRecipeModal()" data-i18n="action.save">Guardar</button>
     </div>
   </div>
 </div>
@@ -646,7 +846,7 @@ button{cursor:pointer;border:none;background:none;}
     <div style="font-size:13px;color:var(--text2);margin-bottom:16px;" data-i18n="store.description">Recetas curadas de baristas reconocidos</div>
     <div id="store-grid" class="store-grid"></div>
     <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeStoreModal()" style="width:100%;">Cerrar</button>
+      <button class="btn-secondary" onclick="closeStoreModal()" style="width:100%;" data-i18n="action.close">Cerrar</button>
     </div>
   </div>
 </div>
@@ -656,11 +856,28 @@ button{cursor:pointer;border:none;background:none;}
   <div class="modal-sheet">
     <div class="modal-title">Brew Completado</div>
     <div style="padding:16px;text-align:center;">
-      <div style="font-size:48px;margin-bottom:12px;">✓</div>
-      <div style="font-size:18px;font-weight:600;margin-bottom:16px;">Brew terminado</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:8px;" data-i18n="brew.complete">Brew terminado</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;" data-i18n="brew.howTaste">¿Cómo sabe tu café?</div>
+
+      <!-- Flavor Diagnosis -->
+      <div class="flavor-grid" id="flavor-grid">
+        <button class="flavor-btn" onclick="selectFlavor('bitter')">
+          <span data-i18n="flavor.bitter">Amargo</span>
+        </button>
+        <button class="flavor-btn" onclick="selectFlavor('sour')">
+          <span data-i18n="flavor.sour">Ácido</span>
+        </button>
+        <button class="flavor-btn" onclick="selectFlavor('watery')">
+          <span data-i18n="flavor.watery">Aguado</span>
+        </button>
+        <button class="flavor-btn" onclick="selectFlavor('perfect')">
+          <span data-i18n="flavor.perfect">Perfecto</span>
+        </button>
+      </div>
+      <div class="flavor-advice" id="flavor-advice"></div>
 
       <div style="margin:20px 0;">
-        <label class="field-label">Puntuacion (1-5)</label>
+        <label class="field-label" data-i18n="brew.rating">Puntuacion (1-5)</label>
         <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;" id="rating-stars">
           <button onclick="setBrewRating(1)" class="star-btn" data-star="1">☆</button>
           <button onclick="setBrewRating(2)" class="star-btn" data-star="2">☆</button>
@@ -672,12 +889,12 @@ button{cursor:pointer;border:none;background:none;}
 
       <div style="margin:16px 0;">
         <label class="field-label">Notas (opcional)</label>
-        <textarea class="field-input" id="brew-notes" placeholder="Como salio?" rows="3"></textarea>
+        <textarea class="field-input" id="brew-notes" placeholder="Como salio?" rows="3" data-i18n-placeholder="brew.notesPlaceholder"></textarea>
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeBrewComplete()">Descartar</button>
-      <button class="btn-primary" onclick="saveBrewLog()">Guardar</button>
+      <button class="btn-secondary" onclick="closeBrewComplete()" data-i18n="action.discard">Descartar</button>
+      <button class="btn-primary" onclick="saveBrewLog()" data-i18n="action.save">Guardar</button>
     </div>
   </div>
 </div>
@@ -702,6 +919,8 @@ const TRANSLATIONS = {
     'recipe.difficulty': 'Dificultad',
     'recipe.time': 'Tiempo',
     'recipe.start': 'Iniciar',
+    'recipe.pause': 'Pausar',
+    'recipe.resume': 'Reanudar',
     'settings.theme': 'Tema',
     'settings.language': 'Idioma',
     'settings.alarms': 'Alarmas',
@@ -738,6 +957,48 @@ const TRANSLATIONS = {
     'settings.data': 'Datos de Recetas',
     'toast.recipeAdded': 'Receta agregada a tu colección',
     'toast.recipeAlreadyAdded': 'Esta receta ya está en tu colección',
+    'prep.title': 'Prepara todo antes de empezar',
+    'prep.heatWater': 'Calentar agua a',
+    'prep.weighCoffee': 'Pesar café:',
+    'prep.grindCoffee': 'Moler café',
+    'prep.grindDefault': 'Medio (~600μm)',
+    'prep.wetFilter': 'Pre-mojar filtro con agua caliente',
+    'prep.prepareWater': 'Tener listos',
+    'prep.ofWater': 'de agua',
+    'step.label': 'Paso',
+    'step.of': 'de',
+    'step.next': 'Siguiente',
+    'brew.ready': 'Listo para preparar',
+    'brew.howTaste': '¿Cómo sabe tu café?',
+    'flavor.bitter': 'Amargo',
+    'flavor.sour': 'Ácido',
+    'flavor.watery': 'Aguado',
+    'flavor.perfect': 'Perfecto',
+    'step.prev': 'Anterior',
+    'nav.backRecipes': 'Volver a Recetas',
+    'action.cancel': 'Cancelar',
+    'action.save': 'Guardar',
+    'action.discard': 'Descartar',
+    'action.close': 'Cerrar',
+    'recipe.use': 'Usar Receta',
+    'toast.nameRequired': 'Nombre requerido',
+    'toast.addStep': 'Agregar al menos un paso',
+    'toast.recipeSaved': 'Receta guardada',
+    'toast.recipeDeleted': 'Receta eliminada',
+    'toast.brewSaved': 'Brew guardado en historial',
+    'toast.imported': 'Importados',
+    'toast.importError': 'Error al importar',
+    'confirm.deleteRecipe': 'Eliminar esta receta?',
+    'settings.title': 'Configuracion',
+    'settings.sound': 'Sonido',
+    'settings.vibration': 'Vibracion',
+    'form.notes': 'Notas adicionales...',
+    'form.action': 'Accion',
+    'form.description': 'Descripcion',
+    'form.water': 'Agua (g)',
+    'form.noSwirl': 'Sin Swirl',
+    'brew.notesPlaceholder': 'Como salio?',
+    'settings.tempUnit': 'Temperatura',
   },
   en: {
     'nav.recipes': 'Recipes',
@@ -748,6 +1009,8 @@ const TRANSLATIONS = {
     'recipe.difficulty': 'Difficulty',
     'recipe.time': 'Time',
     'recipe.start': 'Start',
+    'recipe.pause': 'Pause',
+    'recipe.resume': 'Resume',
     'settings.theme': 'Theme',
     'settings.language': 'Language',
     'settings.alarms': 'Alarms',
@@ -784,6 +1047,48 @@ const TRANSLATIONS = {
     'settings.data': 'Recipe Data',
     'toast.recipeAdded': 'Recipe added to your collection',
     'toast.recipeAlreadyAdded': 'This recipe is already in your collection',
+    'prep.title': 'Get everything ready before starting',
+    'prep.heatWater': 'Heat water to',
+    'prep.weighCoffee': 'Weigh coffee:',
+    'prep.grindCoffee': 'Grind coffee',
+    'prep.grindDefault': 'Medium (~600μm)',
+    'prep.wetFilter': 'Pre-wet filter with hot water',
+    'prep.prepareWater': 'Have ready',
+    'prep.ofWater': 'of water',
+    'step.label': 'Step',
+    'step.of': 'of',
+    'step.next': 'Next',
+    'brew.ready': 'Ready to brew',
+    'brew.howTaste': 'How does your coffee taste?',
+    'flavor.bitter': 'Bitter',
+    'flavor.sour': 'Sour',
+    'flavor.watery': 'Watery',
+    'flavor.perfect': 'Perfect',
+    'step.prev': 'Previous',
+    'nav.backRecipes': 'Back to Recipes',
+    'action.cancel': 'Cancel',
+    'action.save': 'Save',
+    'action.discard': 'Discard',
+    'action.close': 'Close',
+    'recipe.use': 'Use Recipe',
+    'toast.nameRequired': 'Name is required',
+    'toast.addStep': 'Add at least one step',
+    'toast.recipeSaved': 'Recipe saved',
+    'toast.recipeDeleted': 'Recipe deleted',
+    'toast.brewSaved': 'Brew saved to history',
+    'toast.imported': 'Imported',
+    'toast.importError': 'Import error',
+    'confirm.deleteRecipe': 'Delete this recipe?',
+    'settings.title': 'Settings',
+    'settings.sound': 'Sound',
+    'settings.vibration': 'Vibration',
+    'form.notes': 'Additional notes...',
+    'form.action': 'Action',
+    'form.description': 'Description',
+    'form.water': 'Water (g)',
+    'form.noSwirl': 'No Swirl',
+    'brew.notesPlaceholder': 'How did it turn out?',
+    'settings.tempUnit': 'Temperature',
   },
   pt: {
     'nav.recipes': 'Receitas',
@@ -794,6 +1099,8 @@ const TRANSLATIONS = {
     'recipe.difficulty': 'Dificuldade',
     'recipe.time': 'Tempo',
     'recipe.start': 'Iniciar',
+    'recipe.pause': 'Pausar',
+    'recipe.resume': 'Retomar',
     'settings.theme': 'Tema',
     'settings.language': 'Idioma',
     'settings.alarms': 'Alarmes',
@@ -830,6 +1137,48 @@ const TRANSLATIONS = {
     'settings.data': 'Dados de Receitas',
     'toast.recipeAdded': 'Receita adicionada à sua coleção',
     'toast.recipeAlreadyAdded': 'Esta receita já está na sua coleção',
+    'prep.title': 'Prepare tudo antes de começar',
+    'prep.heatWater': 'Aquecer água a',
+    'prep.weighCoffee': 'Pesar café:',
+    'prep.grindCoffee': 'Moer café',
+    'prep.grindDefault': 'Médio (~600μm)',
+    'prep.wetFilter': 'Molhar filtro com água quente',
+    'prep.prepareWater': 'Ter prontos',
+    'prep.ofWater': 'de água',
+    'step.label': 'Passo',
+    'step.of': 'de',
+    'step.next': 'Próximo',
+    'brew.ready': 'Pronto para preparar',
+    'brew.howTaste': 'Como ficou seu café?',
+    'flavor.bitter': 'Amargo',
+    'flavor.sour': 'Ácido',
+    'flavor.watery': 'Aguado',
+    'flavor.perfect': 'Perfeito',
+    'step.prev': 'Anterior',
+    'nav.backRecipes': 'Voltar para Receitas',
+    'action.cancel': 'Cancelar',
+    'action.save': 'Salvar',
+    'action.discard': 'Descartar',
+    'action.close': 'Fechar',
+    'recipe.use': 'Usar Receita',
+    'toast.nameRequired': 'Nome obrigatorio',
+    'toast.addStep': 'Adicionar pelo menos um passo',
+    'toast.recipeSaved': 'Receita salva',
+    'toast.recipeDeleted': 'Receita deletada',
+    'toast.brewSaved': 'Cafe salvo no historico',
+    'toast.imported': 'Importados',
+    'toast.importError': 'Erro ao importar',
+    'confirm.deleteRecipe': 'Deletar esta receita?',
+    'settings.title': 'Configuracoes',
+    'settings.sound': 'Som',
+    'settings.vibration': 'Vibracao',
+    'form.notes': 'Notas adicionais...',
+    'form.action': 'Acao',
+    'form.description': 'Descricao',
+    'form.water': 'Agua (g)',
+    'form.noSwirl': 'Sem Swirl',
+    'brew.notesPlaceholder': 'Como ficou?',
+    'settings.tempUnit': 'Temperatura',
   }
 };
 
@@ -842,6 +1191,7 @@ function t(key) {
 // =====================================================================
 let currentLang = localStorage.getItem('lang') || 'es';
 let currentTheme = localStorage.getItem('theme') || 'auto';
+let tempUnit = localStorage.getItem('tempUnit') || 'C';
 let alarmPrefs = JSON.parse(localStorage.getItem('alarmPrefs') || '{"sound":true,"vibration":true}');
 
 let recipes = [];
@@ -864,7 +1214,7 @@ const STARTER_RECIPES = [
     id: 1,
     name: 'V60 Clásico',
     creator: 'Roaring Lion',
-    description: 'Método equilibrado para todo tipo de cafés',
+    description: {es: 'Método equilibrado para todo tipo de cafés', en: 'Balanced method for all coffee types', pt: 'Método equilibrado para todos os tipos de café'},
     method: 'V60',
     difficulty: 'beginner',
     brewTime: 240,
@@ -872,47 +1222,52 @@ const STARTER_RECIPES = [
     waterAmount: 300,
     waterTemp: 95,
     ratio: '1:15',
-    notes: 'Técnica versátil y consistente',
+    grindSize: {es: 'Medio-fino (~500μm)', en: 'Medium-fine (~500μm)', pt: 'Médio-fino (~500μm)'},
+    notes: {es: 'Técnica versátil y consistente', en: 'Versatile and consistent technique', pt: 'Técnica versátil e consistente'},
     steps: [
       {
         id: 1,
         timeFrom: 0,
         timeTo: 45,
         action: 'Bloom',
-        description: 'Vierte agua lentamente para saturar el café',
+        description: {es: 'Vierte agua lentamente para saturar el café', en: 'Pour water slowly to saturate the coffee', pt: 'Despeje água lentamente para saturar o café'},
         amount: 60,
         swirl: null,
-        temperature: 95
+        temperature: 95,
+        tip: { es: 'El bloom libera CO₂ atrapado en el café. Sin bloom, el gas repele el agua y la extracción queda despareja.', en: 'The bloom releases trapped CO₂ from the coffee. Without blooming, the gas repels water and extraction becomes uneven.', pt: 'O bloom libera o CO₂ preso no café. Sem bloom, o gás repele a água e a extração fica irregular.' }
       },
       {
         id: 2,
         timeFrom: 45,
         timeTo: 90,
         action: 'First Pour',
-        description: 'Primer vertido principal',
+        description: {es: 'Primer vertido principal', en: 'First main pour', pt: 'Primeiro despejo principal'},
         amount: 100,
         swirl: { type: 'circular-cw', intensity: 'gentle', duration: 5 },
-        temperature: 95
+        temperature: 95,
+        tip: { es: 'Vierte en círculos desde el centro hacia afuera. Esto moja todos los granos de manera pareja para una extracción uniforme.', en: 'Pour in circles from center outward. This wets all grounds evenly for uniform extraction.', pt: 'Despeje em círculos do centro para fora. Isso molha todos os grãos de maneira uniforme para uma extração homogênea.' }
       },
       {
         id: 3,
         timeFrom: 90,
         timeTo: 150,
         action: 'Second Pour',
-        description: 'Segundo vertido',
+        description: {es: 'Segundo vertido', en: 'Second pour', pt: 'Segundo despejo'},
         amount: 80,
         swirl: null,
-        temperature: 95
+        temperature: 95,
+        tip: { es: 'Mantén un flujo constante y suave. Si viertes muy fuerte, creas canales por donde el agua pasa sin extraer sabor.', en: 'Keep a steady, gentle flow. Pouring too hard creates channels where water passes without extracting flavor.', pt: 'Mantenha um fluxo constante e suave. Se despejar com muita força, cria canais por onde a água passa sem extrair sabor.' }
       },
       {
         id: 4,
         timeFrom: 150,
         timeTo: 240,
         action: 'Final Pour & Drain',
-        description: 'Vertido final, deja que drene completamente',
+        description: {es: 'Vertido final, deja que drene completamente', en: 'Final pour, let it drain completely', pt: 'Despejo final, deixe drenar completamente'},
         amount: 60,
         swirl: { type: 'circular-ccw', intensity: 'medium', duration: 3 },
-        temperature: 95
+        temperature: 95,
+        tip: { es: 'El drenaje ideal toma 30-60s. Si drena muy rápido → muele más fino. Si tarda más de 4 min → muele más grueso.', en: 'Ideal drain takes 30-60s. If it drains too fast → grind finer. If it takes over 4 min → grind coarser.', pt: 'A drenagem ideal leva 30-60s. Se drenar rápido demais → moa mais fino. Se demorar mais de 4 min → moa mais grosso.' }
       }
     ]
   },
@@ -920,7 +1275,7 @@ const STARTER_RECIPES = [
     id: 2,
     name: 'V60 Hoffmann',
     creator: 'James Hoffmann',
-    description: 'Método popular de James Hoffmann',
+    description: {es: 'Método popular de James Hoffmann', en: 'Popular James Hoffmann method', pt: 'Método popular de James Hoffmann'},
     method: 'V60',
     difficulty: 'intermediate',
     brewTime: 280,
@@ -928,37 +1283,41 @@ const STARTER_RECIPES = [
     waterAmount: 500,
     waterTemp: 90,
     ratio: '1:16.5',
-    notes: 'Técnica refinada con resultados predecibles',
+    grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
+    notes: {es: 'Técnica refinada con resultados predecibles', en: 'Refined technique with predictable results', pt: 'Técnica refinada com resultados previsíveis'},
     steps: [
       {
         id: 1,
         timeFrom: 0,
         timeTo: 45,
         action: 'Bloom',
-        description: 'Bloom de 45 segundos',
+        description: {es: 'Bloom de 45 segundos', en: '45-second bloom', pt: 'Bloom de 45 segundos'},
         amount: 80,
         swirl: null,
-        temperature: 90
+        temperature: 90,
+        tip: { es: 'Hoffmann usa un bloom largo para asegurar que todo el CO₂ escape. Esto mejora la consistencia del resultado.', en: 'Hoffmann uses a long bloom to ensure all CO₂ escapes. This improves result consistency.', pt: 'Hoffmann usa um bloom longo para garantir que todo o CO₂ escape. Isso melhora a consistência do resultado.' }
       },
       {
         id: 2,
         timeFrom: 45,
         timeTo: 150,
         action: 'Main Pour',
-        description: 'Vertido principal hasta 300ml total',
+        description: {es: 'Vertido principal hasta 300ml total', en: 'Main pour to 300ml total', pt: 'Despejo principal até 300ml total'},
         amount: 220,
         swirl: { type: 'figure8', intensity: 'gentle', duration: 10 },
-        temperature: 90
+        temperature: 90,
+        tip: { es: 'El patrón en figura 8 agita los granos suavemente, evitando que se compacten y mejorando la extracción.', en: 'The figure-8 pattern gently agitates the grounds, preventing compaction and improving extraction.', pt: 'O padrão em figura 8 agita os grãos suavemente, evitando que se compactem e melhorando a extração.' }
       },
       {
         id: 3,
         timeFrom: 150,
         timeTo: 280,
         action: 'Final Pour & Draw Down',
-        description: 'Vertido final, deja que termine el drenaje',
+        description: {es: 'Vertido final, deja que termine el drenaje', en: 'Final pour, let it finish draining', pt: 'Despejo final, deixe terminar a drenagem'},
         amount: 200,
         swirl: null,
-        temperature: 90
+        temperature: 90,
+        tip: { es: 'Un pequeño swirl al final nivela la cama de café. Una cama plana = extracción uniforme = mejor sabor.', en: 'A gentle swirl at the end levels the coffee bed. A flat bed = uniform extraction = better flavor.', pt: 'Um pequeno swirl no final nivela a cama de café. Uma cama plana = extração uniforme = melhor sabor.' }
       }
     ]
   }
@@ -969,105 +1328,113 @@ const STORE_RECIPES = [
     id: 9001, name: '4:6 Method', creator: 'Tetsu Kasuya',
     description: 'World Brewers Cup winning method. Split brew into 40% (flavor) and 60% (strength) phases.',
     method: 'V60', difficulty: 'intermediate', brewTime: 210, coffeeAmount: 20, waterAmount: 300, waterTemp: 92, ratio: '1:15',
+    grindSize: {es: 'Grueso (~800μm)', en: 'Coarse (~800μm)', pt: 'Grosso (~800μm)'},
     notes: '2016 World Brewers Cup Champion technique. Coarse grind. First 2 pours control sweetness vs acidity, last 3 control strength.',
     sourceUrl: 'https://www.youtube.com/watch?v=wmCW8xSWGZY',
     steps: [
-      { id:1, timeFrom:0, timeTo:45, action:'First Pour (40%)', description:'Pour 50ml. More water = sweeter, less = brighter.', amount:50, swirl:null, temperature:92 },
-      { id:2, timeFrom:45, timeTo:90, action:'Second Pour (40%)', description:'Pour 70ml to reach 120ml total (40% of 300ml).', amount:70, swirl:null, temperature:92 },
-      { id:3, timeFrom:90, timeTo:130, action:'Third Pour (60%)', description:'Pour 60ml. These pours control body/strength.', amount:60, swirl:null, temperature:92 },
-      { id:4, timeFrom:130, timeTo:170, action:'Fourth Pour (60%)', description:'Pour 60ml.', amount:60, swirl:null, temperature:92 },
-      { id:5, timeFrom:170, timeTo:210, action:'Fifth Pour & Drain', description:'Pour final 60ml, let drain completely.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:92 }
+      { id:1, timeFrom:0, timeTo:45, action:'First Pour (40%)', description:'Pour 50ml. More water = sweeter, less = brighter.', amount:50, swirl:null, temperature:92, tip:{ es: 'El primer 40% controla el balance de sabor. Más agua aquí = taza más dulce. Menos = más brillante/ácida.', en: 'The first 40% controls flavor balance. More water here = sweeter cup. Less = brighter/acidic.', pt: 'Os primeiros 40% controlam o balanço de sabor. Mais água aqui = xícara mais doce. Menos = mais brilhante/ácida.' } },
+      { id:2, timeFrom:45, timeTo:90, action:'Second Pour (40%)', description:'Pour 70ml to reach 120ml total (40% of 300ml).', amount:70, swirl:null, temperature:92, tip:{ es: 'Esto completa la fase de sabor. Junto con el vertido 1, has definido el perfil de sabor.', en: 'This completes the flavor phase. Together with pour 1, you\'ve defined the taste profile.', pt: 'Isso completa a fase de sabor. Junto com o despejo 1, você definiu o perfil de sabor.' } },
+      { id:3, timeFrom:90, timeTo:130, action:'Third Pour (60%)', description:'Pour 60ml. These pours control body/strength.', amount:60, swirl:null, temperature:92, tip:{ es: 'El último 60% controla la fuerza y el cuerpo. Vertidos iguales = cuerpo equilibrado.', en: 'The last 60% controls strength and body. Equal pours = balanced body.', pt: 'Os últimos 60% controlam força e corpo. Despejos iguais = corpo equilibrado.' } },
+      { id:4, timeFrom:130, timeTo:170, action:'Fourth Pour (60%)', description:'Pour 60ml.', amount:60, swirl:null, temperature:92, tip:{ es: 'Mantén cada vertido consistente en velocidad y altura para una extracción uniforme.', en: 'Keep each pour consistent in speed and height for even extraction.', pt: 'Mantenha cada despejo consistente em velocidade e altura para uma extração uniforme.' } },
+      { id:5, timeFrom:170, timeTo:210, action:'Fifth Pour & Drain', description:'Pour final 60ml, let drain completely.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:92, tip:{ es: 'Un suave swirl al final nivela la cama de café para un acabado limpio.', en: 'A gentle swirl at the end levels the coffee bed for a clean finish.', pt: 'Um suave swirl no final nivela a cama de café para um acabamento limpo.' } }
     ]
   },
   {
     id: 9002, name: 'V60 Ultimate', creator: 'Scott Rao',
     description: 'Single continuous pour with Rao spin for even extraction.',
     method: 'V60', difficulty: 'intermediate', brewTime: 210, coffeeAmount: 22, waterAmount: 360, waterTemp: 96, ratio: '1:16.4',
+    grindSize: {es: 'Medio-fino (~500μm)', en: 'Medium-fine (~500μm)', pt: 'Médio-fino (~500μm)'},
     notes: 'Medium-fine grind. One continuous pour after bloom. Gentle swirl (Rao spin) after each pour.',
     sourceUrl: 'https://www.youtube.com/watch?v=c0Qe_ASz_l8',
     steps: [
-      { id:1, timeFrom:0, timeTo:45, action:'Bloom + Swirl', description:'Pour 66ml (3x coffee weight). Gentle swirl to saturate all grounds.', amount:66, swirl:{type:'circular-cw',intensity:'gentle',duration:5}, temperature:96 },
-      { id:2, timeFrom:45, timeTo:120, action:'Main Pour', description:'Single continuous pour in concentric circles to 360ml total.', amount:294, swirl:{type:'circular-cw',intensity:'medium',duration:10}, temperature:96 },
-      { id:3, timeFrom:120, timeTo:210, action:'Rao Spin & Drain', description:'Gentle swirl of the V60 dripper, then let it drain completely.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:96 }
+      { id:1, timeFrom:0, timeTo:45, action:'Bloom + Swirl', description:'Pour 66ml (3x coffee weight). Gentle swirl to saturate all grounds.', amount:66, swirl:{type:'circular-cw',intensity:'gentle',duration:5}, temperature:96, tip:{ es: '3x el peso del café es la proporción ideal de bloom. El swirl asegura que no queden zonas secas.', en: '3x coffee weight is the ideal bloom ratio. The swirl ensures no dry pockets remain.', pt: '3x o peso do café é a proporção ideal de bloom. O swirl garante que não restem zonas secas.' } },
+      { id:2, timeFrom:45, timeTo:120, action:'Main Pour', description:'Single continuous pour in concentric circles to 360ml total.', amount:294, swirl:{type:'circular-cw',intensity:'medium',duration:10}, temperature:96, tip:{ es: 'Un vertido continuo mantiene la temperatura estable. Los círculos concéntricos aseguran saturación uniforme.', en: 'One continuous pour keeps the temperature stable. Concentric circles ensure even saturation.', pt: 'Um despejo contínuo mantém a temperatura estável. Círculos concêntricos garantem saturação uniforme.' } },
+      { id:3, timeFrom:120, timeTo:210, action:'Rao Spin & Drain', description:'Gentle swirl of the V60 dripper, then let it drain completely.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:96, tip:{ es: 'El "Rao Spin" despega los granos sueltos de las paredes y aplana la cama para un drenaje uniforme.', en: 'The "Rao Spin" knocks loose grounds off the walls and flattens the bed for even drainage.', pt: 'O "Rao Spin" solta os grãos das paredes e aplana a cama para uma drenagem uniforme.' } }
     ]
   },
   {
     id: 9003, name: 'April Brewing V60', creator: 'Patrik Rolf',
     description: 'Light roast focused. Multiple small pours for clarity and sweetness.',
     method: 'V60', difficulty: 'advanced', brewTime: 210, coffeeAmount: 15, waterAmount: 250, waterTemp: 96, ratio: '1:16.7',
+    grindSize: {es: 'Fino (~400μm)', en: 'Fine (~400μm)', pt: 'Fino (~400μm)'},
     notes: 'Designed for light roasts. Use fine grind. Multiple small pours prevent channeling.',
     sourceUrl: 'https://www.youtube.com/watch?v=otk2jFRCcmg',
     steps: [
-      { id:1, timeFrom:0, timeTo:35, action:'Bloom', description:'Pour 50ml gently and let bloom.', amount:50, swirl:null, temperature:96 },
-      { id:2, timeFrom:35, timeTo:70, action:'Second Pour', description:'Pour 50ml in center.', amount:50, swirl:null, temperature:96 },
-      { id:3, timeFrom:70, timeTo:105, action:'Third Pour', description:'Pour 50ml in center.', amount:50, swirl:null, temperature:96 },
-      { id:4, timeFrom:105, timeTo:140, action:'Fourth Pour', description:'Pour 50ml in center.', amount:50, swirl:null, temperature:96 },
-      { id:5, timeFrom:140, timeTo:210, action:'Final Pour & Drain', description:'Pour last 50ml, let drain fully.', amount:50, swirl:{type:'circular-cw',intensity:'gentle',duration:2}, temperature:96 }
+      { id:1, timeFrom:0, timeTo:35, action:'Bloom', description:'Pour 50ml gently and let bloom.', amount:50, swirl:null, temperature:96, tip:{ es: 'Para tuestes claros, usa agua más caliente (96°C+) para descomponer la estructura más densa del grano.', en: 'For light roasts, use hotter water (96°C+) to break down the denser bean structure.', pt: 'Para torras claras, use água mais quente (96°C+) para quebrar a estrutura mais densa do grão.' } },
+      { id:2, timeFrom:35, timeTo:70, action:'Second Pour', description:'Pour 50ml in center.', amount:50, swirl:null, temperature:96, tip:{ es: 'Los vertidos al centro minimizan la agitación — ideal para tuestes claros delicados que se sobreextraen fácilmente.', en: 'Center pours minimize agitation — ideal for delicate light roasts that can over-extract easily.', pt: 'Despejos no centro minimizam a agitação — ideal para torras claras delicadas que podem sobre-extrair facilmente.' } },
+      { id:3, timeFrom:70, timeTo:105, action:'Third Pour', description:'Pour 50ml in center.', amount:50, swirl:null, temperature:96, tip:{ es: 'Vertidos pequeños y consistentes previenen canales — el agua fluye uniformemente por todos los granos.', en: 'Small consistent pours prevent channeling — water flows evenly through all the grounds.', pt: 'Despejos pequenos e consistentes previnem canais — a água flui uniformemente por todos os grãos.' } },
+      { id:4, timeFrom:105, timeTo:140, action:'Fourth Pour', description:'Pour 50ml in center.', amount:50, swirl:null, temperature:96, tip:{ es: 'Nota cómo el drenaje se acelera? Eso significa que la extracción está casi completa.', en: 'Notice how the draw-down speeds up? That means extraction is nearly complete.', pt: 'Perceba como a drenagem acelera? Isso significa que a extração está quase completa.' } },
+      { id:5, timeFrom:140, timeTo:210, action:'Final Pour & Drain', description:'Pour last 50ml, let drain fully.', amount:50, swirl:{type:'circular-cw',intensity:'gentle',duration:2}, temperature:96, tip:{ es: 'Tiempo total de 3:30 es ideal para esta receta. Más rápido = sub-extraído, más lento = sobre-extraído.', en: 'Total brew time of 3:30 is ideal for this recipe. Faster = under-extracted, slower = over-extracted.', pt: 'Tempo total de 3:30 é ideal para esta receita. Mais rápido = sub-extraído, mais lento = sobre-extraído.' } }
     ]
   },
   {
     id: 9004, name: 'One Pour V60', creator: 'Matt Winton',
     description: 'Minimalist single-pour technique. Simple, fast, consistent.',
     method: 'V60', difficulty: 'beginner', brewTime: 180, coffeeAmount: 15, waterAmount: 250, waterTemp: 93, ratio: '1:16.7',
+    grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
     notes: 'No pulse pours. One continuous pour after bloom. Great for beginners.',
     sourceUrl: 'https://www.youtube.com/watch?v=AI4ynXzkSQo',
     steps: [
-      { id:1, timeFrom:0, timeTo:40, action:'Bloom', description:'Pour 45ml, gentle swirl.', amount:45, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:93 },
-      { id:2, timeFrom:40, timeTo:100, action:'Single Pour', description:'Pour remaining 205ml in slow concentric circles.', amount:205, swirl:{type:'circular-cw',intensity:'medium',duration:8}, temperature:93 },
-      { id:3, timeFrom:100, timeTo:180, action:'Drain', description:'Let coffee drain completely. Gentle swirl at start.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:2}, temperature:93 }
+      { id:1, timeFrom:0, timeTo:40, action:'Bloom', description:'Pour 45ml, gentle swirl.', amount:45, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:93, tip:{ es: 'Lo simple es efectivo! Un bloom + un vertido = menos variables = resultados más consistentes.', en: 'Simple is effective! One bloom + one pour = fewer variables = more consistent results.', pt: 'Simples é eficaz! Um bloom + um despejo = menos variáveis = resultados mais consistentes.' } },
+      { id:2, timeFrom:40, timeTo:100, action:'Single Pour', description:'Pour remaining 205ml in slow concentric circles.', amount:205, swirl:{type:'circular-cw',intensity:'medium',duration:8}, temperature:93, tip:{ es: 'Mantén el nivel de agua estable — no dejes que suba mucho ni baje demasiado en el dripper.', en: 'Keep the water level steady — don\'t let it rise too high or drop too low in the dripper.', pt: 'Mantenha o nível de água estável — não deixe subir muito nem baixar demais no dripper.' } },
+      { id:3, timeFrom:100, timeTo:180, action:'Drain', description:'Let coffee drain completely. Gentle swirl at start.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:2}, temperature:93, tip:{ es: 'Observa las últimas gotas: ámbar claro = buena extracción. Oscuro/turbio = molienda muy fina.', en: 'Watch the final drops: light amber = good extraction. Dark/muddy = too fine grind.', pt: 'Observe as últimas gotas: âmbar claro = boa extração. Escuro/turvo = moagem muito fina.' } }
     ]
   },
   {
     id: 9005, name: 'Osmotic Flow', creator: 'Jonathan Gagne',
     description: 'Blooming with bypass. Maximizes extraction clarity through osmotic pressure.',
     method: 'V60', difficulty: 'advanced', brewTime: 300, coffeeAmount: 20, waterAmount: 330, waterTemp: 100, ratio: '1:16.5',
+    grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
     notes: 'Use boiling water. Long bloom leverages osmotic pressure for high extraction without bitterness.',
     sourceUrl: 'https://coffeeadastra.com/2019/07/16/why-blooming-is-important/',
     steps: [
-      { id:1, timeFrom:0, timeTo:120, action:'Extended Bloom', description:'Pour 60ml at boiling. Wait a full 2 minutes.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:100 },
-      { id:2, timeFrom:120, timeTo:180, action:'Main Pour', description:'Pour 170ml in slow concentric circles.', amount:170, swirl:{type:'figure8',intensity:'gentle',duration:8}, temperature:100 },
-      { id:3, timeFrom:180, timeTo:240, action:'Final Pour', description:'Pour remaining 100ml gently.', amount:100, swirl:null, temperature:100 },
-      { id:4, timeFrom:240, timeTo:300, action:'Drain', description:'Let drain completely. Total time ~5 minutes.', amount:0, swirl:null, temperature:100 }
+      { id:1, timeFrom:0, timeTo:120, action:'Extended Bloom', description:'Pour 60ml at boiling. Wait a full 2 minutes.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:100, tip:{ es: 'El bloom de 2 min usa presión osmótica — el agua penetra lentamente las células extrayendo sabores profundos sin agitación.', en: 'The 2-min bloom uses osmotic pressure — water slowly penetrates the cells extracting deep flavors without agitation.', pt: 'O bloom de 2 min usa pressão osmótica — a água penetra lentamente as células extraindo sabores profundos sem agitação.' } },
+      { id:2, timeFrom:120, timeTo:180, action:'Main Pour', description:'Pour 170ml in slow concentric circles.', amount:170, swirl:{type:'figure8',intensity:'gentle',duration:8}, temperature:100, tip:{ es: 'El agua hirviendo (100°C) es segura aquí porque el bloom largo ya liberó los compuestos ásperos.', en: 'Boiling water (100°C) is safe here because the long bloom already released harsh compounds.', pt: 'A água fervente (100°C) é segura aqui porque o bloom longo já liberou os compostos ásperos.' } },
+      { id:3, timeFrom:180, timeTo:240, action:'Final Pour', description:'Pour remaining 100ml gently.', amount:100, swirl:null, temperature:100, tip:{ es: 'Un vertido final suave evita perturbar la cama de café formada durante el bloom extendido.', en: 'Gentle final pour prevents disturbing the coffee bed that formed during the extended bloom.', pt: 'Um despejo final suave evita perturbar a cama de café formada durante o bloom estendido.' } },
+      { id:4, timeFrom:240, timeTo:300, action:'Drain', description:'Let drain completely. Total time ~5 minutes.', amount:0, swirl:null, temperature:100, tip:{ es: '5 min en total es normal para este método. La alta extracción da una taza muy dulce y limpia.', en: '5 min total is normal for this method. The high extraction gives a very sweet, clean cup.', pt: '5 min no total é normal para este método. A alta extração dá uma xícara muito doce e limpa.' } }
     ]
   },
   {
     id: 9006, name: 'Ice V60 (Japanese)', creator: 'Tetsu Kasuya',
     description: 'Japanese iced coffee method. Brew hot directly over ice.',
     method: 'V60', difficulty: 'intermediate', brewTime: 180, coffeeAmount: 20, waterAmount: 200, waterTemp: 92, ratio: '1:15',
+    grindSize: {es: 'Medio-fino (~450μm)', en: 'Medium-fine (~450μm)', pt: 'Médio-fino (~450μm)'},
     notes: 'Place 100g ice in server. Brew 200ml hot water over 20g coffee. Total liquid = 300ml. Use slightly finer grind.',
     sourceUrl: 'https://www.youtube.com/watch?v=PApBycDrPo0',
     steps: [
-      { id:1, timeFrom:0, timeTo:40, action:'Bloom', description:'Pour 40ml over grounds (ice in server below).', amount:40, swirl:null, temperature:92 },
-      { id:2, timeFrom:40, timeTo:80, action:'First Pour', description:'Pour 50ml in concentric circles.', amount:50, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:92 },
-      { id:3, timeFrom:80, timeTo:120, action:'Second Pour', description:'Pour 60ml.', amount:60, swirl:null, temperature:92 },
-      { id:4, timeFrom:120, timeTo:180, action:'Final Pour & Drain', description:'Pour remaining 50ml, let drain over ice.', amount:50, swirl:{type:'circular-ccw',intensity:'gentle',duration:3}, temperature:92 }
+      { id:1, timeFrom:0, timeTo:40, action:'Bloom', description:'Pour 40ml over grounds (ice in server below).', amount:40, swirl:null, temperature:92, tip:{ es: 'Pon 100g de hielo en el servidor PRIMERO. El café caliente gotea directamente sobre el hielo, sellando los sabores brillantes.', en: 'Put 100g of ice in the server FIRST. The hot coffee drips directly onto ice, locking in bright flavors.', pt: 'Coloque 100g de gelo no servidor PRIMEIRO. O café quente goteja diretamente sobre o gelo, selando os sabores brilhantes.' } },
+      { id:2, timeFrom:40, timeTo:80, action:'First Pour', description:'Pour 50ml in concentric circles.', amount:50, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:92, tip:{ es: 'Usamos menos agua de lo normal porque el hielo agrega ~100ml al derretirse. Total = 300ml.', en: 'We use less water than normal because the ice adds ~100ml when it melts. Total = 300ml.', pt: 'Usamos menos água que o normal porque o gelo adiciona ~100ml ao derreter. Total = 300ml.' } },
+      { id:3, timeFrom:80, timeTo:120, action:'Second Pour', description:'Pour 60ml.', amount:60, swirl:null, temperature:92, tip:{ es: 'Una molienda un poco más fina compensa el menor volumen de agua, manteniendo la extracción equilibrada.', en: 'Slightly finer grind compensates for the reduced water volume, keeping extraction balanced.', pt: 'Uma moagem um pouco mais fina compensa o menor volume de água, mantendo a extração equilibrada.' } },
+      { id:4, timeFrom:120, timeTo:180, action:'Final Pour & Drain', description:'Pour remaining 50ml, let drain over ice.', amount:50, swirl:{type:'circular-ccw',intensity:'gentle',duration:3}, temperature:92, tip:{ es: 'Agita el servidor después del drenaje para derretir el hielo restante. Sirve inmediatamente para mejor sabor!', en: 'Swirl the server after draining to melt remaining ice. Serve immediately for best flavor!', pt: 'Agite o servidor após a drenagem para derreter o gelo restante. Sirva imediatamente para melhor sabor!' } }
     ]
   },
   {
     id: 9007, name: 'V60 Switch (Immersion)', creator: 'Hario',
     description: 'Immersion-style brew using V60 Switch. Combines immersion and percolation.',
     method: 'V60 Switch', difficulty: 'beginner', brewTime: 240, coffeeAmount: 20, waterAmount: 300, waterTemp: 95, ratio: '1:15',
+    grindSize: {es: 'Medio-grueso (~700μm)', en: 'Medium-coarse (~700μm)', pt: 'Médio-grosso (~700μm)'},
     notes: 'Close the switch valve first. Steep then release. Very forgiving method.',
     sourceUrl: 'https://www.hario-usa.com/pages/switch-immersion-dripper-recipe',
     steps: [
-      { id:1, timeFrom:0, timeTo:10, action:'Pour All Water', description:'With switch closed, pour all 300ml over 20g coffee.', amount:300, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:95 },
-      { id:2, timeFrom:10, timeTo:120, action:'Steep', description:'Wait 2 minutes. Let coffee steep with valve closed.', amount:0, swirl:null, temperature:95 },
-      { id:3, timeFrom:120, timeTo:130, action:'Stir & Open', description:'Stir gently, then open the switch valve.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:95 },
-      { id:4, timeFrom:130, timeTo:240, action:'Drain', description:'Let coffee drain through the filter.', amount:0, swirl:null, temperature:95 }
+      { id:1, timeFrom:0, timeTo:10, action:'Pour All Water', description:'With switch closed, pour all 300ml over 20g coffee.', amount:300, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:95, tip:{ es: 'El Switch combina inmersión (como French Press) con la claridad del filtro. Método muy indulgente!', en: 'The Switch combines immersion (like French Press) with filter clarity. Very forgiving method!', pt: 'O Switch combina imersão (como French Press) com a clareza do filtro. Método muito tolerante!' } },
+      { id:2, timeFrom:10, timeTo:120, action:'Steep', description:'Wait 2 minutes. Let coffee steep with valve closed.', amount:0, swirl:null, temperature:95, tip:{ es: 'Durante la infusión, todos los granos extraen igual — a diferencia del pour-over donde los de arriba extraen más.', en: 'During steeping, all grounds extract equally — unlike pour-over where top grounds extract more.', pt: 'Durante a infusão, todos os grãos extraem igualmente — diferente do pour-over onde os de cima extraem mais.' } },
+      { id:3, timeFrom:120, timeTo:130, action:'Stir & Open', description:'Stir gently, then open the switch valve.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:95, tip:{ es: 'Un suave revolvido rompe la costra y asegura extracción uniforme antes de que comience el filtrado.', en: 'A gentle stir breaks the crust and ensures even extraction before filtering begins.', pt: 'Uma agitação suave quebra a crosta e garante extração uniforme antes do filtrado começar.' } },
+      { id:4, timeFrom:130, timeTo:240, action:'Drain', description:'Let coffee drain through the filter.', amount:0, swirl:null, temperature:95, tip:{ es: 'El filtro de papel remueve aceites y finos, dándote una taza limpia con cuerpo tipo French Press.', en: 'The paper filter removes oils and fines, giving you a clean cup with French Press-like body.', pt: 'O filtro de papel remove óleos e finos, dando uma xícara limpa com corpo tipo French Press.' } }
     ]
   },
   {
     id: 9008, name: 'The 5-Pour', creator: 'Lance Hedrick',
     description: 'Five equal pours for balanced, sweet extraction. Great for medium roasts.',
     method: 'V60', difficulty: 'intermediate', brewTime: 240, coffeeAmount: 20, waterAmount: 300, waterTemp: 94, ratio: '1:15',
+    grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
     notes: 'Five equal 60ml pours at 30-second intervals. Medium grind. Gentle center pours.',
     sourceUrl: 'https://www.youtube.com/watch?v=1cFnfRXPnqY',
     steps: [
-      { id:1, timeFrom:0, timeTo:30, action:'Pour 1 (Bloom)', description:'Pour 60ml to bloom. Gentle swirl.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:94 },
-      { id:2, timeFrom:30, timeTo:75, action:'Pour 2', description:'Pour 60ml in gentle circles.', amount:60, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:94 },
-      { id:3, timeFrom:75, timeTo:120, action:'Pour 3', description:'Pour 60ml in gentle circles.', amount:60, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:94 },
-      { id:4, timeFrom:120, timeTo:165, action:'Pour 4', description:'Pour 60ml in gentle circles.', amount:60, swirl:null, temperature:94 },
-      { id:5, timeFrom:165, timeTo:240, action:'Pour 5 & Drain', description:'Pour final 60ml, let drain completely.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:2}, temperature:94 }
+      { id:1, timeFrom:0, timeTo:30, action:'Pour 1 (Bloom)', description:'Pour 60ml to bloom. Gentle swirl.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:94, tip:{ es: 'Cinco vertidos iguales hacen este método muy repetible. Misma cantidad cada vez = resultados consistentes.', en: 'Five equal pours make this method very repeatable. Same amount each time = consistent results.', pt: 'Cinco despejos iguais tornam este método muito repetível. Mesma quantidade cada vez = resultados consistentes.' } },
+      { id:2, timeFrom:30, timeTo:75, action:'Pour 2', description:'Pour 60ml in gentle circles.', amount:60, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:94, tip:{ es: 'Espera a que el nivel de agua baje antes de cada nuevo vertido. Esta técnica de pulsos realza la dulzura.', en: 'Wait for the water level to drop before each new pour. This pulse technique enhances sweetness.', pt: 'Espere o nível de água baixar antes de cada novo despejo. Esta técnica de pulsos realça a doçura.' } },
+      { id:3, timeFrom:75, timeTo:120, action:'Pour 3', description:'Pour 60ml in gentle circles.', amount:60, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:94, tip:{ es: 'En el vertido 3, deberías ver una cama de café uniforme formándose — señal de buena técnica!', en: 'By pour 3, you should see a nice even coffee bed forming — a sign of good technique!', pt: 'No despejo 3, você deve ver uma cama de café uniforme se formando — sinal de boa técnica!' } },
+      { id:4, timeFrom:120, timeTo:165, action:'Pour 4', description:'Pour 60ml in gentle circles.', amount:60, swirl:null, temperature:94, tip:{ es: 'Círculos suaves mantienen la cama plana. Evita verter en las paredes del papel — evade el café.', en: 'Gentle circles keep the bed flat. Avoid pouring on the paper walls — it bypasses the coffee.', pt: 'Círculos suaves mantêm a cama plana. Evite despejar nas paredes do papel — isso contorna o café.' } },
+      { id:5, timeFrom:165, timeTo:240, action:'Pour 5 & Drain', description:'Pour final 60ml, let drain completely.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:2}, temperature:94, tip:{ es: 'Tiempo total objetivo: 3:30-4:00. La cama plana en el fondo significa que lo hiciste genial!', en: 'Target total brew time: 3:30-4:00. The flat bed at the bottom means you did great!', pt: 'Tempo total alvo: 3:30-4:00. A cama plana no fundo significa que você mandou bem!' } }
     ]
   }
 ];
@@ -1083,7 +1450,7 @@ function applyTheme() {
   if (currentTheme === 'dark') html.classList.add('theme-dark');
   else if (currentTheme === 'light') html.classList.add('theme-light');
   const btn = document.getElementById('theme-btn');
-  if (btn) btn.textContent = currentTheme === 'dark' ? '☀️' : currentTheme === 'light' ? '🌙' : '⚙️';
+  if (btn) btn.textContent = currentTheme === 'dark' ? 'D' : currentTheme === 'light' ? 'L' : 'A';
   updateThemeButtons();
 }
 
@@ -1115,6 +1482,8 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
   applyTranslations();
   updateLangButtons();
+  const langBtn = document.getElementById('lang-btn');
+  if (langBtn) langBtn.textContent = lang.toUpperCase();
 }
 
 function cycleLang() {
@@ -1160,22 +1529,22 @@ function renderRecipeList() {
   const search = document.getElementById('recipe-search')?.value?.toLowerCase() || '';
   const filtered = recipes.filter(r =>
     r.name.toLowerCase().includes(search) ||
-    r.description.toLowerCase().includes(search)
+    ml(r.description).toLowerCase().includes(search)
   );
 
   const list = document.getElementById('recipe-list');
   list.innerHTML = filtered.map(recipe => `
     <div class="recipe-card">
       <div class="recipe-card-title">${recipe.name}</div>
-      <div class="recipe-card-meta">By ${recipe.creator} • ${recipe.brewTime}s • ${recipe.coffeeAmount}g${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link" title="${t('recipe.viewSource')}">🔗</a>` : ''}</div>
+      <div class="recipe-card-meta">By ${recipe.creator} • ${recipe.brewTime}s • ${recipe.coffeeAmount}g${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link" title="${t('recipe.viewSource')}">[link]</a>` : ''}</div>
       <div class="recipe-card-tags">
         <span class="recipe-tag">${recipe.method}</span>
         <span class="recipe-tag">${recipe.difficulty}</span>
         <span class="recipe-tag">${recipe.ratio}</span>
       </div>
       <div class="recipe-card-actions">
-        <button class="btn-primary" onclick="selectRecipe(${recipe.id})">Usar Receta</button>
-        ${recipe.isCustom ? `<button class="btn-danger btn-sm" onclick="deleteCustomRecipe(${recipe.id})">Eliminar</button>` : ''}
+        <button class="btn-primary" onclick="selectRecipe(${recipe.id})">${t('recipe.use')}</button>
+        ${recipe.isCustom ? `<button class="btn-danger btn-sm" onclick="deleteCustomRecipe(${recipe.id})">${t('recipe.delete')}</button>` : ''}
       </div>
     </div>
   `).join('');
@@ -1193,8 +1562,9 @@ function selectRecipe(id) {
 
   document.getElementById('brew-recipe-info').style.display = 'block';
   document.getElementById('brew-recipe-name').textContent = currentRecipe.name;
-  document.getElementById('brew-recipe-meta').textContent = `${currentRecipe.coffeeAmount}g café • ${currentRecipe.waterAmount}ml agua • ${currentRecipe.waterTemp}°C`;
+  document.getElementById('brew-recipe-meta').textContent = `${currentRecipe.coffeeAmount}g / ${currentRecipe.waterAmount}g / ${displayTemp(currentRecipe.waterTemp)} / ${currentRecipe.ratio}`;
 
+  renderPrepChecklist();
   updateStepDisplay();
   showPage('brew');
 }
@@ -1256,8 +1626,14 @@ function resetBrew() {
   document.getElementById('btn-brew-resume').style.display = 'none';
   document.getElementById('btn-brew-reset').style.display = 'none';
 
+  // Reset progress displays
+  document.getElementById('step-progress').style.display = 'none';
+  document.getElementById('water-progress').style.display = 'none';
+  document.getElementById('water-fill').style.width = '0%';
+
   updateTimerDisplay();
   updateStepDisplay();
+  if (currentRecipe) renderPrepChecklist();
 }
 
 function updateTimerDisplay() {
@@ -1276,58 +1652,66 @@ function updateStepDisplay() {
 
   const steps = currentRecipe.steps;
   const activeStep = steps.find(s => brewTimer >= s.timeFrom && brewTimer < s.timeTo);
-  const nextStep = steps[steps.indexOf(activeStep || steps[0]) + 1];
+  const nextStepObj = steps[steps.indexOf(activeStep || steps[0]) + 1];
 
   const display = document.getElementById('step-display');
   const canvas = document.getElementById('swirl-canvas');
 
+  // Update progress dots and water bar
+  renderStepProgress();
+  updateWaterProgress();
+
   if (!activeStep) {
-    // Check if brew is complete (timer passed all steps)
     const lastStep = steps[steps.length - 1];
     if (brewStarted && brewTimer >= lastStep.timeTo) {
       completeBrew();
       return;
     }
-    display.innerHTML = '<div class="step-container"><div class="step-action">Ready to Brew</div></div>';
+    display.innerHTML = `<div class="step-container"><div class="step-action" style="text-align:center;">${t('brew.ready')}</div></div>`;
     canvas.style.display = 'none';
     return;
   }
 
   const stepNum = steps.indexOf(activeStep) + 1;
+  const timeLeft = activeStep.timeTo - brewTimer;
+  const stepProgress = ((brewTimer - activeStep.timeFrom) / (activeStep.timeTo - activeStep.timeFrom)) * 100;
+
   display.innerHTML = `
     <div class="step-container">
-      <div class="step-number">Step ${stepNum} of ${steps.length}</div>
-      <div class="step-action">${activeStep.action}</div>
-      <div class="step-description">${activeStep.description}</div>
+      <div class="step-number">${t('step.label')} ${stepNum} ${t('step.of')} ${steps.length}</div>
+      <div class="step-action">${ml(activeStep.action)}</div>
+      <div class="step-description">${ml(activeStep.description)}</div>
       <div class="step-meta">
-        ${activeStep.amount ? `<div class="step-water-amount">💧 ${activeStep.amount}ml</div>` : ''}
-        <span>Time: ${activeStep.timeFrom}s - ${activeStep.timeTo}s</span>
+        ${activeStep.amount ? `<div class="step-water-amount">${activeStep.amount}g</div>` : ''}
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;color:var(--text3);">${activeStep.timeFrom}s → ${activeStep.timeTo}s</span>
+          <span style="font-size:15px;font-weight:700;color:${timeLeft <= 5 ? 'var(--red)' : 'var(--accent)'};">${timeLeft}s</span>
+        </div>
+        <div class="water-progress-bar" style="margin-top:8px;">
+          <div class="water-progress-fill" style="width:${stepProgress}%;background:linear-gradient(90deg,var(--accent),var(--green));"></div>
+        </div>
       </div>
+      ${activeStep.tip ? `<div class="tip-box">${ml(activeStep.tip)}</div>` : ''}
     </div>
   `;
 
   // Render swirl if present
   if (activeStep.swirl) {
     canvas.style.display = 'block';
-    display.innerHTML += `<div class="swirl-label" data-i18n="brew.pouring">Cómo verter</div>`;
+    display.innerHTML += `<div class="swirl-label" data-i18n="brew.pouring">${t('brew.pouring')}</div>`;
     const progress = (brewTimer - activeStep.timeFrom) / (activeStep.timeTo - activeStep.timeFrom);
     drawSwirl(canvas, activeStep.swirl.type, activeStep.swirl.intensity, Math.min(progress, 1));
-    // Re-apply translations for new elements
-    if (window.currentLang) {
-      const label = display.querySelector('[data-i18n]');
-      if (label) label.textContent = window.t('brew.pouring');
-    }
   } else {
     canvas.style.display = 'none';
   }
 
   // Next step preview
-  if (nextStep) {
-    const nextNum = steps.indexOf(nextStep) + 1;
+  if (nextStepObj) {
     display.innerHTML += `
-      <div style="margin-top:20px;padding:12px;background:var(--surface2);border-radius:var(--radius-sm);font-size:13px;">
-        <div style="color:var(--text2);margin-bottom:4px;">Next Step (${nextStep.timeFrom}s)</div>
-        <div style="font-weight:600;">${nextStep.action}</div>
+      <div style="margin-top:16px;padding:14px;background:var(--surface2);border-radius:var(--radius-sm);font-size:13px;border-left:3px solid var(--surface3);">
+        <div style="color:var(--text3);margin-bottom:4px;font-weight:600;">${t('step.next')} (${nextStepObj.timeFrom}s)</div>
+        <div style="font-weight:600;color:var(--text);">${ml(nextStepObj.action)}</div>
+        ${nextStepObj.amount ? `<div style="color:var(--text2);margin-top:4px;">${nextStepObj.amount}g</div>` : ''}
       </div>
     `;
   }
@@ -1400,6 +1784,29 @@ function drawSwirl(canvas, type, intensity, progress) {
   }
 
   ctx.stroke();
+}
+
+// =====================================================================
+// TEMPERATURE UNIT CONVERSION
+// =====================================================================
+function cToF(c) { return Math.round(c * 9 / 5 + 32); }
+function displayTemp(c) { return tempUnit === 'F' ? cToF(c) + '°F' : c + '°C'; }
+function ml(v) { return typeof v === 'object' ? (v[currentLang] || v.en || '') : (v || ''); }
+
+function setTempUnit(unit) {
+  tempUnit = unit;
+  localStorage.setItem('tempUnit', unit);
+  document.querySelectorAll('[id^="tu-"]').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('tu-' + unit);
+  if (btn) btn.classList.add('active');
+  // Re-render current view
+  if (currentRecipe) {
+    document.getElementById('brew-recipe-meta').textContent =
+      `${currentRecipe.coffeeAmount}g / ${currentRecipe.waterAmount}g / ${displayTemp(currentRecipe.waterTemp)} / ${currentRecipe.ratio}`;
+    renderPrepChecklist();
+    updateStepDisplay();
+  }
+  renderRecipeList();
 }
 
 // =====================================================================
@@ -1531,7 +1938,7 @@ function saveRecipeModal() {
   const notes = document.getElementById('rec-notes').value.trim();
   const sourceUrl = document.getElementById('rec-sourceUrl').value.trim();
 
-  if (!name) { showToast('Nombre requerido'); return; }
+  if (!name) { showToast(t('toast.nameRequired')); return; }
 
   const steps = Array.from(document.querySelectorAll('.recipe-step')).map((el, i) => ({
     id: i,
@@ -1548,7 +1955,7 @@ function saveRecipeModal() {
     temperature: temp
   }));
 
-  if (steps.length === 0) { showToast('Agregar al menos un paso'); return; }
+  if (steps.length === 0) { showToast(t('toast.addStep')); return; }
 
   const recipe = {
     id: Date.now(),
@@ -1568,18 +1975,18 @@ function saveRecipeModal() {
   localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
   recipes = [...STARTER_RECIPES, ...customRecipes];
 
-  showToast('Receta guardada');
+  showToast(t('toast.recipeSaved'));
   closeRecipeModal();
   renderRecipeList();
 }
 
 function deleteCustomRecipe(id) {
-  if (!confirm('Eliminar esta receta?')) return;
+  if (!confirm(t('confirm.deleteRecipe'))) return;
   customRecipes = customRecipes.filter(r => r.id !== id);
   localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
   recipes = [...STARTER_RECIPES, ...customRecipes];
   renderRecipeList();
-  showToast('Receta eliminada');
+  showToast(t('toast.recipeDeleted'));
 }
 
 // =====================================================================
@@ -1608,16 +2015,16 @@ function renderStoreGrid() {
             ${alreadyAdded ? t('store.added') : t('store.add')}
           </button>
         </div>
-        <div class="store-card-desc">${recipe.description}</div>
+        <div class="store-card-desc">${ml(recipe.description)}</div>
         <div class="store-card-tags">
           <span class="recipe-tag">${recipe.method}</span>
           <span class="recipe-tag">${recipe.difficulty}</span>
           <span class="recipe-tag">${recipe.ratio}</span>
-          <span class="recipe-tag">${recipe.coffeeAmount}g / ${recipe.waterAmount}ml</span>
+          <span class="recipe-tag">${recipe.coffeeAmount}g / ${recipe.waterAmount}g</span>
         </div>
         <div class="store-card-footer">
           <span style="font-size:12px;color:var(--text2);">${recipe.steps.length} steps • ${recipe.brewTime}s</span>
-          ${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link">${t('recipe.viewSource')} 🔗</a>` : ''}
+          ${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link">${t('recipe.viewSource')}</a>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -1645,8 +2052,16 @@ function addStoreRecipe(storeId) {
 function completeBrew() {
   brewRunning = false;
   clearInterval(brewInterval);
-  document.getElementById('brew-complete-overlay').style.display = 'flex';
+  // Reset flavor diagnosis
+  selectedFlavor = null;
+  document.querySelectorAll('.flavor-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('flavor-advice').classList.remove('visible');
+  document.getElementById('flavor-advice').textContent = '';
+  // Reset rating
   brewRating = 0;
+  document.querySelectorAll('.star-btn').forEach(b => { b.textContent = '☆'; b.classList.remove('filled'); });
+  document.getElementById('brew-notes').value = '';
+  document.getElementById('brew-complete-overlay').style.display = 'flex';
 }
 
 function setBrewRating(rating) {
@@ -1666,13 +2081,14 @@ function saveBrewLog() {
     recipeName: currentRecipe.name,
     date: new Date().toISOString().split('T')[0],
     rating: brewRating,
+    flavor: selectedFlavor || null,
     notes: notes
   };
   brewHistory.push(brew);
   localStorage.setItem('brewHistory', JSON.stringify(brewHistory));
   closeBrewComplete();
   resetBrew();
-  showToast('Brew guardado en historial');
+  showToast(t('toast.brewSaved'));
 }
 
 function closeBrewComplete() {
@@ -1724,11 +2140,11 @@ function importRecipes() {
           });
           localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
           recipes = [...STARTER_RECIPES, ...customRecipes];
-          showToast('Recetas importadas: ' + data.length);
+          showToast(t('toast.imported') + ': ' + data.length);
           renderRecipeList();
         }
       } catch (err) {
-        showToast('Error al importar: ' + err.message);
+        showToast(t('toast.importError') + ': ' + err.message);
       }
     };
     reader.readAsText(file);
@@ -1755,15 +2171,152 @@ function importBrewHistory() {
             }
           });
           localStorage.setItem('brewHistory', JSON.stringify(brewHistory));
-          showToast('Historial importado: ' + data.length);
+          showToast(t('toast.imported') + ': ' + data.length);
         }
       } catch (err) {
-        showToast('Error al importar: ' + err.message);
+        showToast(t('toast.importError') + ': ' + err.message);
       }
     };
     reader.readAsText(file);
   };
   input.click();
+}
+
+// =====================================================================
+// PREP CHECKLIST
+// =====================================================================
+function renderPrepChecklist() {
+  if (!currentRecipe) return;
+  const el = document.getElementById('prep-checklist');
+  const totalWater = currentRecipe.waterAmount;
+  const coffeeAmt = currentRecipe.coffeeAmount;
+  const temp = currentRecipe.waterTemp;
+  const method = currentRecipe.method || 'V60';
+
+  const items = [
+    `${t('prep.heatWater')} ${displayTemp(temp)}`,
+    `${t('prep.weighCoffee')} ${coffeeAmt}g`,
+    `${t('prep.grindCoffee')}: ${currentRecipe.grindSize ? ml(currentRecipe.grindSize) : t('prep.grindDefault')}`,
+    t('prep.wetFilter'),
+    `${t('prep.prepareWater')} ${totalWater}g ${t('prep.ofWater')}`,
+  ];
+
+  el.innerHTML = `
+    <div class="prep-checklist">
+      <div class="prep-title">${t('prep.title')}</div>
+      ${items.map((text, i) => `
+        <div class="prep-item">
+          <div class="prep-check" onclick="togglePrepCheck(this)" id="prep-${i}">${i + 1}</div>
+          <span>${text}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  el.style.display = 'block';
+}
+
+function togglePrepCheck(el) {
+  el.classList.toggle('checked');
+  if (el.classList.contains('checked')) {
+    el.textContent = '✓';
+  } else {
+    // restore original icon
+    const idx = parseInt(el.id.split('-')[1]);
+    el.textContent = (idx + 1).toString();
+  }
+}
+
+// =====================================================================
+// STEP PROGRESS DOTS
+// =====================================================================
+function renderStepProgress() {
+  if (!currentRecipe) return;
+  const container = document.getElementById('step-progress');
+  const steps = currentRecipe.steps;
+  const activeIdx = steps.findIndex(s => brewTimer >= s.timeFrom && brewTimer < s.timeTo);
+
+  let html = '';
+  steps.forEach((s, i) => {
+    const isCompleted = brewTimer >= s.timeTo;
+    const isActive = i === activeIdx;
+    const cls = isCompleted ? 'completed' : isActive ? 'active' : '';
+    html += `<div class="step-dot ${cls}"></div>`;
+    if (i < steps.length - 1) {
+      html += `<div class="step-dot-line ${isCompleted ? 'completed' : ''}"></div>`;
+    }
+  });
+  container.innerHTML = html;
+  container.style.display = 'flex';
+}
+
+// =====================================================================
+// WATER PROGRESS BAR
+// =====================================================================
+function updateWaterProgress() {
+  if (!currentRecipe) return;
+  const steps = currentRecipe.steps;
+  const totalWater = currentRecipe.waterAmount;
+
+  // Calculate water poured so far based on completed + current step progress
+  let poured = 0;
+  steps.forEach(s => {
+    if (!s.amount) return;
+    if (brewTimer >= s.timeTo) {
+      poured += s.amount;
+    } else if (brewTimer >= s.timeFrom && brewTimer < s.timeTo) {
+      const progress = (brewTimer - s.timeFrom) / (s.timeTo - s.timeFrom);
+      poured += s.amount * progress;
+    }
+  });
+
+  poured = Math.min(Math.round(poured), totalWater);
+  const pct = totalWater > 0 ? (poured / totalWater) * 100 : 0;
+
+  document.getElementById('water-poured').textContent = poured + 'g';
+  document.getElementById('water-total').textContent = '/ ' + totalWater + 'g';
+  document.getElementById('water-fill').style.width = Math.min(pct, 100) + '%';
+  document.getElementById('water-progress').style.display = 'block';
+}
+
+// =====================================================================
+// FLAVOR DIAGNOSIS
+// =====================================================================
+let selectedFlavor = null;
+
+const FLAVOR_ADVICE = {
+  bitter: {
+    es: 'Tu café está sobre-extraído. Prueba: molienda más gruesa, menos tiempo de brew, o agua un poco más fría.',
+    en: 'Your coffee is over-extracted. Try: coarser grind, shorter brew time, or slightly cooler water.',
+    pt: 'Seu café está sobre-extraído. Tente: moagem mais grossa, menos tempo, ou água um pouco mais fria.'
+  },
+  sour: {
+    es: 'Tu café está sub-extraído. Prueba: molienda más fina, más tiempo de brew, o agua más caliente.',
+    en: 'Your coffee is under-extracted. Try: finer grind, longer brew time, or hotter water.',
+    pt: 'Seu café está sub-extraído. Tente: moagem mais fina, mais tempo, ou água mais quente.'
+  },
+  watery: {
+    es: 'Le falta cuerpo. Prueba: usar más café (ratio 1:14), molienda más fina, o verificar que el agua esté lo suficientemente caliente.',
+    en: 'Lacking body. Try: use more coffee (1:14 ratio), finer grind, or make sure water is hot enough.',
+    pt: 'Falta corpo. Tente: mais café (ratio 1:14), moagem mais fina, ou verifique se a água está quente.'
+  },
+  perfect: {
+    es: 'Excelente! Tu extracción fue perfecta. Guarda esta receta y repite los mismos parámetros la próxima vez.',
+    en: 'Excellent! Your extraction was perfect. Save this recipe and repeat the same parameters next time.',
+    pt: 'Excelente! Sua extração foi perfeita. Salve esta receita e repita os mesmos parâmetros na próxima vez.'
+  }
+};
+
+function selectFlavor(flavor) {
+  selectedFlavor = flavor;
+  document.querySelectorAll('.flavor-btn').forEach(btn => btn.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+
+  const adviceEl = document.getElementById('flavor-advice');
+  const advice = FLAVOR_ADVICE[flavor];
+  if (advice) {
+    adviceEl.textContent = advice[currentLang] || advice['es'];
+    adviceEl.classList.add('visible');
+  }
 }
 
 // =====================================================================
@@ -1775,6 +2328,12 @@ function importBrewHistory() {
   applyTranslations();
   updateThemeButtons();
   updateLangButtons();
+  // Restore temp unit button
+  document.querySelectorAll('[id^="tu-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('tu-' + tempUnit)?.classList.add('active');
+  // Restore lang button text
+  const langBtn = document.getElementById('lang-btn');
+  if (langBtn) langBtn.textContent = currentLang.toUpperCase();
 
   document.getElementById('recipe-search')?.addEventListener('input', renderRecipeList);
   renderRecipeList();

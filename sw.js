@@ -1,4 +1,4 @@
-const CACHE_NAME = 'roaring-lion-brewing-time-v2';
+const CACHE_NAME = 'roaring-lion-brewing-time-v4';
 const ASSETS = [
   '/',
   '/index.html',
