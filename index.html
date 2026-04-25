@@ -1140,7 +1140,7 @@ const STORE_RECIPES = [
     method: 'V60', difficulty: 'intermediate', brewTime: 210, coffeeAmount: 22, waterAmount: 360, waterTemp: 96, ratio: '1:16.4',
     grindSize: {es: 'Medio-fino (~500μm)', en: 'Medium-fine (~500μm)', pt: 'Médio-fino (~500μm)'},
     notes: 'Medium-fine grind. One continuous pour after bloom. Gentle swirl (Rao spin) after each pour.',
-    sourceUrl: 'https://www.youtube.com/watch?v=c0Qe_ASz_l8',
+    sourceUrl: 'https://www.youtube.com/watch?v=c0Qe_ASxfNM',
     steps: [
       { id:1, timeFrom:0, timeTo:45, action:'Bloom + Swirl', description:'Pour 66ml (3x coffee weight). Gentle swirl to saturate all grounds.', amount:66, swirl:{type:'circular-cw',intensity:'gentle',duration:5}, temperature:96, tip:{ es: '3x el peso del café es la proporción ideal de bloom. El swirl asegura que no queden zonas secas.', en: '3x coffee weight is the ideal bloom ratio. The swirl ensures no dry pockets remain.', pt: '3x o peso do café é a proporção ideal de bloom. O swirl garante que não restem zonas secas.' } },
       { id:2, timeFrom:45, timeTo:120, action:'Main Pour', description:'Single continuous pour in concentric circles to 360ml total.', amount:294, swirl:{type:'circular-cw',intensity:'medium',duration:10}, temperature:96, tip:{ es: 'Un vertido continuo mantiene la temperatura estable. Los círculos concéntricos aseguran saturación uniforme.', en: 'One continuous pour keeps the temperature stable. Concentric circles ensure even saturation.', pt: 'Um despejo contínuo mantém a temperatura estável. Círculos concêntricos garantem saturação uniforme.' } },
@@ -1153,7 +1153,7 @@ const STORE_RECIPES = [
     method: 'V60', difficulty: 'advanced', brewTime: 210, coffeeAmount: 15, waterAmount: 250, waterTemp: 96, ratio: '1:16.7',
     grindSize: {es: 'Fino (~400μm)', en: 'Fine (~400μm)', pt: 'Fino (~400μm)'},
     notes: 'Designed for light roasts. Use fine grind. Multiple small pours prevent channeling.',
-    sourceUrl: 'https://www.youtube.com/watch?v=otk2jFRCcmg',
+    sourceUrl: 'https://www.youtube.com/watch?v=otk2jFRCcmE',
     steps: [
       { id:1, timeFrom:0, timeTo:35, action:'Bloom', description:'Pour 50ml gently and let bloom.', amount:50, swirl:null, temperature:96, tip:{ es: 'Para tuestes claros, usa agua más caliente (96°C+) para descomponer la estructura más densa del grano.', en: 'For light roasts, use hotter water (96°C+) to break down the denser bean structure.', pt: 'Para torras claras, use água mais quente (96°C+) para quebrar a estrutura mais densa do grão.' } },
       { id:2, timeFrom:35, timeTo:70, action:'Second Pour', description:'Pour 50ml in center.', amount:50, swirl:null, temperature:96, tip:{ es: 'Los vertidos al centro minimizan la agitación — ideal para tuestes claros delicados que se sobreextraen fácilmente.', en: 'Center pours minimize agitation — ideal for delicate light roasts that can over-extract easily.', pt: 'Despejos no centro minimizam a agitação — ideal para torras claras delicadas que podem sobre-extrair facilmente.' } },
@@ -1163,12 +1163,12 @@ const STORE_RECIPES = [
     ]
   },
   {
-    id: 9004, name: 'One Pour V60', creator: 'Matt Winton',
+    id: 9004, name: 'One Pour V60', creator: 'Lance Hedrick',
     description: 'Minimalist single-pour technique. Simple, fast, consistent.',
     method: 'V60', difficulty: 'beginner', brewTime: 180, coffeeAmount: 15, waterAmount: 250, waterTemp: 93, ratio: '1:16.7',
     grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
     notes: 'No pulse pours. One continuous pour after bloom. Great for beginners.',
-    sourceUrl: 'https://www.youtube.com/watch?v=AI4ynXzkSQo',
+    sourceUrl: 'https://www.youtube.com/watch?v=BG5Tc8MR2_4',
     steps: [
       { id:1, timeFrom:0, timeTo:40, action:'Bloom', description:'Pour 45ml, gentle swirl.', amount:45, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:93, tip:{ es: 'Lo simple es efectivo! Un bloom + un vertido = menos variables = resultados más consistentes.', en: 'Simple is effective! One bloom + one pour = fewer variables = more consistent results.', pt: 'Simples é eficaz! Um bloom + um despejo = menos variáveis = resultados mais consistentes.' } },
       { id:2, timeFrom:40, timeTo:100, action:'Single Pour', description:'Pour remaining 205ml in slow concentric circles.', amount:205, swirl:{type:'circular-cw',intensity:'medium',duration:8}, temperature:93, tip:{ es: 'Mantén el nivel de agua estable — no dejes que suba mucho ni baje demasiado en el dripper.', en: 'Keep the water level steady — don\'t let it rise too high or drop too low in the dripper.', pt: 'Mantenha o nível de água estável — não deixe subir muito nem baixar demais no dripper.' } },
@@ -1181,7 +1181,7 @@ const STORE_RECIPES = [
     method: 'V60', difficulty: 'advanced', brewTime: 300, coffeeAmount: 20, waterAmount: 330, waterTemp: 100, ratio: '1:16.5',
     grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
     notes: 'Use boiling water. Long bloom leverages osmotic pressure for high extraction without bitterness.',
-    sourceUrl: 'https://coffeeadastra.com/2019/07/16/why-blooming-is-important/',
+    sourceUrl: 'https://www.youtube.com/watch?v=t9hR77mfqe0',
     steps: [
       { id:1, timeFrom:0, timeTo:120, action:'Extended Bloom', description:'Pour 60ml at boiling. Wait a full 2 minutes.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:100, tip:{ es: 'El bloom de 2 min usa presión osmótica — el agua penetra lentamente las células extrayendo sabores profundos sin agitación.', en: 'The 2-min bloom uses osmotic pressure — water slowly penetrates the cells extracting deep flavors without agitation.', pt: 'O bloom de 2 min usa pressão osmótica — a água penetra lentamente as células extraindo sabores profundos sem agitação.' } },
       { id:2, timeFrom:120, timeTo:180, action:'Main Pour', description:'Pour 170ml in slow concentric circles.', amount:170, swirl:{type:'figure8',intensity:'gentle',duration:8}, temperature:100, tip:{ es: 'El agua hirviendo (100°C) es segura aquí porque el bloom largo ya liberó los compuestos ásperos.', en: 'Boiling water (100°C) is safe here because the long bloom already released harsh compounds.', pt: 'A água fervente (100°C) é segura aqui porque o bloom longo já liberou os compostos ásperos.' } },
@@ -1190,7 +1190,7 @@ const STORE_RECIPES = [
     ]
   },
   {
-    id: 9006, name: 'Ice V60 (Japanese)', creator: 'Tetsu Kasuya',
+    id: 9006, name: 'Ice V60 (Japanese)', creator: 'James Hoffmann',
     description: 'Japanese iced coffee method. Brew hot directly over ice.',
     method: 'V60', difficulty: 'intermediate', brewTime: 180, coffeeAmount: 20, waterAmount: 200, waterTemp: 92, ratio: '1:15',
     grindSize: {es: 'Medio-fino (~450μm)', en: 'Medium-fine (~450μm)', pt: 'Médio-fino (~450μm)'},
@@ -1204,32 +1204,90 @@ const STORE_RECIPES = [
     ]
   },
   {
-    id: 9007, name: 'V60 Switch (Immersion)', creator: 'Hario',
-    description: 'Immersion-style brew using V60 Switch. Combines immersion and percolation.',
-    method: 'V60 Switch', difficulty: 'beginner', brewTime: 240, coffeeAmount: 20, waterAmount: 300, waterTemp: 95, ratio: '1:15',
+    id: 9007, name: 'V60 Switch Easy Hybrid', creator: 'Emi Fukahori',
+    description: 'Simple hybrid Switch recipe from the World Brewers Cup champion.',
+    method: 'V60 Switch', difficulty: 'beginner', brewTime: 140, coffeeAmount: 14, waterAmount: 200, waterTemp: 93, ratio: '1:14.3',
     grindSize: {es: 'Medio-grueso (~700μm)', en: 'Medium-coarse (~700μm)', pt: 'Médio-grosso (~700μm)'},
-    notes: 'Close the switch valve first. Steep then release. Very forgiving method.',
-    sourceUrl: 'https://www.hario-usa.com/pages/switch-immersion-dripper-recipe',
+    notes: 'Close the valve for bloom, open it for one steady center pour, then let the brew drain.',
+    sourceUrl: 'https://www.youtube.com/watch?v=3euEkTBxtEk',
     steps: [
-      { id:1, timeFrom:0, timeTo:10, action:'Pour All Water', description:'With switch closed, pour all 300ml over 20g coffee.', amount:300, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:95, tip:{ es: 'El Switch combina inmersión (como French Press) con la claridad del filtro. Método muy indulgente!', en: 'The Switch combines immersion (like French Press) with filter clarity. Very forgiving method!', pt: 'O Switch combina imersão (como French Press) com a clareza do filtro. Método muito tolerante!' } },
-      { id:2, timeFrom:10, timeTo:120, action:'Steep', description:'Wait 2 minutes. Let coffee steep with valve closed.', amount:0, swirl:null, temperature:95, tip:{ es: 'Durante la infusión, todos los granos extraen igual — a diferencia del pour-over donde los de arriba extraen más.', en: 'During steeping, all grounds extract equally — unlike pour-over where top grounds extract more.', pt: 'Durante a infusão, todos os grãos extraem igualmente — diferente do pour-over onde os de cima extraem mais.' } },
-      { id:3, timeFrom:120, timeTo:130, action:'Stir & Open', description:'Stir gently, then open the switch valve.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:95, tip:{ es: 'Un suave revolvido rompe la costra y asegura extracción uniforme antes de que comience el filtrado.', en: 'A gentle stir breaks the crust and ensures even extraction before filtering begins.', pt: 'Uma agitação suave quebra a crosta e garante extração uniforme antes do filtrado começar.' } },
-      { id:4, timeFrom:130, timeTo:240, action:'Drain', description:'Let coffee drain through the filter.', amount:0, swirl:null, temperature:95, tip:{ es: 'El filtro de papel remueve aceites y finos, dándote una taza limpia con cuerpo tipo French Press.', en: 'The paper filter removes oils and fines, giving you a clean cup with French Press-like body.', pt: 'O filtro de papel remove óleos e finos, dando uma xícara limpa com corpo tipo French Press.' } }
+      { id:1, timeFrom:0, timeTo:30, action:'Closed Bloom', description:'Close the valve and pour 50g water over 14g coffee.', amount:50, swirl:null, temperature:93, tip:{ es: 'La válvula cerrada convierte el bloom en una mini inmersión muy consistente.', en: 'The closed valve turns the bloom into a very consistent mini immersion.', pt: 'A válvula fechada transforma o bloom em uma mini imersão muito consistente.' } },
+      { id:2, timeFrom:30, timeTo:70, action:'Open & Center Pour', description:'Open the valve and pour 150g more water in the center to reach 200g total.', amount:150, swirl:null, temperature:93, tip:{ es: 'El vertido al centro reduce variables y hace esta receta fácil de repetir.', en: 'The center pour reduces variables and makes this recipe easy to repeat.', pt: 'O despejo no centro reduz variáveis e torna esta receita fácil de repetir.' } },
+      { id:3, timeFrom:70, timeTo:140, action:'Drawdown', description:'Let the coffee drain completely. Target finish is around 2:20.', amount:0, swirl:null, temperature:93, tip:{ es: 'Si queda ácido o delgado, muele más fino. Si queda seco o amargo, muele más grueso.', en: 'If it tastes acidic or thin, grind finer. If it tastes dry or bitter, grind coarser.', pt: 'Se ficar ácido ou ralo, moa mais fino. Se ficar seco ou amargo, moa mais grosso.' } }
     ]
   },
   {
-    id: 9008, name: 'The 5-Pour', creator: 'Lance Hedrick',
-    description: 'Five equal pours for balanced, sweet extraction. Great for medium roasts.',
+    id: 9008, name: 'The 5-Pour', creator: 'Matt Winton',
+    description: 'Five equal pours for balanced, sweet extraction from the World Brewers Cup champion.',
     method: 'V60', difficulty: 'intermediate', brewTime: 240, coffeeAmount: 20, waterAmount: 300, waterTemp: 94, ratio: '1:15',
     grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
     notes: 'Five equal 60ml pours at 30-second intervals. Medium grind. Gentle center pours.',
-    sourceUrl: 'https://www.youtube.com/watch?v=1cFnfRXPnqY',
+    sourceUrl: 'https://www.youtube.com/watch?v=YIC-2nFQ7vM',
     steps: [
       { id:1, timeFrom:0, timeTo:30, action:'Pour 1 (Bloom)', description:'Pour 60ml to bloom. Gentle swirl.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:3}, temperature:94, tip:{ es: 'Cinco vertidos iguales hacen este método muy repetible. Misma cantidad cada vez = resultados consistentes.', en: 'Five equal pours make this method very repeatable. Same amount each time = consistent results.', pt: 'Cinco despejos iguais tornam este método muito repetível. Mesma quantidade cada vez = resultados consistentes.' } },
       { id:2, timeFrom:30, timeTo:75, action:'Pour 2', description:'Pour 60ml in gentle circles.', amount:60, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:94, tip:{ es: 'Espera a que el nivel de agua baje antes de cada nuevo vertido. Esta técnica de pulsos realza la dulzura.', en: 'Wait for the water level to drop before each new pour. This pulse technique enhances sweetness.', pt: 'Espere o nível de água baixar antes de cada novo despejo. Esta técnica de pulsos realça a doçura.' } },
       { id:3, timeFrom:75, timeTo:120, action:'Pour 3', description:'Pour 60ml in gentle circles.', amount:60, swirl:{type:'circular-cw',intensity:'medium',duration:5}, temperature:94, tip:{ es: 'En el vertido 3, deberías ver una cama de café uniforme formándose — señal de buena técnica!', en: 'By pour 3, you should see a nice even coffee bed forming — a sign of good technique!', pt: 'No despejo 3, você deve ver uma cama de café uniforme se formando — sinal de boa técnica!' } },
       { id:4, timeFrom:120, timeTo:165, action:'Pour 4', description:'Pour 60ml in gentle circles.', amount:60, swirl:null, temperature:94, tip:{ es: 'Círculos suaves mantienen la cama plana. Evita verter en las paredes del papel — evade el café.', en: 'Gentle circles keep the bed flat. Avoid pouring on the paper walls — it bypasses the coffee.', pt: 'Círculos suaves mantêm a cama plana. Evite despejar nas paredes do papel — isso contorna o café.' } },
       { id:5, timeFrom:165, timeTo:240, action:'Pour 5 & Drain', description:'Pour final 60ml, let drain completely.', amount:60, swirl:{type:'circular-cw',intensity:'gentle',duration:2}, temperature:94, tip:{ es: 'Tiempo total objetivo: 3:30-4:00. La cama plana en el fondo significa que lo hiciste genial!', en: 'Target total brew time: 3:30-4:00. The flat bed at the bottom means you did great!', pt: 'Tempo total alvo: 3:30-4:00. A cama plana no fundo significa que você mandou bem!' } }
+    ]
+  },
+  {
+    id: 9010, name: 'Chemex Classic 6-Cup', creator: 'Roaring Lion',
+    description: 'Clean, bright Chemex recipe with a long bloom and steady pulse pours.',
+    method: 'Chemex', difficulty: 'beginner', brewTime: 300, coffeeAmount: 42, waterAmount: 700, waterTemp: 94, ratio: '1:16.7',
+    grindSize: {es: 'Medio-grueso (~750μm)', en: 'Medium-coarse (~750μm)', pt: 'Médio-grosso (~750μm)'},
+    notes: 'Use a bonded Chemex filter, rinse very well, and pour slowly enough to keep the bed from rising too high.',
+    sourceUrl: 'https://www.youtube.com/watch?v=ikt-X5x7yoc',
+    steps: [
+      { id:1, timeFrom:0, timeTo:45, action:'Bloom', description:'Pour 100g of water and saturate all grounds. Let gases escape.', amount:100, swirl:{type:'circular-cw',intensity:'gentle',duration:4}, temperature:94, tip:{ es:'Chemex usa filtro grueso, así que un bloom completo ayuda a evitar zonas secas desde el principio.', en:'Chemex uses a thicker filter, so a complete bloom helps prevent dry pockets from the start.', pt:'O Chemex usa filtro mais grosso, então um bloom completo ajuda a evitar zonas secas desde o início.' } },
+      { id:2, timeFrom:45, timeTo:105, action:'First Pulse Pour', description:'Pour in slow circles to reach 300g total.', amount:200, swirl:{type:'circular-cw',intensity:'medium',duration:8}, temperature:94, tip:{ es:'Mantén el vertido centrado y evita las paredes del filtro para que el agua pase por el café.', en:'Keep the pour centered and avoid the filter walls so water passes through the coffee.', pt:'Mantenha o despejo centrado e evite as paredes do filtro para que a água passe pelo café.' } },
+      { id:3, timeFrom:105, timeTo:165, action:'Second Pulse Pour', description:'Pour to 500g total, keeping the water level steady.', amount:200, swirl:null, temperature:94, tip:{ es:'Si el nivel sube demasiado, pausa unos segundos. Chemex premia la paciencia.', en:'If the water level climbs too high, pause for a few seconds. Chemex rewards patience.', pt:'Se o nível subir demais, pause por alguns segundos. Chemex recompensa a paciência.' } },
+      { id:4, timeFrom:165, timeTo:240, action:'Final Pour', description:'Pour the remaining water to 700g total.', amount:200, swirl:{type:'circular-ccw',intensity:'gentle',duration:3}, temperature:94, tip:{ es:'Un swirl suave al final nivela la cama y ayuda a un drenaje más parejo.', en:'A gentle swirl at the end levels the bed and helps the drawdown stay even.', pt:'Um swirl suave no final nivela a cama e ajuda a drenagem ficar uniforme.' } },
+      { id:5, timeFrom:240, timeTo:300, action:'Drawdown', description:'Let the brew drain until the coffee bed looks mostly dry and flat.', amount:0, swirl:null, temperature:94, tip:{ es:'Objetivo total: 4:30-5:00. Muy rápido = muele más fino; muy lento = muele más grueso.', en:'Target total: 4:30-5:00. Too fast = grind finer; too slow = grind coarser.', pt:'Alvo total: 4:30-5:00. Rápido demais = moa mais fino; lento demais = moa mais grosso.' } }
+    ]
+  },
+  {
+    id: 9011, name: 'Chemex Small Batch', creator: 'Roaring Lion',
+    description: 'A smaller Chemex brew for two cups with a clear, sweet profile.',
+    method: 'Chemex', difficulty: 'intermediate', brewTime: 255, coffeeAmount: 30, waterAmount: 500, waterTemp: 95, ratio: '1:16.7',
+    grindSize: {es: 'Medio-grueso (~700μm)', en: 'Medium-coarse (~700μm)', pt: 'Médio-grosso (~700μm)'},
+    notes: 'Best for lighter or medium roasts. Keep pulse pours gentle to preserve clarity.',
+    sourceUrl: 'https://www.youtube.com/watch?v=ikt-X5x7yoc',
+    steps: [
+      { id:1, timeFrom:0, timeTo:40, action:'Bloom', description:'Pour 75g, then gently swirl to wet all grounds.', amount:75, swirl:{type:'circular-cw',intensity:'gentle',duration:4}, temperature:95, tip:{ es:'Usa alrededor de 2.5x el peso del café para el bloom: suficiente agua sin inundar la cama.', en:'Use about 2.5x the coffee weight for bloom: enough water without flooding the bed.', pt:'Use cerca de 2.5x o peso do café no bloom: água suficiente sem inundar a cama.' } },
+      { id:2, timeFrom:40, timeTo:95, action:'Pour to 250g', description:'Pour slowly from the center outward, then back to center.', amount:175, swirl:{type:'circular-cw',intensity:'medium',duration:7}, temperature:95, tip:{ es:'Los círculos lentos ayudan a saturar la cama profunda típica del Chemex.', en:'Slow circles help saturate the deeper coffee bed typical of Chemex.', pt:'Círculos lentos ajudam a saturar a cama mais profunda típica do Chemex.' } },
+      { id:3, timeFrom:95, timeTo:155, action:'Pour to 400g', description:'Add 150g more water while keeping the bed level.', amount:150, swirl:null, temperature:95, tip:{ es:'Una cama nivelada reduce canales y mantiene el sabor dulce y limpio.', en:'A level bed reduces channeling and keeps the flavor sweet and clean.', pt:'Uma cama nivelada reduz canais e mantém o sabor doce e limpo.' } },
+      { id:4, timeFrom:155, timeTo:210, action:'Final Pour to 500g', description:'Pour the last 100g gently and let the coffee drain.', amount:100, swirl:{type:'circular-ccw',intensity:'gentle',duration:2}, temperature:95, tip:{ es:'El vertido final debe ser suave; demasiada agitación puede hacer la taza áspera.', en:'The final pour should be gentle; too much agitation can make the cup harsh.', pt:'O despejo final deve ser suave; agitação demais pode deixar a xícara áspera.' } },
+      { id:5, timeFrom:210, timeTo:255, action:'Finish', description:'Remove the filter when drawdown is complete.', amount:0, swirl:null, temperature:95, tip:{ es:'Si termina cerca de 4:15, estás en buen rango para una taza limpia.', en:'If it finishes around 4:15, you are in a good range for a clean cup.', pt:'Se terminar por volta de 4:15, você está em uma boa faixa para uma xícara limpa.' } }
+    ]
+  },
+  {
+    id: 9012, name: 'AeroPress Original', creator: 'Alan Adler',
+    description: 'Fast classic AeroPress recipe: short steep, gentle stir, quick press.',
+    method: 'AeroPress', difficulty: 'beginner', brewTime: 90, coffeeAmount: 15, waterAmount: 220, waterTemp: 85, ratio: '1:14.7',
+    grindSize: {es: 'Medio-fino (~500μm)', en: 'Medium-fine (~500μm)', pt: 'Médio-fino (~500μm)'},
+    notes: 'Use the standard upright AeroPress setup. Press gently; hissing means you can stop.',
+    sourceUrl: 'https://www.youtube.com/watch?v=MJsiqmwUF2Y',
+    steps: [
+      { id:1, timeFrom:0, timeTo:15, action:'Add Water', description:'Add 220g water to 15g coffee, filling quickly and evenly.', amount:220, swirl:null, temperature:85, tip:{ es:'AeroPress extrae rápido porque combina inmersión, presión y filtro de papel.', en:'AeroPress extracts quickly because it combines immersion, pressure, and a paper filter.', pt:'A AeroPress extrai rápido porque combina imersão, pressão e filtro de papel.' } },
+      { id:2, timeFrom:15, timeTo:25, action:'Stir', description:'Stir gently for about 10 seconds to saturate all grounds.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:5}, temperature:85, tip:{ es:'Revuelve suave: mucha agitación puede traer amargor en una receta tan rápida.', en:'Stir gently: too much agitation can bring bitterness in such a quick recipe.', pt:'Mexa suavemente: muita agitação pode trazer amargor em uma receita tão rápida.' } },
+      { id:3, timeFrom:25, timeTo:60, action:'Steep', description:'Attach plunger slightly and let the coffee steep.', amount:0, swirl:null, temperature:85, tip:{ es:'Colocar el émbolo crea vacío y evita que el café gotee antes de tiempo.', en:'Placing the plunger creates a vacuum and keeps coffee from dripping early.', pt:'Colocar o êmbolo cria vácuo e evita que o café pingue cedo demais.' } },
+      { id:4, timeFrom:60, timeTo:90, action:'Press', description:'Press slowly and stop when you hear the hiss.', amount:0, swirl:null, temperature:85, tip:{ es:'Presiona con calma. Mucha fuerza compacta la cama y puede acentuar sabores secos.', en:'Press calmly. Too much force compacts the bed and can emphasize dry flavors.', pt:'Pressione com calma. Força demais compacta a cama e pode acentuar sabores secos.' } }
+    ]
+  },
+  {
+    id: 9013, name: 'AeroPress Inverted Sweet Cup', creator: 'Roaring Lion',
+    description: 'Inverted AeroPress method with a longer steep for sweetness and body.',
+    method: 'AeroPress', difficulty: 'intermediate', brewTime: 150, coffeeAmount: 18, waterAmount: 240, waterTemp: 90, ratio: '1:13.3',
+    grindSize: {es: 'Medio (~600μm)', en: 'Medium (~600μm)', pt: 'Médio (~600μm)'},
+    notes: 'Use the inverted setup carefully. Secure the cap before flipping and press over a sturdy mug.',
+    sourceUrl: 'https://www.youtube.com/watch?v=RCmwsCme1i4',
+    steps: [
+      { id:1, timeFrom:0, timeTo:20, action:'Fill Inverted Brewer', description:'With AeroPress inverted, add 240g water to 18g coffee.', amount:240, swirl:null, temperature:90, tip:{ es:'El método invertido da control total del tiempo de inmersión porque no gotea durante el steep.', en:'The inverted method gives full control over immersion time because it does not drip during steeping.', pt:'O método invertido dá controle total do tempo de imersão porque não pinga durante a infusão.' } },
+      { id:2, timeFrom:20, timeTo:35, action:'Stir and Cap', description:'Stir gently, then attach the rinsed filter cap.', amount:0, swirl:{type:'circular-cw',intensity:'gentle',duration:5}, temperature:90, tip:{ es:'Asegura bien la tapa antes de voltear. La seguridad vale más que unos segundos.', en:'Secure the cap before flipping. Safety is worth more than a few seconds.', pt:'Prenda bem a tampa antes de virar. Segurança vale mais que alguns segundos.' } },
+      { id:3, timeFrom:35, timeTo:105, action:'Steep', description:'Let it steep to build sweetness and body.', amount:0, swirl:null, temperature:90, tip:{ es:'Un steep más largo aumenta cuerpo y dulzura sin necesitar molienda muy fina.', en:'A longer steep builds body and sweetness without needing a very fine grind.', pt:'Uma infusão mais longa aumenta corpo e doçura sem precisar de moagem muito fina.' } },
+      { id:4, timeFrom:105, timeTo:120, action:'Flip', description:'Flip carefully onto a sturdy mug or server.', amount:0, swirl:null, temperature:90, tip:{ es:'Voltea en un movimiento controlado y mantén ambas manos en el AeroPress.', en:'Flip in one controlled motion and keep both hands on the AeroPress.', pt:'Vire em um movimento controlado e mantenha as duas mãos na AeroPress.' } },
+      { id:5, timeFrom:120, timeTo:150, action:'Press', description:'Press gently for 30 seconds and stop at the hiss.', amount:0, swirl:null, temperature:90, tip:{ es:'Si cuesta mucho presionar, muele un poco más grueso la próxima vez.', en:'If it is hard to press, grind a little coarser next time.', pt:'Se estiver difícil pressionar, moa um pouco mais grosso na próxima vez.' } }
     ]
   }
 ];
@@ -1314,6 +1372,15 @@ function safeUrl(url) {
   }
 }
 
+function isYouTubeUrl(url) {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, '');
+    return host === 'youtube.com' || host === 'youtu.be';
+  } catch (err) {
+    return false;
+  }
+}
+
 function formatDuration(totalSeconds) {
   const mins = Math.floor((Number(totalSeconds) || 0) / 60);
   const secs = (Number(totalSeconds) || 0) % 60;
@@ -1364,10 +1431,11 @@ function renderRecipeList() {
 
   list.innerHTML = filtered.map(recipe => {
     const source = safeUrl(recipe.sourceUrl);
+    const sourceLabel = isYouTubeUrl(source) ? 'Watch Video' : 'Source';
     return `
     <div class="recipe-card">
       <div class="recipe-card-title">${escapeHTML(recipe.name)}</div>
-      <div class="recipe-card-meta">By ${escapeHTML(recipe.creator)} &bull; ${formatDuration(recipe.brewTime)} &bull; ${escapeHTML(recipe.coffeeAmount)}g${source ? `<a href="${escapeAttr(source)}" target="_blank" rel="noopener" class="source-link" title="View Source">Source</a>` : ''}</div>
+      <div class="recipe-card-meta">By ${escapeHTML(recipe.creator)} &bull; ${formatDuration(recipe.brewTime)} &bull; ${escapeHTML(recipe.coffeeAmount)}g${source ? `<a href="${escapeAttr(source)}" target="_blank" rel="noopener" class="source-link" title="${escapeAttr(sourceLabel)}">${sourceLabel}</a>` : ''}</div>
       <div class="recipe-card-tags">
         <span class="recipe-tag">${escapeHTML(recipe.method)}</span>
         <span class="recipe-tag">${escapeHTML({beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[recipe.difficulty] || recipe.difficulty)}</span>
@@ -1850,6 +1918,7 @@ function renderStoreGrid() {
   grid.innerHTML = STORE_RECIPES.map(recipe => {
     const alreadyAdded = addedIds.has(recipe.id);
     const source = safeUrl(recipe.sourceUrl);
+    const sourceLabel = isYouTubeUrl(source) ? 'Watch Video' : 'View Source';
     return `
       <div class="store-card">
         <div class="store-card-header">
@@ -1870,7 +1939,7 @@ function renderStoreGrid() {
         </div>
         <div class="store-card-footer">
           <span style="font-size:12px;color:var(--text2);">${recipe.steps.length} steps &bull; ${formatDuration(recipe.brewTime)}</span>
-          ${source ? `<a href="${escapeAttr(source)}" target="_blank" rel="noopener" class="source-link">View Source</a>` : ''}
+          ${source ? `<a href="${escapeAttr(source)}" target="_blank" rel="noopener" class="source-link">${sourceLabel}</a>` : ''}
         </div>
       </div>`;
   }).join('');
