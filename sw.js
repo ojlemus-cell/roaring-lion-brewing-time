@@ -1,8 +1,10 @@
-const CACHE_NAME = 'roaring-lion-brewing-time-v5';
+const CACHE_NAME = 'roaring-lion-brewing-time-v6';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 // Install event: cache assets
@@ -25,14 +27,16 @@ self.addEventListener('activate', event => {
 
 // Fetch event: network-first strategy
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
     fetch(event.request)
       .then(response => {
         if (!response || response.status !== 200) return response;
         const responseClone = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone)).catch(() => {});
         return response;
       })
-      .catch(() => caches.match(event.request).then(response => response || new Response('Offline', { status: 503 })))
+      .catch(() => caches.match(event.request).then(response => response || caches.match('./index.html') || new Response('Offline', { status: 503 })))
   );
 });

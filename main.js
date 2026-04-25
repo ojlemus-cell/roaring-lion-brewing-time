@@ -19,6 +19,21 @@ function createWindow() {
     icon: path.join(__dirname, 'icons', 'icon-512.png'),
   });
 
+  win.webContents.setWindowOpenHandler(({ url }) => {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      shell.openExternal(url);
+      return { action: 'deny' };
+    }
+    return { action: 'deny' };
+  });
+
+  win.webContents.on('will-navigate', (event, url) => {
+    if (url !== win.webContents.getURL()) {
+      event.preventDefault();
+      if (url.startsWith('http://') || url.startsWith('https://')) shell.openExternal(url);
+    }
+  });
+
   win.loadFile('index.html');
 }
 
@@ -59,6 +74,7 @@ ipcMain.handle('read-file', async (_event, { filePath }) => {
 
 // ── App lifecycle ────────────────────────────────────────────────────────────
 app.whenReady().then(() => {
+  Menu.setApplicationMenu(null);
   createWindow();
 
   app.on('activate', () => {

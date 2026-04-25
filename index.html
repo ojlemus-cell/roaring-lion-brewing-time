@@ -98,11 +98,29 @@ body{
 }
 input,select,textarea,button{font-family:var(--font);}
 button{cursor:pointer;border:none;background:none;}
+button:disabled{cursor:not-allowed;opacity:.45;}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+  outline:3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset:2px;
+}
+
+.sr-only{
+  position:absolute;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
 
 /* ===== HEADER ===== */
 .app-header{
   position:sticky;top:0;z-index:100;
-  background:rgba(0,0,0,.85);
+  background:color-mix(in srgb, var(--surface) 88%, transparent);
   -webkit-backdrop-filter:blur(20px);
   backdrop-filter:blur(20px);
   padding:12px 16px;
@@ -110,17 +128,17 @@ button{cursor:pointer;border:none;background:none;}
   border-bottom:1px solid var(--sep);
 }
 .app-header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
-.app-header-title{font-size:18px;font-weight:700;color:#FFF;}
+.app-header-title{font-size:18px;font-weight:700;color:var(--text);}
 .app-header-actions{display:flex;gap:12px;}
 .hdr-btn{
   width:40px;height:40px;border-radius:50%;
-  background:rgba(255,255,255,.15);
-  color:#FFF;
+  background:var(--surface3);
+  color:var(--text);
   font-size:16px;
   display:flex;align-items:center;justify-content:center;
   transition:background .2s;
 }
-.hdr-btn:active{background:rgba(255,255,255,.25);}
+.hdr-btn:active{opacity:.72;}
 
 /* ===== PAGES ===== */
 .pages-wrap{display:flex;flex-direction:column;}
@@ -195,6 +213,27 @@ button{cursor:pointer;border:none;background:none;}
 }
 .recipe-card-actions{display:flex;gap:8px;margin-top:12px;}
 .recipe-card-actions button{flex:1;padding:12px 16px;font-size:14px;font-weight:600;}
+.recipe-toolbar{display:flex;gap:10px;margin-bottom:10px;}
+.recipe-search{
+  flex:1;
+  border:none;
+  background:var(--surface3);
+  border-radius:var(--radius-sm);
+  padding:11px 14px;
+  font-size:15px;
+  color:var(--text);
+  min-width:0;
+}
+.empty-state{
+  color:var(--text2);
+  text-align:center;
+  padding:42px 18px;
+  background:var(--surface);
+  border:1px dashed var(--sep);
+  border-radius:var(--radius-md);
+}
+.empty-state-title{font-weight:700;color:var(--text);margin-bottom:6px;}
+.empty-state-copy{font-size:14px;line-height:1.45;}
 
 /* ===== TIMER DISPLAY ===== */
 .timer-display{
@@ -295,6 +334,20 @@ button{cursor:pointer;border:none;background:none;}
   transition:color .2s;
 }
 .tab-item.active{color:var(--accent);}
+.tab-item:focus-visible{outline-offset:-4px;}
+
+/* ===== HISTORY ===== */
+.history-card{
+  background:var(--surface);
+  border:1px solid var(--sep);
+  border-radius:var(--radius-md);
+  padding:16px;
+  margin-bottom:12px;
+  text-align:left;
+}
+.history-card-title{font-weight:700;margin-bottom:4px;}
+.history-card-meta{font-size:13px;color:var(--text2);line-height:1.45;}
+.history-rating{color:var(--accent);font-size:16px;margin-top:8px;letter-spacing:1px;}
 
 /* ===== SETTINGS ===== */
 .settings-group{
@@ -406,6 +459,26 @@ button{cursor:pointer;border:none;background:none;}
   }
   .app-header{justify-content:center;}
   .app-header-inner{width:100%;max-width:560px;display:flex;align-items:center;justify-content:space-between;}
+}
+@media (max-width:480px){
+  .app-header-title{font-size:16px;}
+  .app-header-actions{gap:8px;}
+  .hdr-btn{width:36px;height:36px;}
+  .recipe-toolbar{flex-wrap:wrap;}
+  .recipe-toolbar .recipe-search{flex-basis:100%;}
+  .recipe-toolbar button{flex:1;}
+  .timer-display{font-size:52px;letter-spacing:.06em;}
+  .timer-controls{flex-wrap:wrap;}
+  .timer-controls button{min-width:44%;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.001ms!important;
+  }
 }
 
 /* ===== FULLSCREEN ===== */
@@ -611,9 +684,10 @@ button{cursor:pointer;border:none;background:none;}
 <div class="page active" id="page-recipes">
   <div class="page-top-pad"></div>
   <div style="padding:0 16px 16px;">
-    <div style="display:flex;gap:10px;margin-bottom:10px;">
+    <div class="recipe-toolbar">
+      <label class="sr-only" for="recipe-search">Search recipes</label>
       <input type="search" id="recipe-search" placeholder="Search recipe..."
-        style="flex:1;border:none;background:var(--surface3);border-radius:var(--radius-sm);padding:9px 14px;font-size:15px;color:var(--text);outline:none;"/>
+        class="recipe-search"/>
       <button class="btn-secondary btn-sm" onclick="openStoreModal()">Browse</button>
       <button class="btn-primary btn-sm" onclick="openCreateRecipeModal()">+ Create</button>
     </div>
@@ -638,7 +712,7 @@ button{cursor:pointer;border:none;background:none;}
 
     <!-- Controls -->
     <div class="timer-controls">
-      <button class="btn-primary" id="btn-brew-start" onclick="startBrew()">Start</button>
+      <button class="btn-primary" id="btn-brew-start" onclick="startBrew()" disabled>Start</button>
       <button class="btn-secondary" id="btn-brew-pause" onclick="pauseBrew()" style="display:none;">Pause</button>
       <button class="btn-secondary" id="btn-brew-resume" onclick="resumeBrew()" style="display:none;">Resume</button>
       <button class="btn-secondary" id="btn-brew-reset" onclick="resetBrew()" style="display:none;">Reset</button>
@@ -668,8 +742,8 @@ button{cursor:pointer;border:none;background:none;}
 
     <!-- Step Navigation -->
     <div style="display:flex;gap:10px;margin-top:16px;">
-      <button class="btn-secondary btn-sm" onclick="prevStep()" style="flex:1;">Previous</button>
-      <button class="btn-secondary btn-sm" onclick="nextStep()" style="flex:1;">Next</button>
+      <button class="btn-secondary btn-sm" id="btn-prev-step" onclick="prevStep()" style="flex:1;" disabled>Previous</button>
+      <button class="btn-secondary btn-sm" id="btn-next-step" onclick="nextStep()" style="flex:1;" disabled>Next</button>
     </div>
 
     <!-- Swirl Canvas -->
@@ -899,13 +973,25 @@ button{cursor:pointer;border:none;background:none;}
 // =====================================================================
 // STATE
 // =====================================================================
+function loadJSON(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+    return value ?? fallback;
+  } catch (err) {
+    localStorage.removeItem(key);
+    return fallback;
+  }
+}
+
 let currentTheme = localStorage.getItem('theme') || 'auto';
 let tempUnit = localStorage.getItem('tempUnit') || 'C';
-let alarmPrefs = JSON.parse(localStorage.getItem('alarmPrefs') || '{"sound":true,"vibration":true}');
+let alarmPrefs = loadJSON('alarmPrefs', { sound: true, vibration: true });
 
 let recipes = [];
-let customRecipes = JSON.parse(localStorage.getItem('customRecipes') || '[]');
-let brewHistory = JSON.parse(localStorage.getItem('brewHistory') || '[]');
+let customRecipes = loadJSON('customRecipes', []);
+let brewHistory = loadJSON('brewHistory', []);
+if (!Array.isArray(customRecipes)) customRecipes = [];
+if (!Array.isArray(brewHistory)) brewHistory = [];
 let currentRecipe = null;
 let currentStep = 0;
 let brewTimer = 0;
@@ -1148,6 +1234,7 @@ const STORE_RECIPES = [
   }
 ];
 
+customRecipes = customRecipes.filter(r => r && typeof r === 'object' && r.name && Array.isArray(r.steps));
 recipes = [...STARTER_RECIPES, ...customRecipes];
 
 // =====================================================================
@@ -1196,39 +1283,106 @@ function showPage(name, e) {
   if (tab) tab.classList.add('active');
 
   if (name === 'recipes') renderRecipeList();
+  if (name === 'history') renderHistoryList();
   window.scrollTo(0, 0);
 }
 
 // =====================================================================
 // RECIPES
 // =====================================================================
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+}
+
+function escapeAttr(value) {
+  return escapeHTML(value).replace(/`/g, '&#96;');
+}
+
+function safeUrl(url) {
+  const value = String(url || '').trim();
+  try {
+    const parsed = new URL(value, window.location.href);
+    return ['http:', 'https:'].includes(parsed.protocol) ? parsed.href : '';
+  } catch (err) {
+    return '';
+  }
+}
+
+function formatDuration(totalSeconds) {
+  const mins = Math.floor((Number(totalSeconds) || 0) / 60);
+  const secs = (Number(totalSeconds) || 0) % 60;
+  return mins > 0 ? `${mins}:${String(secs).padStart(2, '0')}` : `${secs}s`;
+}
+
+function jsString(value) {
+  return JSON.stringify(String(value ?? ''));
+}
+
+function getStepIndexAtTime(time) {
+  if (!currentRecipe) return 0;
+  const index = currentRecipe.steps.findIndex(s => time >= s.timeFrom && time < s.timeTo);
+  if (index !== -1) return index;
+  return time >= currentRecipe.brewTime ? currentRecipe.steps.length - 1 : 0;
+}
+
+function syncStepFromTimer() {
+  currentStep = getStepIndexAtTime(brewTimer);
+}
+
+function updateBrewControls() {
+  const hasRecipe = Boolean(currentRecipe);
+  document.getElementById('btn-brew-start').disabled = !hasRecipe;
+  document.getElementById('btn-prev-step').disabled = !hasRecipe || currentStep <= 0;
+  document.getElementById('btn-next-step').disabled = !hasRecipe || currentStep >= (currentRecipe.steps.length - 1);
+}
+
 function renderRecipeList() {
   const search = document.getElementById('recipe-search')?.value?.toLowerCase() || '';
   const filtered = recipes.filter(r =>
-    r.name.toLowerCase().includes(search) ||
-    ml(r.description).toLowerCase().includes(search)
+    String(r.name || '').toLowerCase().includes(search) ||
+    ml(r.description).toLowerCase().includes(search) ||
+    String(r.method || '').toLowerCase().includes(search) ||
+    String(r.creator || '').toLowerCase().includes(search)
   );
 
   const list = document.getElementById('recipe-list');
-  list.innerHTML = filtered.map(recipe => `
+  if (!filtered.length) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-title">No recipes found</div>
+        <div class="empty-state-copy">Try a method, creator, or recipe name.</div>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = filtered.map(recipe => {
+    const source = safeUrl(recipe.sourceUrl);
+    return `
     <div class="recipe-card">
-      <div class="recipe-card-title">${recipe.name}</div>
-      <div class="recipe-card-meta">By ${recipe.creator} • ${recipe.brewTime}s • ${recipe.coffeeAmount}g${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link" title="View Source">[link]</a>` : ''}</div>
+      <div class="recipe-card-title">${escapeHTML(recipe.name)}</div>
+      <div class="recipe-card-meta">By ${escapeHTML(recipe.creator)} &bull; ${formatDuration(recipe.brewTime)} &bull; ${escapeHTML(recipe.coffeeAmount)}g${source ? `<a href="${escapeAttr(source)}" target="_blank" rel="noopener" class="source-link" title="View Source">Source</a>` : ''}</div>
       <div class="recipe-card-tags">
-        <span class="recipe-tag">${recipe.method}</span>
-        <span class="recipe-tag">${{beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[recipe.difficulty] || recipe.difficulty}</span>
-        <span class="recipe-tag">${recipe.ratio}</span>
+        <span class="recipe-tag">${escapeHTML(recipe.method)}</span>
+        <span class="recipe-tag">${escapeHTML({beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[recipe.difficulty] || recipe.difficulty)}</span>
+        <span class="recipe-tag">${escapeHTML(recipe.ratio)}</span>
       </div>
       <div class="recipe-card-actions">
-        <button class="btn-primary" onclick="selectRecipe(${recipe.id})">Use Recipe</button>
-        ${recipe.isCustom ? `<button class="btn-danger btn-sm" onclick="deleteCustomRecipe(${recipe.id})">Delete</button>` : ''}
+        <button class="btn-primary" onclick="selectRecipe(${jsString(recipe.id)})">Use Recipe</button>
+        ${recipe.isCustom ? `<button class="btn-danger btn-sm" onclick="deleteCustomRecipe(${jsString(recipe.id)})">Delete</button>` : ''}
       </div>
     </div>
-  `).join('');
+  `}).join('');
 }
 
 function selectRecipe(id) {
-  currentRecipe = recipes.find(r => r.id === id);
+  currentRecipe = recipes.find(r => String(r.id) === String(id));
   if (!currentRecipe) return;
 
   currentStep = 0;
@@ -1242,6 +1396,7 @@ function selectRecipe(id) {
   document.getElementById('brew-recipe-meta').textContent = `${currentRecipe.coffeeAmount}g / ${currentRecipe.waterAmount}g / ${displayTemp(currentRecipe.waterTemp)} / ${currentRecipe.ratio}`;
 
   renderPrepChecklist();
+  updateBrewControls();
   updateStepDisplay();
   showPage('brew');
 }
@@ -1250,6 +1405,11 @@ function selectRecipe(id) {
 // BREW TIMER
 // =====================================================================
 function startBrew() {
+  if (!currentRecipe) {
+    showToast('Choose a recipe first');
+    showPage('recipes');
+    return;
+  }
   if (brewRunning) return;
   brewRunning = true;
   brewStarted = true;
@@ -1310,6 +1470,7 @@ function resetBrew() {
 
   updateTimerDisplay();
   updateStepDisplay();
+  updateBrewControls();
   if (currentRecipe) renderPrepChecklist();
 }
 
@@ -1318,6 +1479,8 @@ function updateTimerDisplay() {
   const secs = brewTimer % 60;
   document.getElementById('brew-timer').textContent =
     String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+  syncStepFromTimer();
+  updateBrewControls();
   updateStepDisplay();
 }
 
@@ -1356,19 +1519,19 @@ function updateStepDisplay() {
   display.innerHTML = `
     <div class="step-container">
       <div class="step-number">Step ${stepNum} of ${steps.length}</div>
-      <div class="step-action">${ml(activeStep.action)}</div>
-      <div class="step-description">${ml(activeStep.description)}</div>
+      <div class="step-action">${escapeHTML(ml(activeStep.action))}</div>
+      <div class="step-description">${escapeHTML(ml(activeStep.description))}</div>
       <div class="step-meta">
-        ${activeStep.amount ? `<div class="step-water-amount">${activeStep.amount}g</div>` : ''}
+        ${activeStep.amount ? `<div class="step-water-amount">${escapeHTML(activeStep.amount)}g</div>` : ''}
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:13px;color:var(--text3);">${activeStep.timeFrom}s → ${activeStep.timeTo}s</span>
+          <span style="font-size:13px;color:var(--text3);">${activeStep.timeFrom}s to ${activeStep.timeTo}s</span>
           <span style="font-size:15px;font-weight:700;color:${timeLeft <= 5 ? 'var(--red)' : 'var(--accent)'};">${timeLeft}s</span>
         </div>
         <div class="water-progress-bar" style="margin-top:8px;">
           <div class="water-progress-fill" style="width:${stepProgress}%;background:linear-gradient(90deg,var(--accent),var(--green));"></div>
         </div>
       </div>
-      ${activeStep.tip ? `<div class="tip-box">${ml(activeStep.tip)}</div>` : ''}
+      ${activeStep.tip ? `<div class="tip-box">${escapeHTML(ml(activeStep.tip))}</div>` : ''}
     </div>
   `;
 
@@ -1387,8 +1550,8 @@ function updateStepDisplay() {
     display.innerHTML += `
       <div style="margin-top:16px;padding:14px;background:var(--surface2);border-radius:var(--radius-sm);font-size:13px;border-left:3px solid var(--surface3);">
         <div style="color:var(--text3);margin-bottom:4px;font-weight:600;">Next (${nextStepObj.timeFrom}s)</div>
-        <div style="font-weight:600;color:var(--text);">${ml(nextStepObj.action)}</div>
-        ${nextStepObj.amount ? `<div style="color:var(--text2);margin-top:4px;">${nextStepObj.amount}g</div>` : ''}
+        <div style="font-weight:600;color:var(--text);">${escapeHTML(ml(nextStepObj.action))}</div>
+        ${nextStepObj.amount ? `<div style="color:var(--text2);margin-top:4px;">${escapeHTML(nextStepObj.amount)}g</div>` : ''}
       </div>
     `;
   }
@@ -1616,9 +1779,10 @@ function saveRecipeModal() {
   const sourceUrl = document.getElementById('rec-sourceUrl').value.trim();
 
   if (!name) { showToast('Name is required'); return; }
+  if (coffee <= 0 || water <= 0) { showToast('Add coffee and water amounts'); return; }
 
   const steps = Array.from(document.querySelectorAll('.recipe-step')).map((el, i) => ({
-    id: i,
+    id: i + 1,
     timeFrom: parseFloat(el.querySelector('.step-from').value) || 0,
     timeTo: parseFloat(el.querySelector('.step-to').value) || 0,
     action: el.querySelector('.step-action').value || 'Step ' + (i + 1),
@@ -1633,6 +1797,10 @@ function saveRecipeModal() {
   }));
 
   if (steps.length === 0) { showToast('Add at least one step'); return; }
+  if (steps.some(step => step.timeTo <= step.timeFrom)) {
+    showToast('Each step needs an end time after its start');
+    return;
+  }
 
   const recipe = {
     id: Date.now(),
@@ -1659,7 +1827,7 @@ function saveRecipeModal() {
 
 function deleteCustomRecipe(id) {
   if (!confirm('Delete this recipe?')) return;
-  customRecipes = customRecipes.filter(r => r.id !== id);
+  customRecipes = customRecipes.filter(r => String(r.id) !== String(id));
   localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
   recipes = [...STARTER_RECIPES, ...customRecipes];
   renderRecipeList();
@@ -1681,27 +1849,28 @@ function renderStoreGrid() {
   const grid = document.getElementById('store-grid');
   grid.innerHTML = STORE_RECIPES.map(recipe => {
     const alreadyAdded = addedIds.has(recipe.id);
+    const source = safeUrl(recipe.sourceUrl);
     return `
       <div class="store-card">
         <div class="store-card-header">
           <div>
-            <div class="store-card-title">${recipe.name}</div>
-            <div class="store-card-creator">${recipe.creator}</div>
+            <div class="store-card-title">${escapeHTML(recipe.name)}</div>
+            <div class="store-card-creator">${escapeHTML(recipe.creator)}</div>
           </div>
           <button class="btn-add-store ${alreadyAdded ? 'added' : ''}" onclick="addStoreRecipe(${recipe.id})" ${alreadyAdded ? 'disabled' : ''}>
             ${alreadyAdded ? 'Added' : 'Add'}
           </button>
         </div>
-        <div class="store-card-desc">${ml(recipe.description)}</div>
+        <div class="store-card-desc">${escapeHTML(ml(recipe.description))}</div>
         <div class="store-card-tags">
-          <span class="recipe-tag">${recipe.method}</span>
-          <span class="recipe-tag">${{beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[recipe.difficulty] || recipe.difficulty}</span>
-          <span class="recipe-tag">${recipe.ratio}</span>
-          <span class="recipe-tag">${recipe.coffeeAmount}g / ${recipe.waterAmount}g</span>
+          <span class="recipe-tag">${escapeHTML(recipe.method)}</span>
+          <span class="recipe-tag">${escapeHTML({beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[recipe.difficulty] || recipe.difficulty)}</span>
+          <span class="recipe-tag">${escapeHTML(recipe.ratio)}</span>
+          <span class="recipe-tag">${escapeHTML(recipe.coffeeAmount)}g / ${escapeHTML(recipe.waterAmount)}g</span>
         </div>
         <div class="store-card-footer">
-          <span style="font-size:12px;color:var(--text2);">${recipe.steps.length} steps • ${recipe.brewTime}s</span>
-          ${recipe.sourceUrl ? `<a href="${recipe.sourceUrl}" target="_blank" rel="noopener" class="source-link">View Source</a>` : ''}
+          <span style="font-size:12px;color:var(--text2);">${recipe.steps.length} steps &bull; ${formatDuration(recipe.brewTime)}</span>
+          ${source ? `<a href="${escapeAttr(source)}" target="_blank" rel="noopener" class="source-link">View Source</a>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -1728,6 +1897,7 @@ function addStoreRecipe(storeId) {
 // =====================================================================
 function completeBrew() {
   brewRunning = false;
+  brewStarted = false;
   clearInterval(brewInterval);
   // Reset flavor diagnosis
   selectedFlavor = null;
@@ -1765,11 +1935,43 @@ function saveBrewLog() {
   localStorage.setItem('brewHistory', JSON.stringify(brewHistory));
   closeBrewComplete();
   resetBrew();
+  renderHistoryList();
   showToast('Brew saved to history');
 }
 
 function closeBrewComplete() {
   document.getElementById('brew-complete-overlay').style.display = 'none';
+}
+
+function renderHistoryList() {
+  const list = document.getElementById('history-list');
+  if (!list) return;
+
+  if (!brewHistory.length) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-title">No brews yet</div>
+        <div class="empty-state-copy">Complete a brew and save your tasting notes to build a log.</div>
+      </div>
+    `;
+    return;
+  }
+
+  const sorted = [...brewHistory].sort((a, b) => Number(b.id || 0) - Number(a.id || 0));
+  list.innerHTML = sorted.map(brew => {
+    const rating = Math.max(0, Math.min(5, Number(brew.rating) || 0));
+    const stars = '★'.repeat(rating) + '☆'.repeat(Math.max(0, 5 - rating));
+    const flavor = brew.flavor ? ` &bull; ${escapeHTML(brew.flavor)}` : '';
+    const notes = brew.notes ? `<div class="history-card-meta" style="margin-top:8px;">${escapeHTML(brew.notes)}</div>` : '';
+    return `
+      <div class="history-card">
+        <div class="history-card-title">${escapeHTML(brew.recipeName || 'Untitled brew')}</div>
+        <div class="history-card-meta">${escapeHTML(brew.date || '')}${flavor}</div>
+        <div class="history-rating" aria-label="${rating} out of 5 stars">${stars}</div>
+        ${notes}
+      </div>
+    `;
+  }).join('');
 }
 
 // =====================================================================
@@ -1810,14 +2012,18 @@ function importRecipes() {
         const data = JSON.parse(event.target.result);
         if (Array.isArray(data)) {
           const existingIds = new Set(recipes.map(r => r.id));
+          let imported = 0;
           data.forEach(r => {
+            if (!r || typeof r !== 'object' || !Array.isArray(r.steps) || !r.name) return;
             if (!existingIds.has(r.id)) {
-              customRecipes.push(r);
+              customRecipes.push({ ...r, isCustom: true });
+              existingIds.add(r.id);
+              imported++;
             }
           });
           localStorage.setItem('customRecipes', JSON.stringify(customRecipes));
           recipes = [...STARTER_RECIPES, ...customRecipes];
-          showToast('Imported' + ': ' + data.length);
+          showToast('Imported' + ': ' + imported);
           renderRecipeList();
         }
       } catch (err) {
@@ -1842,13 +2048,18 @@ function importBrewHistory() {
         const data = JSON.parse(event.target.result);
         if (Array.isArray(data)) {
           const existingIds = new Set(brewHistory.map(b => b.id));
+          let imported = 0;
           data.forEach(b => {
+            if (!b || typeof b !== 'object' || !b.recipeName) return;
             if (!existingIds.has(b.id)) {
               brewHistory.push(b);
+              existingIds.add(b.id);
+              imported++;
             }
           });
           localStorage.setItem('brewHistory', JSON.stringify(brewHistory));
-          showToast('Imported' + ': ' + data.length);
+          showToast('Imported' + ': ' + imported);
+          renderHistoryList();
         }
       } catch (err) {
         showToast('Import error' + ': ' + err.message);
@@ -1986,7 +2197,7 @@ const FLAVOR_ADVICE = {
 function selectFlavor(flavor) {
   selectedFlavor = flavor;
   document.querySelectorAll('.flavor-btn').forEach(btn => btn.classList.remove('selected'));
-  event.currentTarget.classList.add('selected');
+  document.querySelector(`.flavor-btn[onclick="selectFlavor('${flavor}')"]`)?.classList.add('selected');
 
   const adviceEl = document.getElementById('flavor-advice');
   const advice = FLAVOR_ADVICE[flavor];
@@ -2005,9 +2216,20 @@ function selectFlavor(flavor) {
   // Restore temp unit button
   document.querySelectorAll('[id^="tu-"]').forEach(b => b.classList.remove('active'));
   document.getElementById('tu-' + tempUnit)?.classList.add('active');
+  Object.entries(alarmPrefs).forEach(([pref, enabled]) => {
+    document.getElementById('pref-' + pref)?.classList.toggle('active', Boolean(enabled));
+  });
 
   document.getElementById('recipe-search')?.addEventListener('input', renderRecipeList);
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    closeRecipeModal();
+    closeStoreModal();
+    closeBrewComplete();
+  });
   renderRecipeList();
+  renderHistoryList();
+  updateBrewControls();
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
